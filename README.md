@@ -15,10 +15,8 @@ With the rapid evolution of Linux distributions, it is important to assess how d
 - **Benchmarking Tool**: Phoronix Test Suite
 - **Operating Systems**: Various Linux distributions, including:
   - Ubuntu 22.04 LTS
-  - Fedora 38
-  - Arch Linux
+  - Fedora 40
   - Debian 12
-  - OpenSUSE Leap 15.5
 - **Metrics Evaluated**:
   - CPU Performance
   - Memory Usage
@@ -34,9 +32,7 @@ You can find detailed benchmarking results for each distribution in the respecti
 |-------------------|-----------------|--------------|----------|--------------------|-----------|
 | [Ubuntu](./benchmarks/ubuntu.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
 | [Fedora](./benchmarks/fedora.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
-| [Arch Linux](./benchmarks/arch.md)   | ✅               | ✅            | ✅        | ✅                  | ✅         |
 | [Debian](./benchmarks/debian.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
-| [OpenSUSE](./benchmarks/opensuse.md) | ✅               | ✅            | ✅        | ✅                  | ✅         |
 
 *For detailed data, refer to the [benchmarks](./benchmarks) folder.*
 
