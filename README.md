@@ -1,4 +1,4 @@
-# Linux-VM-Benchmarking
+  # LinuxBenchHub
 Performance benchmarking of various Linux distributions using virtual machines (VMs) with detailed results and analysis
 
 # Linux Distro Benchmarking Using VMs
