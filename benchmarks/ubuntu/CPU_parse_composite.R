@@ -1,14 +1,24 @@
+# Set CRAN mirror
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+
 # Install and load required packages
 install.packages("XML")
 install.packages("dplyr")
 install.packages("ggplot2")
+install.packages("jsonlite")
 library(XML)
 library(dplyr)
 library(ggplot2)
+library(jsonlite)
+
+# Define the XML file path
+xml_file <- "/Users/yinka/Library/CloudStorage/GoogleDrive-yvaughan@wesleyan.edu/My Drive/CS/LinuxBenchHub/benchmarks/ubuntu/CPU 12_7_2024/composite.xml"
 
 # Load the XML file
-xml_file <- "benchmarks/ubuntu/CPU 12_7_2024/composite.xml"
 xml_data <- xmlParse(xml_file)
+
+# Print the structure of the XML data
+print(xml_data)
 
 # Extract system information
 system_info <- xmlToList(xml_data[["PhoronixTestSuite"]][["System"]])
@@ -36,22 +46,28 @@ cat("Display Format:", result$DisplayFormat, "\n")
 
 # Extract data entries
 data_entries <- result$Data$Entry
-cat("\nData Entries\n")
-cat("Identifier:", data_entries$Identifier, "\n")
-cat("Value (Seconds):", data_entries$Value, "\n")
-cat("Raw String (Milliseconds):", data_entries$RawString, "\n")
 
-# Convert raw string to data frame
-raw_times <- strsplit(data_entries$RawString, ":")[[1]]
-run_times <- as.numeric(raw_times)
-run_df <- data.frame(Run = 1:length(run_times), Time = run_times)
+# Check if data_entries is not NULL
+if (!is.null(data_entries)) {
+  cat("\nData Entries\n")
+  cat("Identifier:", data_entries$Identifier, "\n")
+  cat("Value (Seconds):", data_entries$Value, "\n")
+  cat("Raw String (Milliseconds):", data_entries$RawString, "\n")
 
-# Print detailed run times
-cat("\nDetailed Run Times\n")
-print(run_df)
+  # Convert raw string to data frame
+  raw_times <- strsplit(data_entries$RawString, ":")[[1]]
+  run_times <- as.numeric(raw_times)
+  run_df <- data.frame(Run = 1:length(run_times), Time = run_times)
 
-# Plot the run times
-ggplot(run_df, aes(x = Run, y = Time)) +
-  geom_bar(stat = "identity") +
-  labs(title = "C-Ray Benchmark Run Times", x = "Run", y = "Time (ms)") +
-  theme_minimal()
+  # Print detailed run times
+  cat("\nDetailed Run Times\n")
+  print(run_df)
+
+  # Plot the run times
+  ggplot(run_df, aes(x = Run, y = Time)) +
+    geom_bar(stat = "identity") +
+    labs(title = "C-Ray Benchmark Run Times", x = "Run", y = "Time (ms)") +
+    theme_minimal()
+} else {
+  cat("No data entries found.\n")
+}
