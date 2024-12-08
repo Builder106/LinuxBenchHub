@@ -30,9 +30,9 @@ You can find detailed benchmarking results for each distribution in the respecti
 
 | Distribution      | CPU Performance | Memory Usage | Disk I/O | Network Throughput | Boot Time |
 |-------------------|-----------------|--------------|----------|--------------------|-----------|
-| [Ubuntu](./benchmarks/ubuntu.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
-| [Fedora](./benchmarks/fedora.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
-| [Debian](./benchmarks/debian.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
+| [Ubuntu](./benchmarks/ubuntu/ubuntu.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
+| [Fedora](./benchmarks/fedora/fedora.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
+| [Debian](./benchmarks/debian/debian.md)     | ✅               | ✅            | ✅        | ✅                  | ✅         |
 
 *For detailed data, refer to the [benchmarks](./benchmarks) folder.*
 
