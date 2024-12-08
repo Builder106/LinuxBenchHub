@@ -39,6 +39,3 @@ You can find detailed benchmarking results for each distribution in the respecti
 ### Sample Graphs and Visualizations
 
 ![CPU Performance Comparison](./images/cpu_performance.png)
-
-## 📁 Repository Structure
-
