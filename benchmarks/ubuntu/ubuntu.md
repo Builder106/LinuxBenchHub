@@ -64,7 +64,7 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ---
 
 ### Visualization
-![c-ray_benchmark_results](https://github.com/user-attachments/assets/ce014451-a311-4c19-b59f-d83a3143d902)
+![C_Ray_Benchmark_Run_Times](https://github.com/user-attachments/assets/202c6ef4-b896-4725-92e6-de4f519be938)
 
 ## Test Results: Tinymembench Benchmark
 
