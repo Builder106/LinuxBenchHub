@@ -143,3 +143,50 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ### Visualization
 ![Memset_Run_Values](https://github.com/user-attachments/assets/ed1b7294-cda9-4a1d-9e90-99932f424fd4)
+
+---
+
+## Test Results: Aircrack-ng Benchmark
+
+### Test Identifier: `pts/aircrack-ng-1.3.0`
+
+#### Title: Aircrack-ng
+- **App Version**: 1.7
+- **Arguments**: 
+- **Description**: 
+- **Scale**: k/s
+- **Display Format**: BAR_GRAPH
+
+---
+
+### Data Entries
+- **Identifier**: Network
+- **Value (k/s)**: 4552.572
+- **Raw String (k/s)**: `3586.451:3547.826:4794.453:3886.79:4744.814:5381.628:5432.095:5332.297:5380.734:5322.643:5330.558:3547.051:4225.79:2832.371:4943.083`
+
+---
+
+### Detailed Run Values
+
+| Run | Value (k/s) |
+|-----|-------------|
+| 1   | 3586.451    |
+| 2   | 3547.826    |
+| 3   | 4794.453    |
+| 4   | 3886.790    |
+| 5   | 4744.814    |
+| 6   | 5381.628    |
+| 7   | 5432.095    |
+| 8   | 5332.297    |
+| 9   | 5380.734    |
+| 10  | 5322.643    |
+| 11  | 5330.558    |
+| 12  | 3547.051    |
+| 13  | 4225.790    |
+| 14  | 2832.371    |
+| 15  | 4943.083    |
+
+---
+
+### Visualization
+![Aircrack_ng_Run_Values](https://github.com/user-attachments/assets/96df754c-c4e1-46c4-b2b3-542e5a6e6563)
