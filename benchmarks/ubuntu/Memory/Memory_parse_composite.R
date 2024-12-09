@@ -74,9 +74,11 @@ if (!is.null(xml_root)) {
       
       # Plot the run values
       p <- ggplot(run_df, aes(x = Run, y = Value)) +
-        geom_bar(stat = "identity") +
+        geom_bar(stat = "identity", fill = "blue") +
         labs(title = paste(result$Title, "Run Values"), x = "Run", y = "Value (MB/s)") +
-        theme_minimal()
+        theme_minimal() +
+        theme(panel.background = element_rect(fill = "white", color = "white"),
+              plot.background = element_rect(fill = "white", color = "white"))
       
       # Save the plot
       ggsave(filename = paste0(result$Title, "_Run_Values.png"), plot = p)
@@ -101,9 +103,11 @@ if (!is.null(memset_result)) {
     memset_run_df <- data.frame(Run = 1:length(memset_run_values), Value = memset_run_values)
     
     p_memset <- ggplot(memset_run_df, aes(x = Run, y = Value)) +
-      geom_bar(stat = "identity") +
+      geom_bar(stat = "identity", fill = "blue") +
       labs(title = "Memset Run Values", x = "Run", y = "Value (MB/s)") +
-      theme_minimal()
+        theme_minimal() +
+        theme(panel.background = element_rect(fill = "white", color = "white"),
+              plot.background = element_rect(fill = "white", color = "white"))
     
     # Save the plot
     ggsave(filename = "Memset_Run_Values.png", plot = p_memset)
@@ -120,9 +124,11 @@ if (!is.null(memcpy_result)) {
     memcpy_run_df <- data.frame(Run = 1:length(memcpy_run_values), Value = memcpy_run_values)
     
     p_memcpy <- ggplot(memcpy_run_df, aes(x = Run, y = Value)) +
-      geom_bar(stat = "identity") +
+      geom_bar(stat = "identity", fill = "blue") +
       labs(title = "Memcpy Run Values", x = "Run", y = "Value (MB/s)") +
-      theme_minimal()
+        theme_minimal() +
+        theme(panel.background = element_rect(fill = "white", color = "white"),
+              plot.background = element_rect(fill = "white", color = "white"))
     
     # Save the plot
     ggsave(filename = "Memcpy_Run_Values.png", plot = p_memcpy)

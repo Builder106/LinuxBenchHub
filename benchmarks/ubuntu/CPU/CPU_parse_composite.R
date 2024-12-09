@@ -73,10 +73,15 @@ if (!is.null(xml_root)) {
       print(run_df)
       
       # Plot the run times
-      ggplot(run_df, aes(x = Run, y = Time)) +
-        geom_bar(stat = "identity") +
+      p <- ggplot(run_df, aes(x = Run, y = Time)) +
+        geom_bar(stat = "identity", fill = "blue") +
         labs(title = "C-Ray Benchmark Run Times", x = "Run", y = "Time (ms)") +
-        theme_minimal()
+        theme_minimal() +
+        theme(panel.background = element_rect(fill = "white", color = "white"),
+              plot.background = element_rect(fill = "white", color = "white"))
+      
+      # Save the plot
+      ggsave(filename = "C_Ray_Benchmark_Run_Times.png", plot = p)
     } else {
       cat("Data Entry not found.\n")
     }
