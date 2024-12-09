@@ -4,8 +4,6 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ## System Information
 
-### Title: CPU
-
 #### Hardware
 - **Processor**: 2 x Intel Core i5-7360U (3 Cores)
 - **Motherboard**: Intel VMware Virtual 440BX Desktop (6.00 BIOS)
@@ -67,3 +65,7 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ### Visualization
 ![c-ray_benchmark_results](https://github.com/user-attachments/assets/ce014451-a311-4c19-b59f-d83a3143d902)
+
+## Test Results: Tinymembench Benchmark
+
+### Test Identifier: `pts/tinymembench-1.0.2`
