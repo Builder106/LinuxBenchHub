@@ -69,3 +69,77 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ## Test Results: Tinymembench Benchmark
 
 ### Test Identifier: `pts/tinymembench-1.0.2`
+
+#### Title: Tinymembench
+- **App Version**: 2018-05-28
+- **Arguments**: 
+- **Description**: Standard Memcpy
+- **Scale**: MB/s
+- **Display Format**: BAR_GRAPH
+
+---
+
+### Data Entries
+- **Identifier**: Memory
+- **Value (MB/s)**: 10954.1
+- **Raw String (MB/s)**: `12877:10401.1:7507.6:11873.6:14624.8:13755.6:12553.1:7012.8:7981.4`
+
+---
+
+### Detailed Run Values
+
+| Run | Value (MB/s) |
+|-----|--------------|
+| 1   | 12877.0      |
+| 2   | 10401.1      |
+| 3   | 7507.6       |
+| 4   | 11873.6      |
+| 5   | 14624.8      |
+| 6   | 13755.6      |
+| 7   | 12553.1      |
+| 8   | 7012.8       |
+| 9   | 7981.4       |
+
+---
+
+### Visualization
+![tinymembench_memcpy_results](https://github.com/user-attachments/assets/ce014451-a311-4c19-b59f-d83a3143d902)
+
+---
+
+### Test Identifier: `pts/tinymembench-1.0.2`
+
+#### Title: Tinymembench
+- **App Version**: 2018-05-28
+- **Arguments**: 
+- **Description**: Standard Memset
+- **Scale**: MB/s
+- **Display Format**: BAR_GRAPH
+
+---
+
+### Data Entries
+- **Identifier**: Memory
+- **Value (MB/s)**: 23384.6
+- **Raw String (MB/s)**: `24886.8:17003.6:26430.7:26789.2:28912:27771:25745.6:22781.9:10140.9`
+
+---
+
+### Detailed Run Values
+
+| Run | Value (MB/s) |
+|-----|--------------|
+| 1   | 24886.8      |
+| 2   | 17003.6      |
+| 3   | 26430.7      |
+| 4   | 26789.2      |
+| 5   | 28912.0      |
+| 6   | 27771.0      |
+| 7   | 25745.6      |
+| 8   | 22781.9      |
+| 9   | 10140.9      |
+
+---
+
+### Visualization
+![tinymembench_memset_results](https://github.com/user-attachments/assets/ce014451-a311-4c19-b59f-d83a3143d902)
