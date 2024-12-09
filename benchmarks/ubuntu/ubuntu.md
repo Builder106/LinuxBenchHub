@@ -67,4 +67,3 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ### Visualization
 ![c-ray_benchmark_results](https://github.com/user-attachments/assets/ce014451-a311-4c19-b59f-d83a3143d902)
-![c-ray_distribution](https://github.com/user-attachments/assets/172ddc50-1d27-45e1-ae76-b04f6ac4491f)
