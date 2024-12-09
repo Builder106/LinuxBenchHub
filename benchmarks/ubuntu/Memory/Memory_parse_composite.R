@@ -84,3 +84,38 @@ if (!is.null(xml_root)) {
 } else {
   cat("PhoronixTestSuite node not found.\n")
 }
+
+# Create bar charts for memset and memcpy
+results <- xml_root[grep("Result", names(xml_root))]
+
+# Memset
+memset_result <- results[[2]]
+if (!is.null(memset_result)) {
+  memset_data <- xmlToList(memset_result)$Data$Entry
+  if (!is.null(memset_data)) {
+    memset_raw_values <- strsplit(memset_data$RawString, ":")[[1]]
+    memset_run_values <- as.numeric(memset_raw_values)
+    memset_run_df <- data.frame(Run = 1:length(memset_run_values), Value = memset_run_values)
+    
+    ggplot(memset_run_df, aes(x = Run, y = Value)) +
+      geom_bar(stat = "identity") +
+      labs(title = "Memset Run Values", x = "Run", y = "Value (MB/s)") +
+      theme_minimal()
+  }
+}
+
+# Memcpy
+memcpy_result <- results[[1]]
+if (!is.null(memcpy_result)) {
+  memcpy_data <- xmlToList(memcpy_result)$Data$Entry
+  if (!is.null(memcpy_data)) {
+    memcpy_raw_values <- strsplit(memcpy_data$RawString, ":")[[1]]
+    memcpy_run_values <- as.numeric(memcpy_raw_values)
+    memcpy_run_df <- data.frame(Run = 1:length(memcpy_run_values), Value = memcpy_run_values)
+    
+    ggplot(memcpy_run_df, aes(x = Run, y = Value)) +
+      geom_bar(stat = "identity") +
+      labs(title = "Memcpy Run Values", x = "Run", y = "Value (MB/s)") +
+      theme_minimal()
+  }
+}
