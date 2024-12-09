@@ -73,10 +73,13 @@ if (!is.null(xml_root)) {
       print(run_df)
       
       # Plot the run values
-      ggplot(run_df, aes(x = Run, y = Value)) +
+      p <- ggplot(run_df, aes(x = Run, y = Value)) +
         geom_bar(stat = "identity") +
         labs(title = paste(result$Title, "Run Values"), x = "Run", y = "Value (MB/s)") +
         theme_minimal()
+      
+      # Save the plot
+      ggsave(filename = paste0(result$Title, "_Run_Values.png"), plot = p)
     } else {
       cat("Data Entry not found.\n")
     }
@@ -97,10 +100,13 @@ if (!is.null(memset_result)) {
     memset_run_values <- as.numeric(memset_raw_values)
     memset_run_df <- data.frame(Run = 1:length(memset_run_values), Value = memset_run_values)
     
-    ggplot(memset_run_df, aes(x = Run, y = Value)) +
+    p_memset <- ggplot(memset_run_df, aes(x = Run, y = Value)) +
       geom_bar(stat = "identity") +
       labs(title = "Memset Run Values", x = "Run", y = "Value (MB/s)") +
       theme_minimal()
+    
+    # Save the plot
+    ggsave(filename = "Memset_Run_Values.png", plot = p_memset)
   }
 }
 
@@ -113,9 +119,12 @@ if (!is.null(memcpy_result)) {
     memcpy_run_values <- as.numeric(memcpy_raw_values)
     memcpy_run_df <- data.frame(Run = 1:length(memcpy_run_values), Value = memcpy_run_values)
     
-    ggplot(memcpy_run_df, aes(x = Run, y = Value)) +
+    p_memcpy <- ggplot(memcpy_run_df, aes(x = Run, y = Value)) +
       geom_bar(stat = "identity") +
       labs(title = "Memcpy Run Values", x = "Run", y = "Value (MB/s)") +
       theme_minimal()
+    
+    # Save the plot
+    ggsave(filename = "Memcpy_Run_Values.png", plot = p_memcpy)
   }
 }
