@@ -103,7 +103,7 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ---
 
 ### Visualization
-![Memcpy_Run_Values](https://github.com/user-attachments/assets/415174d8-de3e-47e0-91bd-0d16dc16177a)
+![Memcpy_Run_Values](https://github.com/user-attachments/assets/21a0ac94-f4f1-49f3-bf13-70b6e4069b1a)
 
 ---
 
@@ -142,4 +142,4 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ---
 
 ### Visualization
-![Memset_Run_Values](https://github.com/user-attachments/assets/29f911bf-827d-4034-b443-abaeb62fa30f)
+![Memset_Run_Values](https://github.com/user-attachments/assets/ed1b7294-cda9-4a1d-9e90-99932f424fd4)
