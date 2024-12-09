@@ -23,7 +23,6 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 - **File-System**: ext4
 - **Screen Resolution**: 1280x800
 - **System Layer**: VMware
-- **Timestamp**: 2024-12-07 14:28:03
 
 ---
 
