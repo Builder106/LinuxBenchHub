@@ -28,11 +28,11 @@ With the rapid evolution of Linux distributions, it is important to assess how d
 
 You can find detailed benchmarking results for each distribution in the respective folders below:
 
-| Distribution      | CPU Performance | Memory Usage | Network Throughput | Boot Time |
-|-------------------|-----------------|--------------|--------------------|-----------|
-| [Ubuntu](./benchmarks/ubuntu/ubuntu.md)     | ✅               | ✅            | ✅                  | ✅         |
-| [Fedora](./benchmarks/fedora/fedora.md)     | ✅               | ✅            | ✅                  | ✅         |
-| [Debian](./benchmarks/debian/debian.md)     | ✅               | ✅            | ✅                  | ✅         |
+| Distribution      | CPU Performance | Memory Usage | Network Throughput |
+|-------------------|-----------------|--------------|--------------------|
+| [Ubuntu](./benchmarks/ubuntu/ubuntu.md)     | ✅               | ✅            | ✅                  |
+| [Fedora](./benchmarks/fedora/fedora.md)     | ✅               | ✅            | ✅                  |
+| [Debian](./benchmarks/debian/debian.md)     | ✅               | ✅            | ✅                  |
 
 *For detailed data, refer to the [benchmarks](./benchmarks) folder.*
 
