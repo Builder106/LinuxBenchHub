@@ -17,12 +17,12 @@
 
 console.log('Hello World from Webpacker')
 
+// Import Vue and the HelloWorld component
 // app/javascript/packs/application.js
-import Vue from 'vue';
+import { createApp } from 'vue';
 import HelloWorld from '../components/HelloWorld.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Vue({
-    render: (h) => h(HelloWorld),
-  }).$mount('#app');
+  const app = createApp(HelloWorld);
+  app.mount('#app');
 });
