@@ -16,3 +16,13 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
+
+// app/javascript/packs/application.js
+import Vue from 'vue';
+import HelloWorld from '../components/HelloWorld.vue';
+
+document.addEventListener('DOMContentLoaded', () => {
+  new Vue({
+    render: (h) => h(HelloWorld),
+  }).$mount('#app');
+});
