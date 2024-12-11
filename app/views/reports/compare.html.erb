@@ -4,6 +4,10 @@
   <canvas id="comparisonChart"></canvas>
 </div>
 
+<div id="app">
+  <performance-comparison :labels="<%= @labels.to_json.html_safe %>" :datasets="<%= @datasets.to_json.html_safe %>"></performance-comparison>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var ctx = document.getElementById('comparisonChart').getContext('2d');

@@ -20,9 +20,18 @@ console.log('Hello World from Webpacker')
 // Import Vue and the HelloWorld component
 // app/javascript/packs/application.js
 import { createApp } from 'vue';
-import HelloWorld from '../components/HelloWorld.vue';
+import ReportUpload from '../components/ReportUpload.vue';
+import ReportLibrary from '../components/ReportLibrary.vue';
+import PerformanceComparison from '../components/PerformanceComparison.vue';
+import CustomBenchmark from '../components/CustomBenchmark.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = createApp(HelloWorld);
+  const app = createApp({});
+
+  app.component('report-upload', ReportUpload);
+  app.component('report-library', ReportLibrary);
+  app.component('performance-comparison', PerformanceComparison);
+  app.component('custom-benchmark', CustomBenchmark);
+
   app.mount('#app');
 });
