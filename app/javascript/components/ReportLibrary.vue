@@ -1,32 +1,37 @@
 <template>
-   <div class="container">
-     <h1>Report Library</h1>
-     <form @submit.prevent="searchReports">
+   <div>
+     <h1 class="text-2xl font-bold mb-4">Report Library</h1>
+     <form @submit.prevent="searchReports" class="space-y-4">
        <div class="form-group">
-         <label for="search">Search Reports</label>
-         <input type="text" id="search" class="form-control" v-model="searchQuery" placeholder="Search by distribution, metrics, etc." />
+         <label for="search" class="block text-sm font-medium text-gray-700">Search Reports</label>
+         <input type="text" id="search" class="form-control mt-1 block w-full" v-model="searchQuery" placeholder="Search by distribution, metrics, etc." />
        </div>
        <div class="form-group">
-         <button type="submit" class="btn btn-primary">Search</button>
+         <button type="submit" class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded">Search</button>
        </div>
      </form>
-     <table class="table">
+     <transition name="fade">
+       <div v-if="notification" class="notification bg-green-500 text-white p-4 rounded">
+         {{ notification }}
+       </div>
+     </transition>
+     <table class="table-auto w-full mt-4">
        <thead>
          <tr>
-           <th>Date</th>
-           <th>Distribution</th>
-           <th>Metrics</th>
-           <th>Actions</th>
+           <th class="px-4 py-2">Date</th>
+           <th class="px-4 py-2">Distribution</th>
+           <th class="px-4 py-2">Metrics</th>
+           <th class="px-4 py-2">Actions</th>
          </tr>
        </thead>
        <tbody>
          <tr v-for="report in reports" :key="report.id">
-           <td>{{ report.date }}</td>
-           <td>{{ report.distribution }}</td>
-           <td>{{ report.metrics.join(", ") }}</td>
-           <td>
-             <button class="btn btn-info" @click="viewReport(report.id)">View</button>
-             <button class="btn btn-secondary" @click="downloadPDF(report.id)">Download PDF</button>
+           <td class="border px-4 py-2">{{ report.date }}</td>
+           <td class="border px-4 py-2">{{ report.distribution }}</td>
+           <td class="border px-4 py-2">{{ report.metrics.join(", ") }}</td>
+           <td class="border px-4 py-2">
+             <button class="btn btn-info bg-blue-500 text-white px-4 py-2 rounded" @click="viewReport(report.id)">View</button>
+             <button class="btn btn-secondary bg-gray-500 text-white px-4 py-2 rounded" @click="downloadPDF(report.id)">Download PDF</button>
            </td>
          </tr>
        </tbody>
@@ -40,18 +45,32 @@
      return {
        searchQuery: '',
        reports: [],
+       notification: ''
      };
    },
    methods: {
      searchReports() {
-       // Handle search logic here
+       // Your search logic here
+       this.notification = 'Search completed!';
+       setTimeout(() => {
+         this.notification = '';
+       }, 3000);
      },
      viewReport(id) {
-       // Handle view report logic here
+       // Your view report logic here
      },
      downloadPDF(id) {
-       // Handle download PDF logic here
-     },
-   },
+       // Your download PDF logic here
+     }
+   }
  };
  </script>
+ 
+ <style>
+ .fade-enter-active, .fade-leave-active {
+   transition: opacity 0.5s;
+ }
+ .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+   opacity: 0;
+ }
+ </style>

@@ -4,7 +4,7 @@
      <form @submit.prevent="uploadData">
        <div class="form-group">
          <label for="dataFile">Benchmarking Data File</label>
-         <input type="file" id="dataFile" class="form-control" v-model="dataFile" />
+         <input type="file" id="dataFile" class="form-control" @change="handleFileUpload" />
        </div>
        <div class="form-group">
          <button type="submit" class="btn btn-primary">Upload</button>
@@ -25,6 +25,9 @@
      };
    },
    methods: {
+     handleFileUpload(event) {
+       this.dataFile = event.target.files[0];
+     },
      uploadData() {
        this.notification = true;
        // Handle file upload logic here
