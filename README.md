@@ -20,9 +20,7 @@ With the rapid evolution of Linux distributions, it is important to assess how d
 - **Metrics Evaluated**:
   - CPU Performance
   - Memory Usage
-  - Disk I/O
   - Network Throughput
-  - Boot Time
 
 ## 📊 Benchmark Results
 
