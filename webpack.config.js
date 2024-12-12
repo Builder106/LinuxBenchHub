@@ -3,6 +3,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: 'development', // Add this line
   entry: './app/javascript/packs/application.js',
   output: {
     filename: 'application.js',
@@ -35,7 +36,7 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm-bundler.js',
     },
-    extensions: ['*', '.js', '.vue', '.json'],
+    extensions: ['.*', '.js', '.vue', '.json'], // Update this line
   },
   plugins: [
     new VueLoaderPlugin(),
