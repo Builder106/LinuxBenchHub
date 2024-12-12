@@ -17,8 +17,11 @@
 
 console.log('Hello World from Webpacker')
 
+// Import Bootstrap and jQuery
+import 'bootstrap/dist/js/bootstrap'
+import 'jquery'
+
 // Import Vue and the HelloWorld component
-// app/javascript/packs/application.js
 import { createApp } from 'vue';
 import ReportUpload from '../components/ReportUpload.vue';
 import ReportLibrary from '../components/ReportLibrary.vue';
