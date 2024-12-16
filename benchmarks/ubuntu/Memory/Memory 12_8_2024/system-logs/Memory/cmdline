@@ -1,1 +1,0 @@
-BOOT_IMAGE=/boot/vmlinuz-6.8.0-49-generic root=UUID=2a5351cf-78d6-4d85-b45b-b02e55d4e13f ro quiet splash

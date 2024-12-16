@@ -1,0 +1,33 @@
+{
+   "name": "linuxbenchhub",
+   "version": "1.0.0",
+   "description": "Performance benchmarking of various Linux distributions using virtual machines (VMs) with detailed results and analysis",
+   "main": "babel.config.js",
+   "directories": {
+      "lib": "lib",
+      "test": "test"
+   },
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "@babel/core": "^7.26.0",
+      "@babel/preset-env": "^7.26.0",
+      "babel-loader": "^8.0.6",
+      "bootstrap": "^5.3.3",
+      "css-loader": "^7.1.2",
+      "jquery": "^3.7.1",
+      "mini-css-extract-plugin": "^0.11.3",
+      "postcss": "^8.4.49",
+      "postcss-loader": "^4.2.0",
+      "tailwindcss": "^2.2.19",
+      "vue": "^3.5.13",
+      "vue-loader": "^17.4.2",
+      "webpack": "^5.97.1",
+      "webpack-cli": "^5.1.4",
+      "webpack-dev-server": "^5.2.0"
+   }
+}
