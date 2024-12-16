@@ -1,7 +1,0 @@
-available: 1 nodes (0)
-node 0 cpus: 0 1
-node 0 size: 3868 MB
-node 0 free: 1906 MB
-node distances:
-node   0 
-  0:  10 

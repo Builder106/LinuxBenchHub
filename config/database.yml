@@ -1,0 +1,52 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: linux_bench_hub_development
+  username: olayinkav
+  host: localhost
+
+test:
+  <<: *default
+  database: linux_bench_hub_test
+  username: olayinkav
+  host: localhost
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: linux_bench_hub_production
+    username: linux_bench_hub
+    password: <%= ENV["LINUX_BENCH_HUB_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: linux_bench_hub_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: linux_bench_hub_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: linux_bench_hub_production_cable
+    migrations_paths: db/cable_migrate
