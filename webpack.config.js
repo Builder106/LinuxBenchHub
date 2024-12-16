@@ -44,6 +44,14 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader', // Use sass-loader for .scss files
+        ],
+      },
     ],
   },
   resolve: {
