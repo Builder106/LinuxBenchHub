@@ -1,18 +1,9 @@
 {
-   "name": "linuxbenchhub",
-   "version": "1.0.0",
-   "description": "Performance benchmarking of various Linux distributions using virtual machines (VMs) with detailed results and analysis",
-   "main": "babel.config.js",
-   "directories": {
-      "lib": "lib",
-      "test": "test"
-   },
    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "vite",
+      "build": "vite build"
    },
-   "keywords": [],
-   "author": "Olayinka Vaughan",
-   "license": "ISC",
    "dependencies": {
       "@babel/core": "^7.26.0",
       "@babel/preset-env": "^7.26.0",
@@ -28,17 +19,17 @@
       "vue-loader": "^17.4.2"
    },
    "devDependencies": {
-      "@rails/webpacker": "^5.4.3",
+      "@vitejs/plugin-vue": "^4.0.0",
       "core-js": "^3.39.0",
       "mini-css-extract-plugin": "^2.9.2",
+      "postcss-flexbugs-fixes": "^5.0.2",
+      "postcss-import": "^14.0.2",
       "postcss-preset-env": "^10.1.2",
       "sass": "^1.83.0",
       "sass-loader": "^16.0.4",
       "svgo": "^2.8.0",
       "tar": "^6.2.1",
       "uglify-js": "^3.19.3",
-      "webpack": "^5.97.1",
-      "webpack-cli": "^4.10.0",
-      "webpack-dev-server": "^4.15.2"
+      "vite": "^4.0.0"
    }
 }
