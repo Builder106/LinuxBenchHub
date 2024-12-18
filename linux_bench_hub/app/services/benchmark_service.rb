@@ -6,7 +6,7 @@ class BenchmarkService
      # Execute the command and capture the output
      data = `#{command}`
      
-     # Create a new Benchmark record with the collected data
-     Benchmark.create(name: name, data: data)
+     # Create a new PerformanceBenchmark record with the collected data
+     PerformanceBenchmark.create(name: name, data: data)
    end
  end

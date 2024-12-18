@@ -1,18 +1,18 @@
 class BenchmarksController < ApplicationController
    def index
-     @benchmarks = Benchmark.all
+     @benchmarks = PerformanceBenchmark.all
    end
  
    def show
-     @benchmark = Benchmark.find(params[:id])
+     @benchmark = PerformanceBenchmark.find(params[:id])
    end
  
    def new
-     @benchmark = Benchmark.new
+     @benchmark = PerformanceBenchmark.new
    end
  
    def create
-     @benchmark = Benchmark.new(benchmark_params)
+     @benchmark = PerformanceBenchmark.new(benchmark_params)
      if @benchmark.save
        redirect_to @benchmark
      else
@@ -23,6 +23,6 @@ class BenchmarksController < ApplicationController
    private
  
    def benchmark_params
-     params.require(:benchmark).permit(:name, :data)
+     params.require(:performance_benchmark).permit(:name, :data)
    end
  end
