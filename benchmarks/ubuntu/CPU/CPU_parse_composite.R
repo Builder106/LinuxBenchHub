@@ -12,7 +12,7 @@ library(ggplot2)
 library(jsonlite)
 
 # Define the XML file path
-xml_file <- "/Users/yinka/Library/CloudStorage/GoogleDrive-yvaughan@wesleyan.edu/My Drive/CS/LinuxBenchHub/benchmarks/ubuntu/CPU/CPU 12_7_2024/composite.xml"
+xml_file <- "/Users/yinka/My Drive/CS/Projects/Data Analysis/LinuxBenchHub/benchmarks/ubuntu/CPU/CPU 12_7_2024/composite.xml"
 
 # Load the XML file
 xml_data <- xmlParse(xml_file)
