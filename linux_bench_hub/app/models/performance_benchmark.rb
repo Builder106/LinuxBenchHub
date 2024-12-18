@@ -1,0 +1,2 @@
+class PerformanceBenchmark < ApplicationRecord
+end
