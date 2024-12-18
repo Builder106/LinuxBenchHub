@@ -23,6 +23,9 @@ gem 'chartkick'
 gem 'groupdate'
 # Use sidekiq for background jobs
 gem 'sidekiq'
+#Use bootstrap and sassc-rails for styling
+gem "bootstrap"
+gem "sassc-rails"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
