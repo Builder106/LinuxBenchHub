@@ -164,3 +164,201 @@ app/views/layouts/application.html.erb:17
 Information for cause: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.):
   
 app/views/layouts/application.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-12-17 19:40:48 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (5.4ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 9.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14752.8ms | GC: 139.0ms)
+Completed 500 Internal Server Error in 15266ms (ActiveRecord: 5.5ms (1 query, 0 cached) | GC: 139.0ms)
+
+
+  
+ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+    14:     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+  
+app/views/layouts/application.html.erb:17
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-12-17 19:47:00 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (51.6ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 62.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 193.9ms | GC: 51.2ms)
+Completed 500 Internal Server Error in 275ms (ActiveRecord: 51.6ms (1 query, 0 cached) | GC: 51.2ms)
+
+
+  
+ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+    14:     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+  
+app/views/layouts/application.html.erb:17
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-12-17 19:55:18 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (13.7ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 28.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 204.8ms | GC: 38.4ms)
+Completed 500 Internal Server Error in 211ms (ActiveRecord: 13.4ms (1 query, 0 cached) | GC: 38.4ms)
+
+
+  
+ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+    14:     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+  
+app/views/layouts/application.html.erb:17
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.css` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.css
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-12-17 19:58:52 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (29.1ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 33.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2808.6ms | GC: 26.7ms)
+Completed 500 Internal Server Error in 3900ms (ActiveRecord: 29.2ms (1 query, 0 cached) | GC: 46.3ms)
+
+
+  
+ActionView::Template::Error (Asset `application.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.js
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.js
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `application.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.js
+
+and restart your server):
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+    21:   <body>
+  
+app/views/layouts/application.html.erb:18
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `application.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link application.js
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:18
