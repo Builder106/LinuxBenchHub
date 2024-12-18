@@ -1,1 +1,7 @@
-<%= line_chart Benchmark.group_by_day(:created_at).count %>
+<h1>Benchmarks</h1>
+<%= link_to 'New Benchmark', new_benchmark_path %>
+<ul>
+  <% @benchmarks.each do |benchmark| %>
+    <li><%= link_to benchmark.name, benchmark %></li>
+  <% end %>
+</ul>
