@@ -511,3 +511,190 @@ Declare links to your assets in `app/assets/config/manifest.js`.
 and restart your server):
   
 app/views/layouts/application.html.erb:18
+Started GET "/" for 127.0.0.1 at 2024-12-17 20:28:16 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (3.8ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 8.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1015.2ms | GC: 49.6ms)
+Completed 500 Internal Server Error in 1122ms (ActiveRecord: 3.8ms (1 query, 0 cached) | GC: 49.6ms)
+
+
+  
+ActionView::Template::Error (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server):
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+    21:   <body>
+  
+app/views/layouts/application.html.erb:18
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:18
+Started GET "/" for 127.0.0.1 at 2024-12-17 20:30:20 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (1.8ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 31.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 403.2ms | GC: 61.7ms)
+Completed 500 Internal Server Error in 434ms (ActiveRecord: 1.6ms (1 query, 0 cached) | GC: 61.7ms)
+
+
+  
+ActionView::Template::Error (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server):
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+    21:   <body>
+  
+app/views/layouts/application.html.erb:18
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/hello_controller.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/hello_controller.js
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:18
+Started GET "/" for 127.0.0.1 at 2024-12-17 20:30:47 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 3.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 223.6ms | GC: 17.0ms)
+Completed 500 Internal Server Error in 226ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 17.0ms)
+
+
+  
+ActionView::Template::Error (Asset `controllers/index.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/index.js
+
+and restart your server)
+Caused by: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/index.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/index.js
+
+and restart your server)
+
+Information for: ActionView::Template::Error (Asset `controllers/index.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/index.js
+
+and restart your server):
+    15:     <link rel="apple-touch-icon" href="/icon.png">
+    16: 
+    17:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    18:     <%= javascript_importmap_tags %>
+    19:   </head>
+    20: 
+    21:   <body>
+  
+app/views/layouts/application.html.erb:18
+
+Information for cause: Sprockets::Rails::Helper::AssetNotPrecompiledError (Asset `controllers/index.js` was not declared to be precompiled in production.
+Declare links to your assets in `app/assets/config/manifest.js`.
+
+  //= link controllers/index.js
+
+and restart your server):
+  
+app/views/layouts/application.html.erb:18
+Started GET "/" for 127.0.0.1 at 2024-12-17 20:35:52 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (1.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 46.0ms | GC: 19.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 436.7ms | GC: 156.1ms)
+Completed 200 OK in 487ms (Views: 437.4ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 194.0ms)
+
+
+Started GET "/assets/controllers/hello_controller-549135e8e7c683a538c3d6d517339ba470fcfb79d62f738a0a089ba41851a554.js" for 127.0.0.1 at 2024-12-17 20:35:52 -0800
+Started GET "/assets/controllers/index-31a9bee606cbc5cdb1593881f388bbf4c345bf693ea24e124f84b6d5c98ab648.js" for 127.0.0.1 at 2024-12-17 20:35:52 -0800
+Started GET "/assets/controllers/application-368d98631bccbf2349e0d4f8269afb3fe9625118341966de054759d96ea86c7e.js" for 127.0.0.1 at 2024-12-17 20:35:53 -0800
+Started GET "/benchmarks/new" for 127.0.0.1 at 2024-12-17 20:36:02 -0800
+Processing by BenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/new.html.erb within layouts/application
+  Rendered benchmarks/new.html.erb within layouts/application (Duration: 2.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 4.2ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `performance_benchmarks_path' for an instance of #<Class:0x0000000120113e80>)
+Caused by: NoMethodError (undefined method `performance_benchmarks_path' for an instance of #<Class:0x0000000120113e80>)
+
+Information for: ActionView::Template::Error (undefined method `performance_benchmarks_path' for an instance of #<Class:0x0000000120113e80>):
+    1: <h1>New Benchmark</h1>
+    2: <%= form_with model: @benchmark, local: true, class: 'form' do |form| %>
+    3:   <div class="form-group">
+    4:     <%= form.label :name %>
+    5:     <%= form.text_field :name, class: 'form-control' %>
+  
+app/views/benchmarks/new.html.erb:2
+
+Information for cause: NoMethodError (undefined method `performance_benchmarks_path' for an instance of #<Class:0x0000000120113e80>):
+  
+app/views/benchmarks/new.html.erb:2
