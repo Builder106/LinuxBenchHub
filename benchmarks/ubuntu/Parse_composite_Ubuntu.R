@@ -90,6 +90,17 @@ process_xml_file <- function(xml_file, benchmark_title, value_unit, output_dir) 
         run_values <- as.numeric(raw_values)
         run_df <- data.frame(run = seq_along(run_values), value = run_values)
 
+        # Calculate summary statistics
+        mean_value <- mean(run_values)
+        median_value <- median(run_values)
+        sd_value <- sd(run_values)
+
+        # Print summary statistics
+        cat("\nSummary Statistics:\n")
+        cat("Mean:", mean_value, "\n")
+        cat("Median:", median_value, "\n")
+        cat("Standard Deviation:", sd_value, "\n")
+
         # Print detailed run values
         cat("\nDetailed Run Values:\n")
         print(run_df)
