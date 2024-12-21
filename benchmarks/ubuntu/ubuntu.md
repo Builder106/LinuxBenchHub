@@ -65,6 +65,11 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ### Visualization
 ![C_Ray_Benchmark_Run_Times](https://github.com/user-attachments/assets/202c6ef4-b896-4725-92e6-de4f519be938)
 
+### Summary Statistics
+- **Mean Time (ms)**: 1088.787
+- **Median Time (ms)**: 1141.110
+- **Standard Deviation (ms)**: 222.509
+
 ---
 
 ## Tinymembench Benchmark
@@ -100,6 +105,11 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 ### Visualization
 ![Memcpy_Run_Values](https://github.com/user-attachments/assets/21a0ac94-f4f1-49f3-bf13-70b6e4069b1a)
 
+### Summary Statistics
+- **Mean Value (MB/s)**: 11209.5
+- **Median Value (MB/s)**: 11873.6
+- **Standard Deviation (MB/s)**: 2761.1
+
 ### Test Identifier: `pts/tinymembench-1.0.2`
 
 #### Title: Tinymembench
@@ -130,6 +140,11 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ### Visualization
 ![Memset_Run_Values](https://github.com/user-attachments/assets/ed1b7294-cda9-4a1d-9e90-99932f424fd4)
+
+### Summary Statistics
+- **Mean Value (MB/s)**: 23480.2
+- **Median Value (MB/s)**: 25745.6
+- **Standard Deviation (MB/s)**: 5731.1
 
 ---
 
@@ -171,3 +186,8 @@ This document provides detailed benchmarking results for Ubuntu 24.04 running in
 
 ### Visualization
 ![Aircrack_ng_Run_Values](https://github.com/user-attachments/assets/96df754c-c4e1-46c4-b2b3-542e5a6e6563)
+
+### Summary Statistics
+- **Mean Value (k/s)**: 4542.6
+- **Median Value (k/s)**: 4943.083
+- **Standard Deviation (k/s)**: 835.1
