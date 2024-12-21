@@ -12,7 +12,7 @@ library(ggplot2)
 library(jsonlite)
 
 # Define the XML file path
-xml_file <- "/Users/yinka/Library/CloudStorage/GoogleDrive-yvaughan@wesleyan.edu/My Drive/CS/LinuxBenchHub/benchmarks/ubuntu/Network/Network 12_8_2024/composite.xml"
+xml_file <- "/Users/yinka/My Drive/CS/Projects/Data Analysis/LinuxBenchHub/benchmarks/ubuntu/Network/Network 12_8_2024/composite.xml" # nolint: line_length_linter.
 
 # Load the XML file
 xml_data <- xmlParse(xml_file)
@@ -27,7 +27,7 @@ xml_root <- xmlRoot(xml_data)
 # Check if PhoronixTestSuite node exists
 if (!is.null(xml_root)) {
   cat("\nPhoronixTestSuite node found.\n")
-  
+
   # Extract system information
   system_node <- xml_root[["System"]]
   if (!is.null(system_node)) {
@@ -41,7 +41,7 @@ if (!is.null(xml_root)) {
   } else {
     cat("System node not found.\n")
   }
-  
+
   # Extract test results
   result_node <- xml_root[["Result"]]
   if (!is.null(result_node)) {
@@ -54,7 +54,7 @@ if (!is.null(xml_root)) {
     cat("Description:", result$Description, "\n")
     cat("Scale:", result$Scale, "\n")
     cat("Display Format:", result$DisplayFormat, "\n")
-    
+
     # Check if Data node exists
     data_node <- result$Data$Entry
     if (!is.null(data_node)) {
@@ -62,16 +62,16 @@ if (!is.null(xml_root)) {
       cat("Identifier:", data_node$Identifier, "\n")
       cat("Value (k/s):", data_node$Value, "\n")
       cat("Raw String (k/s):", data_node$RawString, "\n")
-      
+
       # Convert raw string to data frame
       raw_values <- strsplit(data_node$RawString, ":")[[1]]
       run_values <- as.numeric(raw_values)
       run_df <- data.frame(Run = 1:length(run_values), Value = run_values)
-      
+
       # Print detailed run values
       cat("\nDetailed Run Values:\n")
       print(run_df)
-      
+
       # Plot the run values
       p <- ggplot(run_df, aes(x = Run, y = Value)) +
         geom_bar(stat = "identity", fill = "blue") +
@@ -79,7 +79,7 @@ if (!is.null(xml_root)) {
         theme_minimal() +
         theme(panel.background = element_rect(fill = "white", color = "white"),
               plot.background = element_rect(fill = "white", color = "white"))
-      
+
       # Save the plot
       ggsave(filename = "Aircrack_ng_Run_Values.png", plot = p)
     } else {
