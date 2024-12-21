@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
    # Define routes for performance benchmarks
    resources :benchmarks, only: [:index, :show, :new, :create]
+   resources :performance_benchmarks, only: [:index, :show, :new, :create]
  
    # Define the root path route ("/")
    root "benchmarks#index"

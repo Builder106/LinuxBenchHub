@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_18_030007) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_21_224437) do
   create_table "performance_benchmarks", force: :cascade do |t|
     t.string "name"
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "linux_os"
+    t.text "benchmarks"
   end
 end
