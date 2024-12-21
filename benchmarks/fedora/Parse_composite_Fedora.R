@@ -149,8 +149,8 @@ create_memory_plot <- function(result, title, value_unit, output_dir) {
 
 # Define the XML file paths and process them
 cpu_xml_file <- "benchmarks/fedora/CPU/CPU 12_11_2024/composite.xml"
-memory_xml_file <- "benchmarks/fedora/Memory/Memory 12_8_2024/composite.xml"
-network_xml_file <- "benchmarks/fedora/Network/Network 12_8_2024/composite.xml"
+memory_xml_file <- "benchmarks/fedora/Memory/Memory 12_21_2024/composite.xml"
+network_xml_file <- "benchmarks/fedora/Network/Network 12_21_2024/composite.xml"
 
 process_xml_file(cpu_xml_file, "C-Ray Benchmark", "Milliseconds", "benchmarks/fedora/CPU")
 process_xml_file(memory_xml_file, "Memory Benchmark", "MB/s", "benchmarks/fedora/Memory/Graphs")
