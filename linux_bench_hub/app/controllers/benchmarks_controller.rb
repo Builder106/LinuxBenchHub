@@ -14,6 +14,7 @@ class BenchmarksController < ApplicationController
    def create
      @benchmark = PerformanceBenchmark.new(benchmark_params)
      if @benchmark.save
+       BenchmarkService.run_benchmark(@benchmark.name)
        redirect_to @benchmark
      else
        render :new
