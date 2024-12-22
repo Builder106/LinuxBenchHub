@@ -1,5 +1,5 @@
 class PerformanceBenchmark < ApplicationRecord
-   serialize :benchmarks, Array
+   serialize :benchmarks, coder: JSON
  
    validates :name, presence: true
    validates :linux_os, presence: true
