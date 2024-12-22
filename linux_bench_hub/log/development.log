@@ -1869,3 +1869,210 @@ MsRest::ValidationError (location is required and cannot be nil):
   
 app/services/benchmark_service.rb:49:in `run_benchmark'
 app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 06:47:12 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (48.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 14:47:14.062316', '2024-12-22 14:47:14.062316', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 552ms (ActiveRecord: 49.1ms (1 query, 0 cached) | GC: 149.3ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 06:48:07 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (4.8ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 14:48:07.885929', '2024-12-22 14:48:07.885929', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 110ms (ActiveRecord: 18.7ms (1 query, 0 cached) | GC: 7.3ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 06:48:32 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (1.9ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 14:48:32.556453', '2024-12-22 14:48:32.556453', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 6.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `eastus' for class BenchmarkService):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 06:49:24 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (154.5ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 14:49:26.821982', '2024-12-22 14:49:26.821982', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 286ms (ActiveRecord: 163.2ms (1 query, 0 cached) | GC: 1.3ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 07:08:31 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (58.3ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 15:08:33.455314', '2024-12-22 15:08:33.455314', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 334ms (ActiveRecord: 59.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 07:08:46 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (1.6ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 15:08:46.679728', '2024-12-22 15:08:46.679728', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 72ms (ActiveRecord: 32.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-22 07:10:35 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"D", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (5.0ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('D', NULL, '2024-12-22 15:10:36.475305', '2024-12-22 15:10:36.475305', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 119ms (ActiveRecord: 22.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:51:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-22 08:00:46 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (3.1ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 64.8ms | GC: 39.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 65.3ms | GC: 39.5ms)
+Completed 500 Internal Server Error in 456ms (ActiveRecord: 3.8ms (1 query, 0 cached) | GC: 41.3ms)
+
+
+  
+ActionView::Template::Error (undefined method `description' for an instance of PerformanceBenchmark)
+Caused by: NoMethodError (undefined method `description' for an instance of PerformanceBenchmark)
+
+Information for: ActionView::Template::Error (undefined method `description' for an instance of PerformanceBenchmark):
+    10:           <h5 class="card-title">
+    11:             <%= link_to benchmark.name, benchmark, class: 'text-decoration-none' %>
+    12:           </h5>
+    13:           <p class="card-text"><%= benchmark.description %></p>
+    14:           <%= link_to 'View Details', benchmark, class: 'btn btn-secondary' %>
+    15:         </div>
+    16:       </div>
+  
+app/views/benchmarks/index.html.erb:13
+app/views/benchmarks/index.html.erb:6
+
+Information for cause: NoMethodError (undefined method `description' for an instance of PerformanceBenchmark):
+  
+app/views/benchmarks/index.html.erb:13
+app/views/benchmarks/index.html.erb:6
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to AddDescriptionToPerformanceBenchmarks (20241222160240)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35m (71.5ms)[0m  [1m[35mALTER TABLE "performance_benchmarks" ADD "description" text /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241222160240') RETURNING "version" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (50.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Started GET "/" for 127.0.0.1 at 2024-12-22 08:04:10 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (3.1ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 21.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1304.9ms | GC: 0.0ms)
+Completed 200 OK in 1413ms (Views: 1372.5ms | ActiveRecord: 3.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/2" for 127.0.0.1 at 2024-12-22 08:04:17 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 2 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/show.html.erb within layouts/application
+  Rendered performance_benchmarks/show.html.erb within layouts/application (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 60ms (Views: 4.5ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/2" for 127.0.0.1 at 2024-12-22 08:04:23 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPerformanceBenchmark Load (1.4ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 2 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/show.html.erb within layouts/application
+  Rendered performance_benchmarks/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.8ms | GC: 0.0ms)
+Completed 200 OK in 21ms (Views: 5.9ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks/new" for 127.0.0.1 at 2024-12-22 08:04:27 -0800
+Processing by BenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/new.html.erb within layouts/application
+  Rendered benchmarks/new.html.erb within layouts/application (Duration: 217.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 218.3ms | GC: 0.0ms)
+Completed 200 OK in 246ms (Views: 218.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
