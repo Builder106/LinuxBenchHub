@@ -158,7 +158,7 @@ process_xml_file <- function(xml_file, benchmark_title, value_unit, output_dir) 
 }
 
 # Define the XML file paths and process them
-cpu_xml_file <- "benchmarks/debian/CPU/CPU 12_11_2024/composite.xml"
+cpu_xml_file <- "benchmarks/debian/CPU/CPU 12_21_2024/composite.xml"
 memory_xml_file <- "benchmarks/debian/Memory/Memory 12_21_2024/composite.xml"
 network_xml_file <- "benchmarks/debian/Network/Network 12_21_2024/composite.xml"
 
