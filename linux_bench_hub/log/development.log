@@ -1721,3 +1721,38 @@ MsRest::ValidationError (location is required and cannot be nil):
   
 app/services/benchmark_service.rb:49:in `run_benchmark'
 app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 20:03:51 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (3.7ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 04:03:51.266087', '2024-12-22 04:03:51.266087', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 4.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:49:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 20:05:43 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (16.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 04:05:43.787873', '2024-12-22 04:05:43.787873', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 220ms (ActiveRecord: 28.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:49:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+[dotenv] Loaded [33m.env[0m
