@@ -29,7 +29,7 @@ class BenchmarkService
     resource_client.subscription_id = subscription_id
 
     # Define resource group and VM parameters
-    resource_group_name = 'your-resource-group'
+    resource_group_name = 'LinuxBenchHub'
     vm_name = "benchmark-vm-#{SecureRandom.hex(4)}"
     vm_size = 'Standard_B1s'
 
@@ -45,6 +45,8 @@ class BenchmarkService
                         raise "Unsupported Linux OS: #{performance_benchmark.linux_os}"
                       end
 
+    location ||= 'eastus'
+    raise "Location cannot be nil" if location.nil?
     # Create resource group
     resource_client.resource_groups.create_or_update(resource_group_name, { location: location })
 
