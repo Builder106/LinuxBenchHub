@@ -1428,3 +1428,296 @@ puma (6.5.0) lib/puma/request.rb:98:in `handle_request'
 puma (6.5.0) lib/puma/server.rb:468:in `process_client'
 puma (6.5.0) lib/puma/server.rb:249:in `block in run'
 puma (6.5.0) lib/puma/thread_pool.rb:166:in `block in spawn_thread'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 19:16:59 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"A", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (18.2ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('A', NULL, '2024-12-22 03:17:00.985982', '2024-12-22 03:17:00.985982', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Redirected to http://127.0.0.1:3000/performance_benchmarks/1
+Completed 302 Found in 106ms (ActiveRecord: 19.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/1" for 127.0.0.1 at 2024-12-21 19:17:01 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPerformanceBenchmark Load (0.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 1 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+Completed 406 Not Acceptable in 64ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::MissingExactTemplate (PerformanceBenchmarksController#show is missing a template for request formats: text/html):
+  
+actionpack (8.0.1) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (8.0.1) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (8.0.1) lib/abstract_controller/base.rb:226:in `process_action'
+actionpack (8.0.1) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (8.0.1) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (8.0.1) lib/active_support/callbacks.rb:120:in `block in run_callbacks'
+turbo-rails (2.0.11) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.11) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (8.0.1) lib/active_support/callbacks.rb:129:in `block in run_callbacks'
+actiontext (8.0.1) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (8.0.1) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (8.0.1) lib/active_support/callbacks.rb:129:in `instance_exec'
+activesupport (8.0.1) lib/active_support/callbacks.rb:129:in `block in run_callbacks'
+activesupport (8.0.1) lib/active_support/callbacks.rb:140:in `run_callbacks'
+actionpack (8.0.1) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (8.0.1) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (8.0.1) lib/action_controller/metal/instrumentation.rb:76:in `block in process_action'
+activesupport (8.0.1) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (8.0.1) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (8.0.1) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (8.0.1) lib/action_controller/metal/instrumentation.rb:75:in `process_action'
+actionpack (8.0.1) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (8.0.1) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (8.0.1) lib/abstract_controller/base.rb:163:in `process'
+actionview (8.0.1) lib/action_view/rendering.rb:40:in `process'
+actionpack (8.0.1) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (8.0.1) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (8.0.1) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (8.0.1) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (8.0.1) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (8.0.1) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (8.0.1) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (8.0.1) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (8.0.1) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (8.0.1) lib/action_dispatch/routing/route_set.rb:908:in `call'
+railties (8.0.1) lib/rails/engine/lazy_route_set.rb:68:in `call'
+rack (3.1.8) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.1.8) lib/rack/etag.rb:29:in `call'
+rack (3.1.8) lib/rack/conditional_get.rb:31:in `call'
+rack (3.1.8) lib/rack/head.rb:15:in `call'
+actionpack (8.0.1) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (8.0.1) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/cookies.rb:706:in `call'
+activerecord (8.0.1) lib/active_record/migration.rb:671:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.8) lib/rack/method_override.rb:28:in `call'
+rack (3.1.8) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.8) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.5.0) lib/puma/configuration.rb:279:in `call'
+puma (6.5.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.5.0) lib/puma/thread_pool.rb:389:in `with_force_shutdown'
+puma (6.5.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.5.0) lib/puma/server.rb:468:in `process_client'
+puma (6.5.0) lib/puma/server.rb:249:in `block in run'
+puma (6.5.0) lib/puma/thread_pool.rb:166:in `block in spawn_thread'
+Started GET "/performance_benchmarks/1" for 127.0.0.1 at 2024-12-21 19:48:31 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPerformanceBenchmark Load (42.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 1 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/show.html.erb within layouts/application
+  Rendered performance_benchmarks/show.html.erb within layouts/application (Duration: 9.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 95.7ms | GC: 0.0ms)
+Completed 200 OK in 272ms (Views: 140.4ms | ActiveRecord: 42.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-21 19:48:40 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 10.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.5ms | GC: 0.0ms)
+Completed 200 OK in 65ms (Views: 17.7ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/1" for 127.0.0.1 at 2024-12-21 19:48:42 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 1 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/show.html.erb within layouts/application
+  Rendered performance_benchmarks/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 3.8ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks" for 127.0.0.1 at 2024-12-21 19:54:32 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (22.6ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 84.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 149.1ms | GC: 0.0ms)
+Completed 200 OK in 182ms (Views: 139.2ms | ActiveRecord: 22.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-21 19:54:34 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.4ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 17.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 21.2ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 22.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks" for 127.0.0.1 at 2024-12-21 19:54:36 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 8.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.2ms | GC: 0.0ms)
+Completed 200 OK in 22ms (Views: 16.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks/new" for 127.0.0.1 at 2024-12-21 19:54:44 -0800
+Processing by BenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/new.html.erb within layouts/application
+  Rendered benchmarks/new.html.erb within layouts/application (Duration: 88.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 99.4ms | GC: 0.0ms)
+Completed 200 OK in 189ms (Views: 101.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 19:54:52 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"B", "linux_os"=>"Fedora", "benchmarks"=>["", "CPU", "Memory", "Network"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (7.7ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (30.7ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('B', NULL, '2024-12-22 03:54:52.227369', '2024-12-22 03:54:52.227369', 'Fedora', '["","CPU","Memory","Network"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (17.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Redirected to http://127.0.0.1:3000/performance_benchmarks/2
+Completed 302 Found in 107ms (ActiveRecord: 55.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/2" for 127.0.0.1 at 2024-12-21 19:54:52 -0800
+Processing by PerformanceBenchmarksController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPerformanceBenchmark Load (0.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" WHERE "performance_benchmarks"."id" = 2 LIMIT 1 /*action='show',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/show.html.erb within layouts/application
+  Rendered performance_benchmarks/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 7.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks" for 127.0.0.1 at 2024-12-21 19:54:57 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:4
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 8.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.1ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 14.9ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/benchmarks/new" for 127.0.0.1 at 2024-12-21 19:56:06 -0800
+Processing by BenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/new.html.erb within layouts/application
+  Rendered benchmarks/new.html.erb within layouts/application (Duration: 69.2ms | GC: 19.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 239.7ms | GC: 49.7ms)
+Completed 200 OK in 536ms (Views: 251.1ms | ActiveRecord: 230.6ms (0 queries, 0 cached) | GC: 60.6ms)
+
+
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 19:56:12 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (5.6ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 03:56:13.216781', '2024-12-22 03:56:13.216781', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 3105ms (ActiveRecord: 6.6ms (1 query, 0 cached) | GC: 32.8ms)
+
+
+  
+NoMethodError (undefined method `fetch' for an instance of MsRest::TokenCredentials):
+  
+app/services/benchmark_service.rb:19:in `new'
+app/services/benchmark_service.rb:19:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 19:57:26 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (31.0ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 03:57:27.533170', '2024-12-22 03:57:27.533170', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 9895ms (ActiveRecord: 38.7ms (1 query, 0 cached) | GC: 385.4ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:47:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 20:02:13 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (5.4ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 04:02:15.931959', '2024-12-22 04:02:15.931959', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 337ms (ActiveRecord: 23.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:49:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
+Started POST "/performance_benchmarks" for 127.0.0.1 at 2024-12-21 20:02:52 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"C", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mPerformanceBenchmark Create (3.4ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks") VALUES ('C', NULL, '2024-12-22 04:02:52.991560', '2024-12-22 04:02:52.991560', 'Ubuntu', '["","CPU"]') RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 127ms (ActiveRecord: 13.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:49:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:17:in `create'
