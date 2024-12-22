@@ -158,9 +158,9 @@ process_xml_file <- function(xml_file, benchmark_title, value_unit, output_dir) 
 }
 
 # Define the XML file paths and process them
-cpu_xml_file <- "benchmarks/debian/CPU/CPU 12_7_2024/composite.xml"
-memory_xml_file <- "benchmarks/debian/Memory/Memory 12_8_2024/composite.xml"
-network_xml_file <- "benchmarks/debian/Network/Network 12_8_2024/composite.xml"
+cpu_xml_file <- "benchmarks/debian/CPU/CPU 12_11_2024/composite.xml"
+memory_xml_file <- "benchmarks/debian/Memory/Memory 12_21_2024/composite.xml"
+network_xml_file <- "benchmarks/debian/Network/Network 12_21_2024/composite.xml"
 
 process_xml_file(cpu_xml_file, "C-Ray Benchmark", "Milliseconds", "benchmarks/debian/CPU")
 process_xml_file(memory_xml_file, "Memory Benchmark", "MB/s", "benchmarks/debian/Memory/Graphs")
