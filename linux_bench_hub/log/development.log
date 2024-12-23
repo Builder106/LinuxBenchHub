@@ -2594,3 +2594,146 @@ app/views/benchmarks/new.html.erb:2
 Information for cause: NoMethodError (undefined method `performance_benchmarks_path' for an instance of #<Class:0x000000012cecbe18>):
   
 app/views/benchmarks/new.html.erb:2
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:43:47 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 10.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 300.9ms | GC: 76.9ms)
+Completed 200 OK in 452ms (Views: 420.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 76.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-22 20:51:34 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (12.5ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 78.7ms | GC: 3.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 253.3ms | GC: 12.8ms)
+Completed 200 OK in 290ms (Views: 245.9ms | ActiveRecord: 15.5ms (1 query, 0 cached) | GC: 16.6ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:51:37 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 2.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.4ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 19.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:52:40 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 6.6ms | GC: 2.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 519.2ms | GC: 204.6ms)
+Completed 200 OK in 961ms (Views: 555.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 214.6ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:53:11 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 3.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 67.4ms | GC: 4.5ms)
+Completed 200 OK in 83ms (Views: 78.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 4.5ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:53:39 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 49.2ms | GC: 3.1ms)
+Completed 200 OK in 62ms (Views: 54.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.1ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:53:50 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 48.1ms | GC: 0.0ms)
+Completed 200 OK in 69ms (Views: 54.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:54:08 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 60.1ms | GC: 7.0ms)
+Completed 200 OK in 75ms (Views: 67.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 7.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:54:10 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.4ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 13.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-22 20:54:44 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (26.9ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 59.3ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 269.1ms | GC: 6.5ms)
+Completed 200 OK in 289ms (Views: 243.5ms | ActiveRecord: 30.5ms (1 query, 0 cached) | GC: 7.2ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:54:50 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | GC: 0.0ms)
+Completed 200 OK in 257ms (Views: 14.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:55:15 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 1.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 36.1ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 41.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-22 20:55:25 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (6.5ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 53.5ms | GC: 3.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 87.5ms | GC: 3.9ms)
+Completed 200 OK in 240ms (Views: 196.2ms | ActiveRecord: 8.1ms (1 query, 0 cached) | GC: 10.3ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-22 20:55:29 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1043.3ms | GC: 0.0ms)
+Completed 200 OK in 1046ms (Views: 1044.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-22 20:55:32 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 8.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 53.9ms | GC: 0.0ms)
+Completed 200 OK in 59ms (Views: 54.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
