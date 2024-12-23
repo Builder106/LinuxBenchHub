@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
-   # Define routes for performance benchmarks
-   resources :benchmarks, only: [:index, :show, :new, :create]
-   resources :performance_benchmarks, only: [:index, :show, :new, :create]
+  get "pages/about"
+   # Define routes for benchmarks with additional collection routes
+   resources :benchmarks, only: [:index, :show, :new, :create] do
+     collection do
+       get 'debian'
+       get 'fedora'
+       get 'ubuntu'
+     end
+   end
+ 
+   # Define the About page route
+   get 'about', to: 'pages#about', as: 'about'
+ 
+   # Optionally, remove or keep the following line if 'performance_benchmarks' is a separate resource
+   # resources :performance_benchmarks, only: [:index, :show, :new, :create]
  
    # Define the root path route ("/")
    root "benchmarks#index"
