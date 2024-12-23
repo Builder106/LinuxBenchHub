@@ -2076,3 +2076,128 @@ Processing by BenchmarksController#new as HTML
 Completed 200 OK in 246ms (Views: 218.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2024-12-22 08:46:53 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (61.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 133.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 464.2ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 686ms (ActiveRecord: 60.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012db69620>)
+Caused by: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012db69620>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012db69620>):
+    38:               Benchmarks
+    39:             </a>
+    40:             <div class="dropdown-menu" aria-labelledby="benchmarkDropdown">
+    41:               <%= link_to 'Debian', debian_benchmarks_path, class: 'dropdown-item' %>
+    42:               <%= link_to 'Fedora', fedora_benchmarks_path, class: 'dropdown-item' %>
+    43:               <%= link_to 'Ubuntu', ubuntu_benchmarks_path, class: 'dropdown-item' %>
+    44:               <div class="dropdown-divider"></div>
+  
+app/views/layouts/application.html.erb:41
+
+Information for cause: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012db69620>):
+  
+app/views/layouts/application.html.erb:41
+Started GET "/" for 127.0.0.1 at 2024-12-22 18:28:51 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (140.9ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 216.4ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 539.6ms | GC: 2.4ms)
+Completed 500 Internal Server Error in 636ms (ActiveRecord: 140.8ms (1 query, 0 cached) | GC: 2.9ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012d703180>)
+Caused by: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012d703180>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012d703180>):
+    40:               Benchmarks
+    41:             </a>
+    42:             <div class="dropdown-menu" aria-labelledby="benchmarkDropdown">
+    43:               <%= link_to 'Debian', debian_benchmarks_path, class: 'dropdown-item' %>
+    44:               <%= link_to 'Fedora', fedora_benchmarks_path, class: 'dropdown-item' %>
+    45:               <%= link_to 'Ubuntu', ubuntu_benchmarks_path, class: 'dropdown-item' %>
+    46:               <div class="dropdown-divider"></div>
+  
+app/views/layouts/application.html.erb:43
+
+Information for cause: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x000000012d703180>):
+  
+app/views/layouts/application.html.erb:43
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-22 18:42:55 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (4.0ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 144.8ms | GC: 26.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 145.5ms | GC: 26.9ms)
+Completed 500 Internal Server Error in 1665ms (ActiveRecord: 10.9ms (1 query, 0 cached) | GC: 31.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `performance_benchmark_path' for an instance of #<Class:0x000000012a2db420>)
+Caused by: NoMethodError (undefined method `performance_benchmark_path' for an instance of #<Class:0x000000012a2db420>)
+
+Information for: ActionView::Template::Error (undefined method `performance_benchmark_path' for an instance of #<Class:0x000000012a2db420>):
+     8:       <div class="card mb-4 shadow-sm">
+     9:         <div class="card-body">
+    10:           <h5 class="card-title">
+    11:             <%= link_to benchmark.name, benchmark, class: 'text-decoration-none' %>
+    12:           </h5>
+    13:           <p class="card-text"><%= benchmark.description %></p>
+    14:           <%= link_to 'View Details', benchmark, class: 'btn btn-secondary' %>
+  
+app/views/benchmarks/index.html.erb:11
+app/views/benchmarks/index.html.erb:6
+
+Information for cause: NoMethodError (undefined method `performance_benchmark_path' for an instance of #<Class:0x000000012a2db420>):
+  
+app/views/benchmarks/index.html.erb:11
+app/views/benchmarks/index.html.erb:6
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-22 18:56:44 -0800
+Processing by BenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (31.6ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" /*action='index',application='LinuxBenchHub',controller='benchmarks'*/[0m
+  ↳ app/views/benchmarks/index.html.erb:6
+  Rendered benchmarks/index.html.erb within layouts/application (Duration: 105.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4538.4ms | GC: 127.2ms)
+Completed 500 Internal Server Error in 4928ms (ActiveRecord: 31.5ms (1 query, 0 cached) | GC: 127.2ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `about_path' for an instance of #<Class:0x000000012ae90fb8>)
+Caused by: NameError (undefined local variable or method `about_path' for an instance of #<Class:0x000000012ae90fb8>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `about_path' for an instance of #<Class:0x000000012ae90fb8>):
+    47:               <%= link_to 'All Benchmarks', benchmarks_path, class: 'dropdown-item' %>
+    48:             </div>
+    49:           </li>
+    50:           <li class="nav-item <%= 'active' if current_page?(about_path) %>">
+    51:             <%= link_to 'About', about_path, class: 'nav-link' %>
+    52:           </li>
+    53:         </ul>
+  
+app/views/layouts/application.html.erb:50
+
+Information for cause: NameError (undefined local variable or method `about_path' for an instance of #<Class:0x000000012ae90fb8>):
+  
+app/views/layouts/application.html.erb:50
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
