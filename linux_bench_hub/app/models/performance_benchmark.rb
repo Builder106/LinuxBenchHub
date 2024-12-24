@@ -1,8 +1,9 @@
 class PerformanceBenchmark < ApplicationRecord
-   serialize :benchmarks, JSON
-   serialize :results, JSON
+   belongs_to :user, optional: true
  
-   belongs_to :user
+   # Specify the coder using keyword arguments
+   serialize :benchmarks, coder: JSON
+   serialize :results, coder: JSON
  
    validates :name, presence: true
    validates :linux_os, presence: true

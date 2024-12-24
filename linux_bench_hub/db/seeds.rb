@@ -8,9 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.find_or_create_by(email: 'user@example.com') do |user|
-   user.password = 'password'
+# Create a sample user
+User.find_or_create_by!(email: 'user@example.com') do |user|
+   user.password = 'password123'
+   user.password_confirmation = 'password123'
  end
+ 
+ # Create sample performance benchmarks for the user
+ user = User.find_by(email: 'user@example.com')
  
  user.performance_benchmarks.create!(
    name: 'Benchmark 1',
