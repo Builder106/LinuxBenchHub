@@ -7,3 +7,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+user = User.find_or_create_by(email: 'user@example.com') do |user|
+   user.password = 'password'
+ end
+ 
+ user.performance_benchmarks.create!(
+   name: 'Benchmark 1',
+   description: 'CPU and Memory Performance Test.',
+   linux_os: 'Ubuntu 22.04',
+   benchmarks: ['CPU', 'Memory'],
+   results: { cpu: 'Pass', memory: 'Pass' }
+ )
+ 
+ user.performance_benchmarks.create!(
+   name: 'Benchmark 2',
+   description: 'Network Performance Test.',
+   linux_os: 'Fedora 36',
+   benchmarks: ['Network'],
+   results: { network: 'Fail' }
+ )

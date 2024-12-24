@@ -1,0 +1,16 @@
+<h1>Dashboard</h1>
+
+<section>
+  <h2>Recent Benchmarks</h2>
+  <ul>
+    <% @recent_benchmarks.each do |benchmark| %>
+      <li><%= benchmark.name %> - <%= benchmark.score %></li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h2>Statistics</h2>
+  <p>Total Benchmarks: <%= @statistics[:total_benchmarks] %></p>
+  <p>Average Score: <%= @statistics[:average_score] %></p>
+</section>

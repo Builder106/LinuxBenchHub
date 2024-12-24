@@ -1,0 +1,32 @@
+<!-- app/views/benchmarks/index.html.erb -->
+<h1 class="mb-4">Benchmark History</h1>
+<%= link_to 'New Benchmark', new_benchmark_path, class: 'btn btn-primary mb-3' %>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Linux OS</th>
+        <th>Benchmark Types</th>
+        <th>Description</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @benchmarks.each do |benchmark| %>
+        <tr>
+          <td><%= benchmark.name %></td>
+          <td><%= benchmark.linux_os %></td>
+          <td><%= benchmark.benchmarks.join(', ') %></td>
+          <td><%= benchmark.description %></td>
+          <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
