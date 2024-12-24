@@ -1,19 +1,21 @@
 # app/controllers/benchmarks_controller.rb
 class BenchmarksController < ApplicationController
+   before_action :authenticate_user!
+   before_action :set_benchmark, only: [:show]
+ 
    def index
-     @benchmarks = PerformanceBenchmark.all
+     @benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
    end
  
    def show
-     @benchmark = PerformanceBenchmark.find(params[:id])
    end
  
    def new
-     @benchmark = PerformanceBenchmark.new
+     @benchmark = current_user.performance_benchmarks.new
    end
  
    def create
-     @benchmark = PerformanceBenchmark.new(benchmark_params)
+     @benchmark = current_user.performance_benchmarks.new(benchmark_params)
      if @benchmark.save
        redirect_to @benchmark, notice: 'Benchmark was successfully created.'
      else
@@ -22,23 +24,27 @@ class BenchmarksController < ApplicationController
    end
  
    def debian
-     @benchmarks = PerformanceBenchmark.where(linux_os: 'Debian')
+     @benchmarks = current_user.performance_benchmarks.where(linux_os: 'Debian').order(created_at: :desc)
      render :index
    end
  
    def fedora
-     @benchmarks = PerformanceBenchmark.where(linux_os: 'Fedora')
+     @benchmarks = current_user.performance_benchmarks.where(linux_os: 'Fedora').order(created_at: :desc)
      render :index
    end
  
    def ubuntu
-     @benchmarks = PerformanceBenchmark.where(linux_os: 'Ubuntu')
+     @benchmarks = current_user.performance_benchmarks.where(linux_os: 'Ubuntu').order(created_at: :desc)
      render :index
    end
  
    private
  
+   def set_benchmark
+     @benchmark = current_user.performance_benchmarks.find(params[:id])
+   end
+ 
    def benchmark_params
-     params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [])
+     params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {})
    end
  end

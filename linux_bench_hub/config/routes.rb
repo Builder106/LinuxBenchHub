@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
-  get "pages/about"
-   # Define routes for benchmarks with additional collection routes
-   resources :benchmarks, only: [:index, :show, :new, :create] do
+   # Devise routes for User authentication
+   devise_for :users
+ 
+   # Root path
+   root "performance_benchmarks#index"
+ 
+   # Dashboard route
+   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+ 
+   # About page route
+   get 'about', to: 'pages#about', as: 'about'
+ 
+   # Resources for Performance Benchmarks with additional collection routes
+   resources :performance_benchmarks, only: [:index, :show, :new, :create] do
      collection do
        get 'debian'
        get 'fedora'
@@ -9,20 +20,10 @@ Rails.application.routes.draw do
      end
    end
  
-   # Define the About page route
-   get 'about', to: 'pages#about', as: 'about'
- 
-   # Optionally, remove or keep the following line if 'performance_benchmarks' is a separate resource
-   # resources :performance_benchmarks, only: [:index, :show, :new, :create]
- 
-   # Define the root path route ("/")
-   root "benchmarks#index"
- 
-   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-   # Can be used by load balancers and uptime monitors to verify that the app is live.
+   # Health check route
    get "up" => "rails/health#show", as: :rails_health_check
  
-   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+   # Uncomment the following lines if you implement PWA features
    # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
    # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
  end
