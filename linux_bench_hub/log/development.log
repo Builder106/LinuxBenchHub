@@ -2839,3 +2839,100 @@ Migrating to AddDeviseToUsers (20241224004343)
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
   [1m[35m (9.5ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL /*application='LinuxBenchHub'*/[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to AddDeviseToUsers (20241224011647)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35m (7.0ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to DeviseCreateUsers (20241224083730)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35m (16.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241224083730') RETURNING "version" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES ('user@example.com', '$2a$12$X.KttnVDOaTTqxqEffoTLOUdne9/CJLX3IlweSpB4GVAmLwUMBoGS', NULL, NULL, NULL, '2024-12-24 08:43:46.968703', '2024-12-24 08:43:46.968703') RETURNING "id" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1 /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to AddUserToPerformanceBenchmarks (20241224085211)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "description" text, "results" text) /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","description","results")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","description","results" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (13.3ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "description" text, "results" text, "user_id" integer NOT NULL) /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","description","results")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","description","results" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK TRANSACTION /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to AddUserToPerformanceBenchmarks (20241224085211)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "performance_benchmarks" ADD "user_id" integer /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "description" text, "results" text, "user_id" integer) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aperformance_benchmarks_on_user_id" ON "aperformance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "description" text, "results" text, "user_id" integer, CONSTRAINT "fk_rails_c8a978fa2f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241224085211') RETURNING "version" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
