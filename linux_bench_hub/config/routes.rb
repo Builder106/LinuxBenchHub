@@ -5,7 +5,8 @@ Rails.application.routes.draw do
    devise_for :users
  
    # Root path
-   root "performance_benchmarks#index"
+   root "home#index"
+   # root "performance_benchmarks#index"
  
    # Dashboard route
    get 'dashboard', to: 'dashboard#index', as: 'dashboard'

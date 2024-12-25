@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <!-- Hero Section -->
+  <div class="jumbotron text-center bg-light p-5 rounded">
+    <h1 class="display-4">Welcome to LinuxBenchHub</h1>
+    <p class="lead">Benchmark your favorite Linux distributions with ease.</p>
+    <hr class="my-4">
+    <% if user_signed_in? %>
+      <%= link_to 'Get Started', benchmarks_path, class: 'btn btn-primary btn-lg' %>
+    <% else %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
+      <%= link_to 'Learn More', about_path, class: 'btn btn-secondary btn-lg' %>
+    <% end %>
+  </div>
+
+  <!-- Features Section -->
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <h2>Easy Benchmarking</h2>
+      <p>Run benchmarks on multiple Linux distributions with a single click.</p>
+    </div>
+    <div class="col-md-4">
+      <h2>Compare Results</h2>
+      <p>Compare benchmarking results side by side to make informed decisions.</p>
+    </div>
+    <div class="col-md-4">
+      <h2>Save and Share</h2>
+      <p>Save your benchmark configurations and share them with others.</p>
+    </div>
+  </div>
+
+  <!-- Call to Action Section -->
+  <div class="text-center mt-5">
+    <% if user_signed_in? %>
+      <%= link_to 'Start Benchmarking', benchmarks_path, class: 'btn btn-primary btn-lg' %>
+    <% else %>
+      <%= link_to 'Join Now', new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
+      <%= link_to 'Explore Benchmarks', benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
+    <% end %>
+  </div>
+</div>
