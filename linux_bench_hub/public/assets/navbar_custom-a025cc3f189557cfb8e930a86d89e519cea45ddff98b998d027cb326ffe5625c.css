@@ -1,0 +1,22 @@
+/* Enhance navbar brand styling */
+.navbar-brand h1 {
+   font-size: 1.5rem;
+   margin: 0;
+ }
+ 
+ /* Add hover effects to nav links */
+ .nav-link:hover {
+   color: #0056b3 !important;
+ }
+ 
+ /* Customize dropdown items */
+ .dropdown-item:hover {
+   background-color: #f8f9fa;
+   color: #0056b3;
+ }
+ 
+ /* Add transition effects */
+ .nav-link,
+ .dropdown-item {
+   transition: color 0.3s ease, background-color 0.3s ease;
+ }
