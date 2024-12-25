@@ -31,10 +31,10 @@
   <!-- Call to Action Section -->
   <div class="text-center mt-5">
     <% if user_signed_in? %>
-      <%= link_to 'Start Benchmarking', benchmarks_path, class: 'btn btn-primary btn-lg' %>
+      <%= link_to 'Start Benchmarking', performance_benchmarks_path, class: 'btn btn-primary btn-lg' %>
     <% else %>
       <%= link_to 'Join Now', new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
-      <%= link_to 'Explore Benchmarks', benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
+      <%= link_to 'Explore Benchmarks', performance_benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
     <% end %>
   </div>
 </div>

@@ -1,83 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About - Linux Bench Hub</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f0f2f5;
-      color: #333;
-    }
-    .navbar {
-      background-color: #24292e;
-      padding: 15px 20px;
-      color: #fff;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-    h1, h2 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    p {
-      font-size: 1.1em;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    ul {
-      list-style-type: disc;
-      padding-left: 20px;
-      color: #555;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    a:hover {
-      color: #2980b9;
-      text-decoration: underline;
-    }
-    @media (max-width: 768px) {
-      .container {
-        width: 90%;
-        margin: 20px auto;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>About</h1>
-    <p>Welcome to Linux Bench Hub! We provide comprehensive benchmarking tools and resources for various Linux distributions.</p>
-    
-    <h2>Our Mission</h2>
-    <p>At Linux Bench Hub, our mission is to empower developers and system administrators with the tools they need to effectively benchmark and optimize their Linux systems.</p>
-    
-    <h2>Features</h2>
-    <ul>
-      <li>Comprehensive Benchmarking Tools</li>
-      <li>Support for Multiple Linux Distributions</li>
-      <li>Detailed Documentation and Tutorials</li>
-      <li>Community Support and Forums</li>
-    </ul>
-    
-    <h2>Why Choose Us</h2>
-    <p>We stand out by offering user-friendly interfaces, regular updates, and a dedicated support team to assist you in achieving the best performance from your Linux environments.</p>
-    
-    <h2>Contact Us</h2>
-    <p>If you have any questions or feedback, feel free to <a href="/contact">contact us</a>.</p>
+<!-- app/views/pages/about.html.erb -->
+<div class="container mt-5 pt-4">
+  <!-- Hero Section -->
+  <div class="jumbotron text-center bg-primary text-white p-5 rounded mb-4">
+    <h1 class="display-4">About LinuxBenchHub</h1>
+    <p class="lead">Your ultimate platform to benchmark and compare Linux distributions.</p>
   </div>
-</body>
-</html>
+
+  <!-- Mission Section -->
+  <section class="mb-5">
+    <h2 class="mb-3">Our Mission</h2>
+    <p>
+      At LinuxBenchHub, our mission is to provide comprehensive benchmarking tools that help users evaluate and compare the performance of various Linux distributions. Whether youre a developer, system administrator, or enthusiast, our platform offers the insights you need to make informed decisions.
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="mb-5">
+    <h2 class="mb-3">Key Features</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Comprehensive Benchmarks</h5>
+            <p class="card-text">Run detailed CPU, Memory, and Network benchmarks tailored for each Linux distribution.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Compare Results</h5>
+            <p class="card-text">Easily compare benchmark results side by side to assess performance differences.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">User-Friendly Interface</h5>
+            <p class="card-text">Navigate through benchmarks and results effortlessly with our intuitive design.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="mb-5">
+    <h2 class="mb-3">Get in Touch</h2>
+    <p>If you have any questions or feedback, feel free to <a href="<%= contact_path %>">contact us</a>.</p>
+  </section>
+</div>

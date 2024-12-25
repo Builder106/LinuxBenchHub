@@ -6,11 +6,14 @@ Rails.application.routes.draw do
  
    # Root path
    root "home#index"
-   # root "performance_benchmarks#index"
  
    # Dashboard route
    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
- 
+
+   # Add the contact route
+   get 'contact', to: 'pages#contact', as: 'contact'
+   post 'contact', to: 'pages#contact'
+
    # About page route
    get 'about', to: 'pages#about', as: 'about'
 
@@ -35,8 +38,6 @@ Rails.application.routes.draw do
         patch 'mark_as_read'
       end
    end
-
-
  
    # Health check route
    get "up" => "rails/health#show", as: :rails_health_check
