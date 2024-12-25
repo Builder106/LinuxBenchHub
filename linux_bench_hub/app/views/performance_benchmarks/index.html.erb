@@ -1,6 +1,5 @@
-<!-- app/views/benchmarks/index.html.erb -->
 <h1 class="mb-4">Benchmark History</h1>
-<%= link_to 'New Benchmark', new_benchmark_path, class: 'btn btn-primary mb-3' %>
+<%= link_to 'New Benchmark', new_performance_benchmark_path, class: 'btn btn-primary mb-3' %>
 
 <div class="table-responsive">
   <table class="table table-striped">
@@ -15,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @benchmarks.each do |benchmark| %>
+      <% @performance_benchmarks.each do |benchmark| %>
         <tr>
           <td><%= benchmark.name %></td>
           <td><%= benchmark.linux_os %></td>

@@ -3025,3 +3025,43 @@ FOREIGN KEY ("user_id")
   [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241225001432') RETURNING "version" /*application='LinuxBenchHub'*/[0m
   [1m[36mTRANSACTION (12.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-24 16:26:01 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (14.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  
+SyntaxError (/Users/yinka/My Drive/CS/Projects/Data Analysis/LinuxBenchHub/linux_bench_hub/app/controllers/performance_benchmarks_controller.rb:67: syntax error, unexpected end-of-input, expecting `end' or dummy end):
+  
+app/controllers/performance_benchmarks_controller.rb:67: syntax error, unexpected end-of-input, expecting `end' or dummy end
+Started GET "/" for 127.0.0.1 at 2024-12-24 16:27:51 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+Completed 401 Unauthorized in 829ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.1ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 16:27:54 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 2.9ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 297.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 66092.6ms | GC: 167.8ms)
+Completed 500 Internal Server Error in 66432ms (ActiveRecord: 12.7ms (0 queries, 0 cached) | GC: 167.8ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x00000001293e3170>)
+Caused by: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x00000001293e3170>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x00000001293e3170>):
+    41:               Benchmarks <span class="caret"></span>
+    42:             </a>
+    43:             <div class="dropdown-menu" aria-labelledby="benchmarkDropdown">
+    44:               <%= link_to 'Debian', debian_benchmarks_path, class: 'dropdown-item' %>
+    45:               <%= link_to 'Fedora', fedora_benchmarks_path, class: 'dropdown-item' %>
+    46:               <%= link_to 'Ubuntu', ubuntu_benchmarks_path, class: 'dropdown-item' %>
+    47:               <div class="dropdown-divider"></div>
+  
+app/views/layouts/application.html.erb:44
+
+Information for cause: NameError (undefined local variable or method `debian_benchmarks_path' for an instance of #<Class:0x00000001293e3170>):
+  
+app/views/layouts/application.html.erb:44

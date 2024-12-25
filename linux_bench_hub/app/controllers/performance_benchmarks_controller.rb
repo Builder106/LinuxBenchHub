@@ -39,22 +39,23 @@ class PerformanceBenchmarksController < ApplicationController
    end
  
    def compare
-      @benchmark1 = current_user.performance_benchmarks.find(params[:benchmark1_id])
-      @benchmark2 = current_user.performance_benchmarks.find(params[:benchmark2_id])
+     @benchmark1 = current_user.performance_benchmarks.find(params[:benchmark1_id])
+     @benchmark2 = current_user.performance_benchmarks.find(params[:benchmark2_id])
    end
-
+ 
    def export
-      @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
-      respond_to do |format|
-        format.csv { send_data @performance_benchmark.to_csv, filename: "benchmark-#{@performance_benchmark.id}.csv" }
-        format.json { render json: @performance_benchmark }
+     @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
+     respond_to do |format|
+       format.csv { send_data @performance_benchmark.to_csv, filename: "benchmark-#{@performance_benchmark.id}.csv" }
+       format.json { render json: @performance_benchmark }
+     end
    end
-
+ 
    def share
-      @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
-      # Implement sharing logic, e.g., generating a shareable link or inviting users
+     @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
+     # Implement sharing logic, e.g., generating a shareable link or inviting users
    end
-
+ 
    private
  
    def set_benchmark
@@ -62,6 +63,6 @@ class PerformanceBenchmarksController < ApplicationController
    end
  
    def performance_benchmark_params
-      params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {}, configuration: {})
+     params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {}, configuration: {})
    end
  end
