@@ -1,0 +1,8 @@
+<!-- app/views/contact_mailer/contact_email.html.erb -->
+
+<h1>New Contact Message</h1>
+
+<p><strong>Name:</strong> <%= @contact[:name] %></p>
+<p><strong>Email:</strong> <%= @contact[:email] %></p>
+<p><strong>Message:</strong></p>
+<p><%= @contact[:message].gsub("\n", "<br>").html_safe %></p>

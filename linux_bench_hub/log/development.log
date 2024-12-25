@@ -3884,3 +3884,188 @@ Processing by Devise::RegistrationsController#new as HTML
 Completed 200 OK in 64ms (Views: 53.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 6.2ms)
 
 
+Started GET "/" for 127.0.0.1 at 2024-12-24 19:42:34 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 21.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.5ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 1177ms (ActiveRecord: 144.8ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `benchmarks_path' for an instance of #<Class:0x000000012653c948>)
+Caused by: NameError (undefined local variable or method `benchmarks_path' for an instance of #<Class:0x000000012653c948>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `benchmarks_path' for an instance of #<Class:0x000000012653c948>):
+    34:       <%= link_to 'Start Benchmarking', benchmarks_path, class: 'btn btn-primary btn-lg' %>
+    35:     <% else %>
+    36:       <%= link_to 'Join Now', new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
+    37:       <%= link_to 'Explore Benchmarks', benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
+    38:     <% end %>
+    39:   </div>
+    40: </div>
+  
+app/views/home/index.html.erb:37
+
+Information for cause: NameError (undefined local variable or method `benchmarks_path' for an instance of #<Class:0x000000012653c948>):
+  
+app/views/home/index.html.erb:37
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-24 19:51:32 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 58.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1933.6ms | GC: 0.0ms)
+Completed 200 OK in 3758ms (Views: 2594.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for 127.0.0.1 at 2024-12-24 19:53:00 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+Completed 401 Unauthorized in 75ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:53:01 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 52.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 117.7ms | GC: 0.0ms)
+Completed 200 OK in 249ms (Views: 145.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-24 19:53:05 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 115.7ms | GC: 0.0ms)
+Completed 200 OK in 133ms (Views: 117.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:53:12 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 17.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 48.0ms | GC: 0.0ms)
+Completed 200 OK in 70ms (Views: 61.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for 127.0.0.1 at 2024-12-24 19:53:14 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:53:14 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 56.9ms | GC: 0.0ms)
+Completed 200 OK in 64ms (Views: 57.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-24 19:53:18 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 15.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 71.9ms | GC: 13.0ms)
+Completed 200 OK in 201ms (Views: 90.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 13.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2024-12-24 20:04:57 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 24.4ms | GC: 7.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 288.7ms | GC: 22.2ms)
+Completed 200 OK in 341ms (Views: 299.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 22.2ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2024-12-24 20:07:55 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 217.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 218.9ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 247ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (The asset "team_member1.jpg" is not present in the asset pipeline.
+)
+Caused by: Sprockets::Rails::Helper::AssetNotFound (The asset "team_member1.jpg" is not present in the asset pipeline.
+)
+
+Information for: ActionView::Template::Error (The asset "team_member1.jpg" is not present in the asset pipeline.
+):
+    50:     <h2 class="mb-3">Meet the Team</h2>
+    51:     <div class="row">
+    52:       <div class="col-md-4 text-center">
+    53:         <img src="<%= asset_path 'team_member1.jpg' %>" class="rounded-circle mb-3" alt="Team Member 1" width="150" height="150">
+    54:         <h5>Jane Doe</h5>
+    55:         <p>Lead Developer</p>
+    56:       </div>
+  
+app/views/pages/about.html.erb:53
+
+Information for cause: Sprockets::Rails::Helper::AssetNotFound (The asset "team_member1.jpg" is not present in the asset pipeline.
+):
+  
+app/views/pages/about.html.erb:53
+Started GET "/about" for 127.0.0.1 at 2024-12-24 20:08:39 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 27.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 47.6ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 871ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `contact_path' for an instance of #<Class:0x000000012706f018>)
+Caused by: NameError (undefined local variable or method `contact_path' for an instance of #<Class:0x000000012706f018>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `contact_path' for an instance of #<Class:0x000000012706f018>):
+    48:   <!-- Contact Section -->
+    49:   <section class="mb-5">
+    50:     <h2 class="mb-3">Get in Touch</h2>
+    51:     <p>If you have any questions or feedback, feel free to <a href="<%= contact_path %>">contact us</a>.</p>
+    52:   </section>
+    53: </div>
+  
+app/views/pages/about.html.erb:51
+
+Information for cause: NameError (undefined local variable or method `contact_path' for an instance of #<Class:0x000000012706f018>):
+  
+app/views/pages/about.html.erb:51
+Started GET "/about" for 127.0.0.1 at 2024-12-24 20:09:35 -0800
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 1068.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1070.2ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 2536ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `contact_path' for an instance of #<Class:0x0000000128039390>)
+Caused by: NameError (undefined local variable or method `contact_path' for an instance of #<Class:0x0000000128039390>)
+
+Information for: ActionView::Template::Error (undefined local variable or method `contact_path' for an instance of #<Class:0x0000000128039390>):
+    48:   <!-- Contact Section -->
+    49:   <section class="mb-5">
+    50:     <h2 class="mb-3">Get in Touch</h2>
+    51:     <p>If you have any questions or feedback, feel free to <a href="<%= contact_path %>">contact us</a>.</p>
+    52:   </section>
+    53: </div>
+  
+app/views/pages/about.html.erb:51
+
+Information for cause: NameError (undefined local variable or method `contact_path' for an instance of #<Class:0x0000000128039390>):
+  
+app/views/pages/about.html.erb:51
+[dotenv] Loaded [33m.env[0m

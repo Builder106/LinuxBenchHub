@@ -1,0 +1,55 @@
+<div class="container mt-5 pt-4">
+  <!-- Contact Form Section -->
+  <section class="mb-5">
+    <h2 class="mb-3">Get in Touch</h2>
+    <%= form_with url: contact_path, local: true, class: 'needs-validation', novalidate: true do |form| %>
+      <div class="mb-3">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true, placeholder: 'Your Name' %>
+        <div class="invalid-feedback">
+          Please provide your name.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :email, class: 'form-label' %>
+        <%= form.email_field :email, class: 'form-control', required: true, placeholder: 'you@example.com' %>
+        <div class="invalid-feedback">
+          Please provide a valid email address.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :message, class: 'form-label' %>
+        <%= form.text_area :message, class: 'form-control', rows: 5, required: true, placeholder: 'Your Message' %>
+        <div class="invalid-feedback">
+          Please enter a message.
+        </div>
+      </div>
+
+      <div class="d-grid">
+        <%= form.submit 'Send Message', class: 'btn btn-primary btn-lg' %>
+      </div>
+    <% end %>
+  </section>
+</div>
+
+<!-- Optional JavaScript for Bootstrap Validation -->
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
