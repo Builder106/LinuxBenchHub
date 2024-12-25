@@ -1,0 +1,5 @@
+class AddConfigurationToPerformanceBenchmarks < ActiveRecord::Migration[8.0]
+  def change
+    add_column :performance_benchmarks, :configuration, :json
+  end
+end

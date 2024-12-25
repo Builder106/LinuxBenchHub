@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_24_085211) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_25_001432) do
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "message"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "performance_benchmarks", force: :cascade do |t|
     t.string "name"
     t.text "data"
@@ -21,6 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_085211) do
     t.text "description"
     t.text "results"
     t.integer "user_id"
+    t.json "configuration"
     t.index ["user_id"], name: "index_performance_benchmarks_on_user_id"
   end
 
@@ -32,9 +42,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_085211) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notifications", "users"
   add_foreign_key "performance_benchmarks", "users"
 end

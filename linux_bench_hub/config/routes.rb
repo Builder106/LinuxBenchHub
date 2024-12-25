@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "profiles/edit"
+  get "profiles/update"
    # Devise routes for User authentication
    devise_for :users
  
@@ -10,15 +12,30 @@ Rails.application.routes.draw do
  
    # About page route
    get 'about', to: 'pages#about', as: 'about'
+
+   # Compare benchmarks route
+   get 'performance_benchmarks/compare', to: 'performance_benchmarks#compare', as: 'compare_benchmarks'
  
    # Resources for Performance Benchmarks with additional collection routes
    resources :performance_benchmarks, only: [:index, :show, :new, :create] do
-     collection do
-       get 'debian'
-       get 'fedora'
-       get 'ubuntu'
-     end
+      member do
+        get 'export'
+        post 'share'
+      end
+      collection do
+        get 'debian'
+        get 'fedora'
+        get 'ubuntu'
+      end
    end
+
+   resources :notifications, only: [:index] do
+      member do
+        patch 'mark_as_read'
+      end
+   end
+
+
  
    # Health check route
    get "up" => "rails/health#show", as: :rails_health_check

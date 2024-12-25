@@ -1,3 +1,5 @@
 <h1><%= @benchmark.name %></h1>
 <pre><%= @benchmark.data %></pre>
+<%= link_to 'Export CSV', export_performance_benchmark_path(@performance_benchmark, format: :csv) %>
+<%= link_to 'Export JSON', export_performance_benchmark_path(@performance_benchmark, format: :json) %>
 <%= link_to 'Back', benchmarks_path, class: 'btn btn-secondary' %>
