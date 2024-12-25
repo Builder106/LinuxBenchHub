@@ -3737,3 +3737,150 @@ Processing by Devise::SessionsController#new as HTML
 Completed 200 OK in 48ms (Views: 43.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:10:07 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 13.8ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 108.5ms | GC: 2.9ms)
+Completed 200 OK in 407ms (Views: 371.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 2.9ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:13:49 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4368.6ms | GC: 26.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 4569.4ms | GC: 111.6ms)
+Completed 200 OK in 4650ms (Views: 4605.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 112.7ms)
+
+
+Started GET "/assets/custom_signin-6ca0411c5689b2f22ff289c4eb4c6d7a903f8bc0e4ba93439284a89268e4e6be.css" for 127.0.0.1 at 2024-12-24 19:13:56 -0800
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:15:00 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 14.0ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 149.0ms | GC: 2.2ms)
+Completed 200 OK in 276ms (Views: 247.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:15:20 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 3.7ms | GC: 0.0ms)
+  Rendered devise/shared/_links.html.erb (Duration: 10.8ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 185.8ms | GC: 4.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 234.3ms | GC: 8.0ms)
+Completed 200 OK in 447ms (Views: 299.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 8.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:18:30 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 33.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 153.0ms | GC: 0.0ms)
+Completed 200 OK in 271ms (Views: 213.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:19:29 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 17.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 238.8ms | GC: 17.5ms)
+Completed 200 OK in 288ms (Views: 261.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 22.7ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:19:46 -0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (596.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'vaughanolayinka@gmail.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='LinuxBenchHub',controller='sessions'*/[0m
+Completed 401 Unauthorized in 1357ms (ActiveRecord: 596.2ms (1 query, 0 cached) | GC: 5.1ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Sign In"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 28.0ms | GC: 0.5ms)
+Completed 200 OK in 839ms (Views: 29.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:27:51 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 6.2ms | GC: 0.0ms)
+  Rendered devise/shared/_links.html.erb (Duration: 7.4ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 394.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 499.1ms | GC: 5.0ms)
+Completed 200 OK in 755ms (Views: 521.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 5.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:31:54 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 23.3ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 207.1ms | GC: 15.6ms)
+Completed 200 OK in 422ms (Views: 360.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 17.1ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:32:26 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 200.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 246.4ms | GC: 0.0ms)
+Completed 200 OK in 299ms (Views: 254.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:32:28 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 123.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 225.1ms | GC: 26.1ms)
+Completed 200 OK in 816ms (Views: 254.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 241.4ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:32:54 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 51.4ms | GC: 13.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1891.5ms | GC: 31.2ms)
+Completed 200 OK in 1904ms (Views: 1893.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 31.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:32:58 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 15.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 156.1ms | GC: 2.6ms)
+Completed 200 OK in 180ms (Views: 167.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-12-24 19:33:06 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 5.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 21.1ms | GC: 0.4ms)
+Completed 200 OK in 102ms (Views: 93.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-12-24 19:33:11 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 9.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 52.6ms | GC: 5.3ms)
+Completed 200 OK in 64ms (Views: 53.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 6.2ms)
+
+
