@@ -41,11 +41,11 @@
               Benchmarks <span class="caret"></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="benchmarkDropdown">
-              <%= link_to 'Debian', debian_benchmarks_path, class: 'dropdown-item' %>
-              <%= link_to 'Fedora', fedora_benchmarks_path, class: 'dropdown-item' %>
-              <%= link_to 'Ubuntu', ubuntu_benchmarks_path, class: 'dropdown-item' %>
+               <%= link_to 'Debian', debian_performance_benchmarks_path, class: 'dropdown-item' %>
+               <%= link_to 'Fedora', fedora_performance_benchmarks_path, class: 'dropdown-item' %>
+               <%= link_to 'Ubuntu', ubuntu_performance_benchmarks_path, class: 'dropdown-item' %>
               <div class="dropdown-divider"></div>
-              <%= link_to 'All Benchmarks', benchmarks_path, class: 'dropdown-item' %>
+              <%= link_to 'All Benchmarks', performance_benchmarks_path, class: 'dropdown-item' %>
             </div>
           </li>
           <li class="nav-item <%= 'active' if current_page?(about_path) %>">

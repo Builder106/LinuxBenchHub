@@ -1,24 +1,24 @@
 <h1>New Benchmark</h1>
-<%= form_with model: @benchmark, local: true, class: 'form' do |form| %>
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= form.label :linux_os %>
-    <%= form.select :Linux_OS, options_for_select(['Ubuntu', 'Fedora', 'Debian']), {}, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= form.label :benchmarks %>
-    <%= form.collection_check_boxes :benchmarks, ['CPU', 'Memory', 'Network'], :to_s, :to_s do |b| %>
-      <div class="checkbox">
-        <%= b.check_box %>
-        <%= b.label %>
-      </div>
-    <% end %>
-  </div>
-  <div class="form-group">
-    <%= form.submit 'Create Benchmark', class: 'btn btn-primary' %>
-  </div>
-<% end %>
-<%= link_to 'Back', benchmarks_path, class: 'btn btn-secondary mt-3' %>
+<%= form_with model: @performance_benchmark, local: true do |form| %>
+   <div class="form-group">
+     <%= form.label :name %>
+     <%= form.text_field :name, class: 'form-control' %>
+   </div>
+   <div class="form-group">
+     <%= form.label :linux_os %>
+     <%= form.select :linux_os, options_for_select(['Ubuntu', 'Fedora', 'Debian']), {}, class: 'form-control' %>
+   </div>
+   <div class="form-group">
+     <%= form.label :benchmarks %>
+     <%= form.collection_check_boxes :benchmarks, ['CPU', 'Memory', 'Network'], :to_s, :to_s do |b| %>
+       <div class="checkbox">
+         <%= b.check_box %>
+         <%= b.label %>
+       </div>
+     <% end %>
+   </div>
+   <div class="form-group">
+     <%= form.submit 'Create Benchmark', class: 'btn btn-primary' %>
+   </div>
+ <% end %>
+ <%= link_to 'Back', performance_benchmarks_path, class: 'btn btn-secondary mt-3' %>
