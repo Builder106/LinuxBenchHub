@@ -17,45 +17,50 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "navbar_custom", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
-      <%= image_tag 'logo.png', width: 50, height: 50, class: 'd-inline-block align-top mr-2', alt: 'LinuxBenchHub' %>
-      <span><h1>LinuxBenchHub</h1></span>
-    <% end %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+      <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+        <%= image_tag 'wordmark.png', width: 300, height: 52.5, class: 'd-inline-block align-top me-2', alt: 'LinuxBenchHub' %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
+        <!-- Left-aligned navigation links -->
+        <ul class="navbar-nav me-auto">
           <li class="nav-item <%= 'active' if current_page?(root_path) %>">
             <%= link_to 'Home', root_path, class: 'nav-link' %>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="benchmarkDropdown" role="button" 
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Benchmarks <span class="caret"></span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="benchmarkDropdown">
-               <%= link_to 'Debian', debian_performance_benchmarks_path, class: 'dropdown-item' %>
-               <%= link_to 'Fedora', fedora_performance_benchmarks_path, class: 'dropdown-item' %>
-               <%= link_to 'Ubuntu', ubuntu_performance_benchmarks_path, class: 'dropdown-item' %>
-              <div class="dropdown-divider"></div>
-              <%= link_to 'All Benchmarks', performance_benchmarks_path, class: 'dropdown-item' %>
-            </div>
+          <li class="nav-item <%= 'active' if current_page?(performance_benchmarks_path) %>">
+             <%= link_to 'Benchmarks', performance_benchmarks_path, class: 'nav-link' %>
           </li>
           <li class="nav-item <%= 'active' if current_page?(about_path) %>">
             <%= link_to 'About', about_path, class: 'nav-link' %>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0 d-flex align-items-center">
-          <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        
+        <!-- Right-aligned buttons -->
+        <div class="d-flex">
+          <% if user_signed_in? %>
+            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger me-2' %>
+          <% else %>
+            <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary me-2' %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+        
+        <!-- Conditionally display the search form only on Benchmarks pages -->
+        <% if controller_name == 'performance_benchmarks' %>
+          <form class="d-flex ms-3" action="<%= performance_benchmarks_path %>" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        <% end %>
       </div>
     </nav>
 
