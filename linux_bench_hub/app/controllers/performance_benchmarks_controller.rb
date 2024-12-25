@@ -1,9 +1,13 @@
 class PerformanceBenchmarksController < ApplicationController
-   before_action :authenticate_user!
+   before_action :authenticate_user!, except: [:index, :show]
    before_action :set_benchmark, only: [:show]
  
    def index
-     @performance_benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
+      if current_user
+        @performance_benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
+      else
+        @performance_benchmarks = PerformanceBenchmark.order(created_at: :desc)
+      end
    end
  
    def show
@@ -59,7 +63,7 @@ class PerformanceBenchmarksController < ApplicationController
    private
  
    def set_benchmark
-     @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
+      @performance_benchmark = PerformanceBenchmark.find(params[:id])
    end
  
    def performance_benchmark_params
