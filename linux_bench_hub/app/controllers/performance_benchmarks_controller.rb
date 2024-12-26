@@ -23,6 +23,7 @@ class PerformanceBenchmarksController < ApplicationController
         BenchmarkService.run_benchmark(@performance_benchmark)
         redirect_to @performance_benchmark, notice: 'Benchmark was successfully created.'
       else
+        flash.now[:error] = 'Failed to create benchmark. Please check the input and try again.'
         render :new
       end
     end

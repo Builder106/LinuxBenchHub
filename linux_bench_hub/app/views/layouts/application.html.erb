@@ -15,63 +15,115 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "navbar_custom", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <style>
+      /* Improved Navbar Styling */
+      .navbar {
+        padding: 1rem 1.5rem; /* Consistent padding */
+        transition: background-color 0.3s ease; /* Smooth background transition */
+      }
+
+      .navbar-brand img {
+        max-height: 3rem; /* Control logo height */
+      }
+
+      .nav-link {
+        font-weight: 500; /* Slightly bolder font */
+        margin: 0 0.5rem; /* Spacing between nav items */
+        color: #333; /* Darker link color */
+      }
+
+      .nav-link:hover, .nav-link.active {
+        color: #007bff; /* Highlight color on hover/active */
+      }
+
+      .btn-outline-primary, .btn-primary, .btn-outline-danger {
+        margin-left: 0.5rem;
+      }
+      
+      .btn-outline-success{
+        border-color: #198754 !important;
+        color: #198754 !important;
+      }
+      .btn-outline-success:hover{
+        background-color: #198754 !important;
+        color: white !important;
+      }
+
+      .navbar-toggler {
+        border: none; /* Remove default border */
+      }
+      .navbar-toggler:focus{
+        box-shadow: none;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 991.98px) {
+        .navbar-nav {
+          text-align: center; /* Center align nav items on smaller screens */
+        }
+        .d-flex{
+          margin-top: 10px;
+          justify-content: center;
+        }
+      }
+
+      body {
+         padding-top: 150px; /* Adjust this value based on the navbar height */
+      }
+    </style>
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-      <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
-        <%= image_tag 'wordmark.png', width: 300, height: 52.5, class: 'd-inline-block align-top me-2', alt: 'LinuxBenchHub' %>
-      <% end %>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Left-aligned navigation links -->
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item <%= 'active' if current_page?(root_path) %>">
-            <%= link_to 'Home', root_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item <%= 'active' if current_page?(performance_benchmarks_path) %>">
-             <%= link_to 'Benchmarks', performance_benchmarks_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item <%= 'active' if current_page?(about_path) %>">
-            <%= link_to 'About', about_path, class: 'nav-link' %>
-          </li>
-        </ul>
-        
-        <!-- Conditionally display the search form only on Benchmarks pages, excluding 'new' and 'create' actions -->
-        <% if controller_name == 'performance_benchmarks' && !['new', 'create'].include?(action_name) %>
-          <form class="d-flex ms-3" action="<%= performance_benchmarks_path %>" method="get">
-            <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+      <div class="container-fluid"> <%# Added container fluid for better responsiveness %>
+        <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+          <%= image_tag 'wordmark.png', alt: 'LinuxBenchHub' %> <%# Removed fixed width/height %>
         <% end %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav"> <%# Use justify-content-between %>
+          <ul class="navbar-nav">
+            <li class="nav-item <%= 'active' if current_page?(root_path) %>">
+              <%= link_to 'Home', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item <%= 'active' if current_page?(performance_benchmarks_path) %>">
+              <%= link_to 'Benchmarks', performance_benchmarks_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item <%= 'active' if current_page?(about_path) %>">
+              <%= link_to 'About', about_path, class: 'nav-link' %>
+            </li>
+          </ul>
 
-        <!-- Right-aligned buttons -->
-        <div class="d-flex">
-          <% if user_signed_in? %>
-            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger me-2' %>
-          <% else %>
-            <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary me-2' %>
-            <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
+          <% if controller_name == 'performance_benchmarks' && !['new', 'create'].include?(action_name) %>
+            <form class="d-flex" action="<%= performance_benchmarks_path %>" method="get">
+              <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
           <% end %>
+
+          <div class="d-flex">
+            <% if user_signed_in? %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
+            <% else %>
+              <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary' %>
+              <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
+            <% end %>
+          </div>
         </div>
       </div>
     </nav>
 
-
-    <div class="container mt-5 pt-4">
-      <% flash.each do |key, message| %>
-        <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
-          <%= message %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      <% end %>
-      
-      <div class="container pt-5">
-         <%= yield %>
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show flash-message" role="alert">
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+    <% end %>
+
+    <div class="container pt-7">
+      <%= yield %>
     </div>
   </body>
 </html>

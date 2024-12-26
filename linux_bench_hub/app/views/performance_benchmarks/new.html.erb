@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3" id="benchmarks-checks">
     <label class="form-label">Benchmarks</label>
     <%= form.collection_check_boxes :benchmarks, ['CPU', 'Memory', 'Network'], :to_s, :to_s do |b| %>
       <div class="form-check">
@@ -24,6 +24,9 @@
         <%= b.label class: 'form-check-label' %>
       </div>
     <% end %>
+    <div class="invalid-feedback">
+      Please select at least one benchmark.
+    </div>
   </div>
 
   <div class="mb-3">
@@ -31,3 +34,36 @@
     <%= link_to 'Back', performance_benchmarks_path, class: 'btn btn-secondary ms-2' %>
   </div>
 <% end %>
+
+<!-- JavaScript for Client-Side Validation -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.needs-validation');
+
+    form.addEventListener('submit', (event) => {
+      // Prevent form submission to check benchmarks
+      let isValid = true;
+
+      // Check if at least one benchmark is selected
+      const benchmarkCheckboxes = form.querySelectorAll('input[name="performance_benchmark[benchmarks][]"]');
+      const isBenchmarkChecked = Array.from(benchmarkCheckboxes).some(checkbox => checkbox.checked);
+
+      if (!isBenchmarkChecked) {
+        isValid = false;
+        const benchmarkFeedback = form.querySelector('#benchmarks-checks .invalid-feedback');
+        benchmarkFeedback.style.display = 'block';
+      } else {
+        const benchmarkFeedback = form.querySelector('#benchmarks-checks .invalid-feedback');
+        benchmarkFeedback.style.display = 'none';
+      }
+
+      // Check other form validations
+      if (!form.checkValidity() || !isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      form.classList.add('was-validated');
+    }, false);
+  });
+</script>
