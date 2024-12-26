@@ -67,6 +67,6 @@ class PerformanceBenchmarksController < ApplicationController
    end
  
    def performance_benchmark_params
-     params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {}, configuration: {})
-   end
+      params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {}, configuration: {})
+    end
  end

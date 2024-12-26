@@ -45,8 +45,6 @@ class BenchmarkService
                         raise "Unsupported Linux OS: #{performance_benchmark.linux_os}"
                       end
 
-    location ||= 'eastus'
-    raise "Location cannot be nil" if location.nil?
     # Create resource group
     resource_client.resource_groups.create_or_update(resource_group_name, { location: location })
 

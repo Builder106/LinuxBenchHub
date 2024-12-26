@@ -1,0 +1,81 @@
+Module                  Size  Used by
+uinput                 20480  1
+snd_seq_dummy          12288  0
+snd_hrtimer            12288  1
+nf_conntrack_netbios_ns    12288  1
+nf_conntrack_broadcast    12288  1 nf_conntrack_netbios_ns
+nft_fib_inet           12288  1
+nft_fib_ipv4           12288  1 nft_fib_inet
+nft_fib_ipv6           12288  1 nft_fib_inet
+nft_fib                12288  3 nft_fib_ipv6,nft_fib_ipv4,nft_fib_inet
+nft_reject_inet        12288  10
+nf_reject_ipv4         12288  1 nft_reject_inet
+nf_reject_ipv6         20480  1 nft_reject_inet
+nft_reject             12288  1 nft_reject_inet
+nft_ct                 28672  8
+nft_chain_nat          12288  3
+nf_nat                 65536  1 nft_chain_nat
+nf_conntrack          192512  4 nf_nat,nft_ct,nf_conntrack_netbios_ns,nf_conntrack_broadcast
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+rfkill                 40960  3
+ip_set                 69632  0
+snd_seq_midi           24576  0
+snd_seq_midi_event     16384  1 snd_seq_midi
+nf_tables             413696  298 nft_ct,nft_reject_inet,nft_fib_ipv6,nft_fib_ipv4,nft_chain_nat,nft_reject,nft_fib,nft_fib_inet
+intel_rapl_msr         20480  0
+intel_rapl_common      61440  1 intel_rapl_msr
+intel_uncore_frequency_common    16384  0
+intel_pmc_core        131072  0
+intel_vsec             20480  1 intel_pmc_core
+pmt_telemetry          16384  1 intel_pmc_core
+pmt_class              16384  1 pmt_telemetry
+vmw_balloon            32768  0
+snd_ens1371            40960  2
+rapl                   20480  0
+snd_ac97_codec        212992  1 snd_ens1371
+snd_rawmidi            57344  2 snd_seq_midi,snd_ens1371
+gameport               28672  1 snd_ens1371
+ac97_bus               12288  1 snd_ac97_codec
+pcspkr                 12288  0
+snd_seq               135168  9 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+snd_seq_device         16384  3 snd_seq,snd_seq_midi,snd_rawmidi
+vmxnet3               106496  0
+snd_pcm               196608  2 snd_ac97_codec,snd_ens1371
+snd_timer              53248  3 snd_seq,snd_hrtimer,snd_pcm
+i2c_piix4              40960  0
+snd                   159744  13 snd_seq,snd_seq_device,snd_timer,snd_ac97_codec,snd_pcm,snd_rawmidi,snd_ens1371
+qrtr                   57344  2
+i2c_smbus              20480  1 i2c_piix4
+soundcore              16384  1 snd
+sunrpc                897024  1
+binfmt_misc            28672  1
+pktcdvd                65536  0
+joydev                 32768  0
+loop                   45056  0
+nfnetlink              24576  4 nf_tables,ip_set
+vsock_loopback         12288  0
+vmw_vsock_virtio_transport_common    57344  1 vsock_loopback
+vmw_vsock_vmci_transport    45056  2
+vsock                  61440  9 vmw_vsock_virtio_transport_common,vsock_loopback,vmw_vsock_vmci_transport
+vmw_vmci              118784  2 vmw_balloon,vmw_vsock_vmci_transport
+zram                   49152  1
+crct10dif_pclmul       12288  1
+crc32_pclmul           12288  0
+crc32c_intel           16384  3
+polyval_clmulni        12288  0
+polyval_generic        12288  1 polyval_clmulni
+ghash_clmulni_intel    16384  0
+sha512_ssse3           53248  0
+sha256_ssse3           36864  0
+sha1_ssse3             32768  0
+nvme                   69632  2
+nvme_core             253952  3 nvme
+nvme_auth              28672  1 nvme_core
+vmwgfx                503808  6
+drm_ttm_helper         16384  2 vmwgfx
+ttm                   114688  2 vmwgfx,drm_ttm_helper
+ata_generic            16384  0
+pata_acpi              12288  0
+serio_raw              20480  0
+fuse                  245760  7
