@@ -10,7 +10,7 @@ class PerformanceBenchmark < ApplicationRecord
  
    validates :name, presence: true
    validates :linux_os, presence: true
-   validates :benchmarks, presence: true
+   validates :benchmarks, presence: { message: 'Please select at least one benchmark.' }
    validates :description, presence: true
    validates :results, presence: true
 

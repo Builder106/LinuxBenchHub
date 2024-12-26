@@ -2,13 +2,17 @@
 .navbar,
 .nav-link,
 .navbar-toggler {
-  transition: all 0.3s ease;
+   transition: all 0.3s ease;
+}
+
+.navbar {
+   z-index: 1000;
 }
 
 /* Change navbar background on scroll */
 .navbar.scrolled {
   background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px hwb(0 0% 100% / 0.1);
 }
 
 /* Improve active link styling */
