@@ -6,6 +6,7 @@ require 'timeout'
 
 class BenchmarkService
   def self.run_benchmark(performance_benchmark)
+   begin
     # Configure Azure credentials
     client_id = ENV['AZURE_CLIENT_ID']
     client_secret = ENV['AZURE_CLIENT_SECRET']
@@ -132,6 +133,11 @@ class BenchmarkService
           raise "Unsupported benchmark: #{benchmark}"
         end
       end
+    end
+   rescue StandardError => e
+      puts "Error running benchmark: #{e.message}"
+      puts e.backtrace.join("\n")
+      raise
     end
   end
 end
