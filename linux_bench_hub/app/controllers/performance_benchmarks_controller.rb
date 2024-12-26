@@ -1,31 +1,31 @@
 class PerformanceBenchmarksController < ApplicationController
-   before_action :authenticate_user!, except: [:index, :show]
+   before_action :authenticate_user!, except: [:index, :show, :new, :create]
    before_action :set_benchmark, only: [:show]
  
    def index
-      if current_user
-        @performance_benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
-      else
-        @performance_benchmarks = PerformanceBenchmark.order(created_at: :desc)
-      end
+      # if current_user
+      #   @performance_benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
+      # else
+      @performance_benchmarks = PerformanceBenchmark.order(created_at: :desc)
    end
  
    def show
    end
  
    def new
-     @performance_benchmark = current_user.performance_benchmarks.new
+      @performance_benchmark = current_user ? current_user.performance_benchmarks.new : PerformanceBenchmark.new
    end
  
    def create
-     @performance_benchmark = current_user.performance_benchmarks.new(performance_benchmark_params)
-     if @performance_benchmark.save
-       BenchmarkService.run_benchmark(@performance_benchmark)
-       redirect_to @performance_benchmark, notice: 'Benchmark was successfully created.'
-     else
-       render :new
-     end
-   end
+      @performance_benchmark = current_user ? current_user.performance_benchmarks.new(performance_benchmark_params) : PerformanceBenchmark.new(performance_benchmark_params)
+      
+      if @performance_benchmark.save
+        BenchmarkService.run_benchmark(@performance_benchmark)
+        redirect_to @performance_benchmark, notice: 'Benchmark was successfully created.'
+      else
+        render :new
+      end
+    end
  
    def debian
      @performance_benchmarks = current_user.performance_benchmarks.where(linux_os: 'Debian').order(created_at: :desc)

@@ -40,6 +40,14 @@
           </li>
         </ul>
         
+        <!-- Conditionally display the search form only on Benchmarks pages, excluding 'new' and 'create' actions -->
+        <% if controller_name == 'performance_benchmarks' && !['new', 'create'].include?(action_name) %>
+          <form class="d-flex ms-3" action="<%= performance_benchmarks_path %>" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        <% end %>
+
         <!-- Right-aligned buttons -->
         <div class="d-flex">
           <% if user_signed_in? %>
@@ -49,14 +57,6 @@
             <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
           <% end %>
         </div>
-        
-        <!-- Conditionally display the search form only on Benchmarks pages -->
-        <% if controller_name == 'performance_benchmarks' %>
-          <form class="d-flex ms-3" action="<%= performance_benchmarks_path %>" method="get">
-            <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        <% end %>
       </div>
     </nav>
 
@@ -68,8 +68,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
-
-      <%= yield %>
+      
+      <div class="container pt-5">
+         <%= yield %>
+      </div>
     </div>
   </body>
 </html>
