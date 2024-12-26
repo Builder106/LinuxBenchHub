@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--Phoronix Test Suite v10.8.4-->
+<PhoronixTestSuite>
+  <Generated>
+    <Title>Network 12_25_2024</Title>
+    <LastModified>2024-12-26 02:39:13</LastModified>
+    <TestClient>Phoronix Test Suite v10.8.4</TestClient>
+    <Description>VMware testing on Fedora Linux 41 via the Phoronix Test Suite.</Description>
+  </Generated>
+  <System>
+    <Identifier>Network</Identifier>
+    <Hardware>Processor: 2 x Intel Core i5-7360U (3 Cores), Motherboard: Intel 440BX (6.00 BIOS), Chipset: Intel 440BX/ZX/DX, Memory: 4096MB, Disk: 21GB VMware Virtual NVMe Disk, Graphics: SVGA3D; build: RELEASE; LLVM;, Audio: Ensoniq ES1371/ES1373, Network: VMware VMXNET3</Hardware>
+    <Software>OS: Fedora Linux 41, Kernel: 6.12.5-200.fc41.x86_64 (x86_64), Desktop: GNOME Shell 47.2, Display Server: X Server + Wayland, OpenGL: 4.3 Mesa 24.2.8, Compiler: GCC 14.2.1 20240912, File-System: btrfs, Screen Resolution: 1440x900, System Layer: VMware</Software>
+    <User>yinka</User>
+    <TimeStamp>2024-12-26 02:30:35</TimeStamp>
+    <TestClientVersion>10.8.4</TestClientVersion>
+    <Notes></Notes>
+    <JSON>{"compiler-configuration":"--build=x86_64-redhat-linux --disable-libunwind-exceptions --enable-__cxa_atexit --enable-bootstrap --enable-cet --enable-checking=release --enable-gnu-indirect-function --enable-gnu-unique-object --enable-initfini-array --enable-languages=c,c++,fortran,objc,obj-c++,ada,go,d,m2,lto --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-multilib --enable-offload-defaulted --enable-offload-targets=nvptx-none,amdgcn-amdhsa --enable-plugin --enable-shared --enable-threads=posix --mandir=\/usr\/share\/man --with-arch_32=i686 --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-libstdcxx-zoneinfo=\/usr\/share\/zoneinfo --with-linker-hash-style=gnu --with-tune=generic --without-cuda-driver","cpu-microcode":"0xf6","kernel-extra-details":"Transparent Huge Pages: madvise","security":"SELinux + gather_data_sampling: Unknown: Dependent on hypervisor status + itlb_multihit: KVM: Mitigation of VMX unsupported + l1tf: Mitigation of PTE Inversion + mds: Mitigation of Clear buffers; SMT Host state unknown + meltdown: Mitigation of PTI + mmio_stale_data: Mitigation of Clear buffers; SMT Host state unknown + reg_file_data_sampling: Not affected + retbleed: Mitigation of IBRS + spec_rstack_overflow: Not affected + spec_store_bypass: Mitigation of SSB disabled via prctl + spectre_v1: Mitigation of usercopy\/swapgs barriers and __user pointer sanitization + spectre_v2: Mitigation of IBRS; IBPB: conditional; STIBP: disabled; RSB filling; PBRSB-eIBRS: Not affected; BHI: SW loop KVM: SW loop + srbds: Unknown: Dependent on hypervisor status + tsx_async_abort: Not affected"}</JSON>
+  </System>
+  <Result>
+    <Identifier>pts/aircrack-ng-1.3.0</Identifier>
+    <Title>Aircrack-ng</Title>
+    <AppVersion>1.7</AppVersion>
+    <Arguments></Arguments>
+    <Description></Description>
+    <Scale>k/s</Scale>
+    <Proportion>HIB</Proportion>
+    <DisplayFormat>BAR_GRAPH</DisplayFormat>
+    <Data>
+      <Entry>
+        <Identifier>Network</Identifier>
+        <Value>2583.807</Value>
+        <RawString>3366.086:3995.059:1546.067:1036.266:4181.792:3768.339:1548.055:1013.703:417.03:1796.448:2080.258:4258.446:3389.998:2532.427:3827.127</RawString>
+        <JSON>{"compiler-options":{"compiler-type":"CXX","compiler":"g++","compiler-options":"-std=gnu++17 -O3 -fvisibility=hidden -fcommon -rdynamic -lnl-3 -lnl-genl-3 -lpthread -lssl -lcrypto -ldl -lm -pthread"},"test-run-times":"30.17:30.21:30.49:31.12:30.46:30.21:30.26:30.36:31.02:30.16:30.16:30.13:30.22:30.38:30.24"}</JSON>
+      </Entry>
+    </Data>
+  </Result>
+</PhoronixTestSuite>
