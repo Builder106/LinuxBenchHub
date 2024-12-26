@@ -8206,3 +8206,180 @@ Processing by PerformanceBenchmarksController#create as HTML
 Completed 200 OK in 22ms (Views: 14.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 13:19:55 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (133.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 170.8ms | GC: 3.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 647.2ms | GC: 6.2ms)
+Completed 200 OK in 687ms (Views: 522.0ms | ActiveRecord: 133.1ms (1 query, 0 cached) | GC: 6.2ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 13:19:58 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 12.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.2ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 21.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 2.3ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:20:09 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 8.0ms | GC: 2.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | GC: 2.0ms)
+Completed 200 OK in 28ms (Views: 14.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 2.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 13:25:53 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (8.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 80.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 136.6ms | GC: 0.0ms)
+Completed 200 OK in 211ms (Views: 160.9ms | ActiveRecord: 8.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 13:25:59 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 17.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.2ms | GC: 0.0ms)
+Completed 200 OK in 58ms (Views: 27.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:26:10 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 18.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.4ms | GC: 0.0ms)
+Completed 200 OK in 49ms (Views: 28.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 13:27:26 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (6.0ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 49.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 454.3ms | GC: 200.2ms)
+Completed 200 OK in 482ms (Views: 456.6ms | ActiveRecord: 6.3ms (1 query, 0 cached) | GC: 200.2ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 13:38:57 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 66.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 80.1ms | GC: 0.0ms)
+Completed 200 OK in 334ms (Views: 89.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 56.5ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:39:04 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Network"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 4.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.4ms | GC: 0.0ms)
+Completed 200 OK in 115ms (Views: 12.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 34.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:40:26 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Network"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 47.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 123.2ms | GC: 4.2ms)
+Completed 200 OK in 1177ms (Views: 1005.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 13.3ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:40:49 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Network"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | GC: 0.0ms)
+Completed 200 OK in 50ms (Views: 11.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 8.6ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:53:56 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Network"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 25.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 46.5ms | GC: 0.0ms)
+Completed 200 OK in 114ms (Views: 68.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 13:54:23 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (75.7ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 129.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 134.4ms | GC: 0.0ms)
+Completed 200 OK in 173ms (Views: 59.6ms | ActiveRecord: 75.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 13:54:25 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 7.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.1ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 16.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 13:54:31 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 4.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.1ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 13.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 14:23:49 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 370.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 598.8ms | GC: 0.0ms)
+Completed 200 OK in 982ms (Views: 860.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 14:26:51 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 25.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 69.7ms | GC: 0.0ms)
+Completed 200 OK in 205ms (Views: 107.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 14:28:01 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 5.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.8ms | GC: 1.1ms)
+Completed 200 OK in 185ms (Views: 55.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.6ms)
+
+

@@ -116,14 +116,15 @@
     </nav>
 
     <% flash.each do |key, message| %>
-      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show flash-message" role="alert">
-        <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+         <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show flash-message" role="alert">
+         <%= message %>
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
     <% end %>
 
     <div class="container pt-7">
       <%= yield %>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
