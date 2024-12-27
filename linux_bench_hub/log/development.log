@@ -9726,3 +9726,75 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 443ms (Views: 432.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 81.6ms)
 
 
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:33:59 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (633.7ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 969.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1336.3ms | GC: 0.0ms)
+Completed 200 OK in 1507ms (Views: 735.6ms | ActiveRecord: 633.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:38:40 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 6.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 117.3ms | GC: 4.5ms)
+Completed 200 OK in 296ms (Views: 125.0ms | ActiveRecord: 14.6ms (0 queries, 0 cached) | GC: 15.5ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:41:16 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 9.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.6ms | GC: 2.5ms)
+Completed 200 OK in 165ms (Views: 50.4ms | ActiveRecord: 25.9ms (0 queries, 0 cached) | GC: 7.4ms)
+
+
+Started GET "/assets/navbar_custom.css" for ::1 at 2024-12-26 19:41:17 -0800
+Started GET "/assets/navbar_custom.css" for ::1 at 2024-12-26 19:41:25 -0800
+Started GET "/assets/navbar_custom.css" for ::1 at 2024-12-26 19:41:37 -0800
+Started GET "/" for ::1 at 2024-12-26 19:41:54 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.8ms | GC: 0.4ms)
+Completed 200 OK in 43ms (Views: 19.0ms | ActiveRecord: 9.4ms (0 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:42:06 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 4.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:42:17 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.5ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 75.5ms | GC: 1.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 78.6ms | GC: 1.9ms)
+Completed 200 OK in 97ms (Views: 61.1ms | ActiveRecord: 21.8ms (1 query, 0 cached) | GC: 1.9ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:42:40 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (1.1ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 25.2ms | GC: 6.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.2ms | GC: 8.7ms)
+Completed 200 OK in 42ms (Views: 37.1ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 8.7ms)
+
+

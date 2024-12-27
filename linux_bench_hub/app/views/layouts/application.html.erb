@@ -105,7 +105,7 @@
 
           <div class="d-flex">
             <% if user_signed_in? %>
-              <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
+              <%= _to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
             <% else %>
               <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary' %>
               <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
