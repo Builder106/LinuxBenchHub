@@ -5,6 +5,7 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable
  
    has_many :performance_benchmarks, dependent: :destroy
+   has_many :notifications, dependent: :destroy
  
    # Validations
    validates :email, presence: true, uniqueness: true
