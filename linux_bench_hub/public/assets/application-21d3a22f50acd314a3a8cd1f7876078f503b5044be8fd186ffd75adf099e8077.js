@@ -7,7 +7,7 @@
 import "bootstrap"
 
 // Import Stimulus controllers
-import { Application } from "stimulus"
+import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
 const application = Application.start()
