@@ -1,38 +1,58 @@
 <div class="container mt-5">
-  <!-- Hero Section -->
-  <div class="jumbotron text-center bg-light p-5 rounded">
-    <h1 class="display-4">Welcome to LinuxBenchHub</h1>
-    <p class="lead">Benchmark your favorite Linux distributions with ease.</p>
-    <hr class="my-4">
-    <% if user_signed_in? %>
-    <% else %>
-      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
-      <%= link_to 'Learn More', about_path, class: 'btn btn-secondary btn-lg' %>
-    <% end %>
-  </div>
+  <section class="hero jumbotron text-center bg-light p-5 rounded">
+    <div class="hero-content">
+      <h1 class="display-4 fw-bold">Unleash the Power of Your Linux System</h1>
+      <p class="lead mt-3">Benchmark and compare Linux distributions with ease. Discover optimal performance for your needs.</p>
+      <div class="hero-buttons mt-4">
+        <% if user_signed_in? %>
+          <%= link_to 'Start Benchmarking', performance_benchmarks_path, class: 'btn btn-primary btn-lg' %>
+        <% else %>
+          <%= link_to 'Get Started', new_user_registration_path, class: 'btn btn-primary btn-lg me-2' %>
+          <%= link_to 'Explore Benchmarks', performance_benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
+        <% end %>
+      </div>
+    </div>
+  </section>
 
-  <!-- Features Section -->
-  <div class="row mt-4">
-    <div class="col-md-4">
-      <h2>Easy Benchmarking</h2>
-      <p>Run benchmarks on multiple Linux distributions with a single click.</p>
+  <section class="features mt-5">
+    <h2 class="text-center mb-4">Key Features</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <i class="fas fa-rocket fa-3x text-primary mb-3"></i> <h5 class="card-title fw-bold">Effortless Benchmarking</h5>
+            <p class="card-text">Run comprehensive benchmarks on various Linux distributions with just a few clicks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+           <div class="card-body text-center">
+            <i class="fas fa-chart-bar fa-3x text-success mb-3"></i><h5 class="card-title fw-bold">Detailed Comparisons</h5>
+            <p class="card-text">Compare benchmark results side-by-side with interactive charts and graphs to make informed decisions.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <i class="fas fa-share-alt fa-3x text-info mb-3"></i><h5 class="card-title fw-bold">Save & Share Results</h5>
+            <p class="card-text">Save your benchmark configurations and results, and easily share them with the community.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4">
-      <h2>Compare Results</h2>
-      <p>Compare benchmarking results side by side to make informed decisions.</p>
-    </div>
-    <div class="col-md-4">
-      <h2>Save and Share</h2>
-      <p>Save your benchmark configurations and share them with others.</p>
-    </div>
-  </div>
+  </section>
 
-  <!-- Call to Action Section -->
-  <div class="text-center mt-5">
-    <% if user_signed_in? %>
-      <%= link_to 'Start Benchmarking', performance_benchmarks_path, class: 'btn btn-primary btn-lg' %>
-    <% else %>
-      <%= link_to 'Explore Benchmarks', performance_benchmarks_path, class: 'btn btn-outline-primary btn-lg' %>
-    <% end %>
-  </div>
 </div>
+
+<style>
+/* Optional: Style the icons */
+.fa-rocket, .fa-chart-bar, .fa-share-alt {
+  transition: transform 0.3s ease-in-out; /* Add smooth transitions */
+}
+
+.card:hover .fa-rocket, .card:hover .fa-chart-bar, .card:hover .fa-share-alt {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+</style>

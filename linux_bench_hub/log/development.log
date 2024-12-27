@@ -9516,3 +9516,213 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 165ms (Views: 34.2ms | ActiveRecord: 76.5ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for ::1 at 2024-12-26 19:17:46 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 10.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 218.5ms | GC: 0.0ms)
+Completed 200 OK in 294ms (Views: 255.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:17:48 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (2.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 317.9ms | GC: 167.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 321.6ms | GC: 167.8ms)
+Completed 200 OK in 337ms (Views: 322.2ms | ActiveRecord: 3.0ms (1 query, 0 cached) | GC: 167.8ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:18:32 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.8ms | GC: 1.6ms)
+Completed 200 OK in 48ms (Views: 17.7ms | ActiveRecord: 5.6ms (0 queries, 0 cached) | GC: 3.4ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:18:49 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.5ms | GC: 0.4ms)
+Completed 200 OK in 45ms (Views: 20.0ms | ActiveRecord: 3.8ms (0 queries, 0 cached) | GC: 1.5ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:19:15 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.0ms | GC: 0.0ms)
+Completed 200 OK in 48ms (Views: 26.2ms | ActiveRecord: 2.4ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:21:55 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 8.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 36.0ms | GC: 1.6ms)
+Completed 200 OK in 251ms (Views: 81.3ms | ActiveRecord: 72.4ms (0 queries, 0 cached) | GC: 2.6ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:23:11 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 9.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 38.1ms | GC: 2.5ms)
+Completed 200 OK in 157ms (Views: 95.5ms | ActiveRecord: 9.5ms (0 queries, 0 cached) | GC: 6.2ms)
+
+
+Started GET "/assets/hero-bg.jpg" for ::1 at 2024-12-26 19:23:12 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/assets/hero-bg.jpg"):
+  
+Started GET "/" for ::1 at 2024-12-26 19:23:16 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 5.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/assets/hero-bg.jpg" for ::1 at 2024-12-26 19:23:16 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/assets/hero-bg.jpg"):
+  
+Started GET "/" for ::1 at 2024-12-26 19:23:17 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 4.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/assets/hero-bg.jpg" for ::1 at 2024-12-26 19:23:17 -0800
+  
+ActionController::RoutingError (No route matches [GET] "/assets/hero-bg.jpg"):
+  
+Started GET "/" for ::1 at 2024-12-26 19:23:27 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | GC: 0.4ms)
+Completed 200 OK in 41ms (Views: 22.3ms | ActiveRecord: 3.6ms (0 queries, 0 cached) | GC: 1.1ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:24:18 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 4.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.8ms | GC: 12.1ms)
+Completed 200 OK in 96ms (Views: 47.0ms | ActiveRecord: 8.2ms (0 queries, 0 cached) | GC: 14.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:25:03 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (20.7ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 518.8ms | GC: 94.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1309.5ms | GC: 94.0ms)
+Completed 200 OK in 4297ms (Views: 1326.6ms | ActiveRecord: 2708.8ms (1 query, 0 cached) | GC: 94.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:25:21 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (5.0ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 203.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 514.9ms | GC: 12.7ms)
+Completed 200 OK in 574ms (Views: 528.4ms | ActiveRecord: 4.9ms (1 query, 0 cached) | GC: 12.7ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2024-12-26 19:25:25 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 168.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 178.1ms | GC: 0.0ms)
+Completed 200 OK in 449ms (Views: 325.7ms | ActiveRecord: 8.4ms (0 queries, 0 cached) | GC: 8.7ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2024-12-26 19:25:31 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 6.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | GC: 5.0ms)
+Completed 200 OK in 30ms (Views: 21.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 5.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:26:10 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 42.5ms | GC: 20.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 62.7ms | GC: 20.7ms)
+Completed 200 OK in 115ms (Views: 72.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 20.7ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2024-12-26 19:26:44 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 41.4ms | GC: 9.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 44.9ms | GC: 9.0ms)
+Completed 200 OK in 73ms (Views: 50.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 9.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 19:26:47 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (2.5ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 45.4ms | GC: 7.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 51.3ms | GC: 7.9ms)
+Completed 200 OK in 64ms (Views: 54.3ms | ActiveRecord: 3.0ms (1 query, 0 cached) | GC: 7.9ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 19:26:51 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 606.3ms | GC: 11.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 611.6ms | GC: 11.2ms)
+Completed 200 OK in 680ms (Views: 613.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 11.2ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 19:26:57 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Fedora", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 6.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | GC: 0.0ms)
+Completed 200 OK in 107ms (Views: 17.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 11.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 19:27:01 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 429.5ms | GC: 81.6ms)
+Completed 200 OK in 443ms (Views: 432.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 81.6ms)
+
+
