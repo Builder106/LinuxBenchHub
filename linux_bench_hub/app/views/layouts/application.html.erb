@@ -13,7 +13,6 @@
     <%= favicon_link_tag asset_path('logo.png') %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "navbar_custom", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <style>
       /* Improved Navbar Styling */
@@ -57,7 +56,7 @@
       }
 
       /* Responsive adjustments */
-      @media (max-width: 991.98px) {
+      @media (max-width: 768px) {
         .navbar-nav {
           text-align: center; /* Center align nav items on smaller screens */
         }
