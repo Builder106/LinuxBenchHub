@@ -47,14 +47,18 @@ class BenchmarkService
                       end
 
     # Create resource group
-    resource_client.resource_groups.create_or_update(resource_group_name, { location: location })
+    resource_group_params = Azure::Resources::Models::ResourceGroup.new
+    resource_group_params.location = location
+    puts "Creating resource group with location: #{location}"
+    resource_client.resource_groups.create_or_update(resource_group_name, resource_group_params)
+    # resource_client.resource_groups.create_or_update(resource_group_name, { location: location })
 
     # Create virtual network and subnet
     vnet_params = {
       location: location,
       address_space: { address_prefixes: ['10.0.0.0/16'] }
     }
-    vnet = network_client.virtual_networks.create_or_update(resource_group_name, 'vnet', vnet_params)
+    network_client.virtual_networks.create_or_update(resource_group_name, 'vnet', vnet_params)
 
     subnet_params = {
       address_prefix: '10.0.0.0/24'
@@ -106,7 +110,7 @@ class BenchmarkService
         }]
       }
     }
-    vm = compute_client.virtual_machines.create_or_update(resource_group_name, vm_name, vm_params)
+    compute_client.virtual_machines.create_or_update(resource_group_name, vm_name, vm_params)
 
     # Get the public IP address of the VM
     public_ip = network_client.public_ipaddresses.get(resource_group_name, 'publicIP')
@@ -138,6 +142,6 @@ class BenchmarkService
       puts "Error running benchmark: #{e.message}"
       puts e.backtrace.join("\n")
       raise
-    end
+   end
   end
 end

@@ -8,7 +8,6 @@
         <th>Name</th>
         <th>Linux OS</th>
         <th>Benchmark Types</th>
-        <th>Description</th>
         <th>Created At</th>
         <th>Actions</th>
       </tr>
@@ -18,8 +17,7 @@
         <tr>
           <td><%= benchmark.name %></td>
           <td><%= benchmark.linux_os %></td>
-          <td><%= benchmark.benchmarks.join(', ') %></td>
-          <td><%= benchmark.description %></td>
+          <td><%= benchmark.benchmarks.reject(&:blank?).join(', ') %></td>
           <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
           <td>
             <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm' %>
