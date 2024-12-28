@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_25_001432) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_28_065656) do
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "message"
@@ -22,15 +22,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_25_001432) do
 
   create_table "performance_benchmarks", force: :cascade do |t|
     t.string "name"
-    t.text "data"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "linux_os"
     t.text "benchmarks"
-    t.text "description"
     t.text "results"
     t.integer "user_id"
-    t.json "configuration"
     t.index ["user_id"], name: "index_performance_benchmarks_on_user_id"
   end
 

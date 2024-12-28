@@ -9859,3 +9859,668 @@ Completed 200 OK in 184ms (Views: 111.2ms | ActiveRecord: 26.7ms (1 query, 0 cac
 
 
 [dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-26 20:36:03 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='LinuxBenchHub',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:3:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 36.8ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 1569ms (ActiveRecord: 7.0ms (1 query, 0 cached) | GC: 5.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `_to' for an instance of #<Class:0x0000000129d8f980>)
+Caused by: NoMethodError (undefined method `_to' for an instance of #<Class:0x0000000129d8f980>)
+
+Information for: ActionView::Template::Error (undefined method `_to' for an instance of #<Class:0x0000000129d8f980>):
+    107:               <%= _to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
+    108:             <% else %>
+    109:               <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary' %>
+    110:               <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
+    111:             <% end %>
+    112:           </div>
+    113:         </div>
+  
+app/views/layouts/application.html.erb:110
+
+Information for cause: NoMethodError (undefined method `_to' for an instance of #<Class:0x0000000129d8f980>):
+  
+app/views/layouts/application.html.erb:110
+Started GET "/" for 127.0.0.1 at 2024-12-26 20:36:53 -0800
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='LinuxBenchHub',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:3:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 7.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.5ms | GC: 0.0ms)
+Completed 200 OK in 185ms (Views: 41.0ms | ActiveRecord: 29.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2024-12-26 20:37:03 -0800
+  
+ActionController::RoutingError (No route matches [DELETE] "/users/sign_out"):
+  
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2024-12-26 20:37:16 -0800
+  
+ActionController::RoutingError (No route matches [DELETE] "/users/sign_out"):
+  
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2024-12-26 20:37:17 -0800
+  
+ActionController::RoutingError (No route matches [DELETE] "/users/sign_out"):
+  
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2024-12-26 20:37:41 -0800
+  
+ActionController::RoutingError (No route matches [DELETE] "/users/sign_out"):
+  
+Started GET "/" for ::1 at 2024-12-26 20:37:48 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | GC: 1.7ms)
+Completed 200 OK in 110ms (Views: 25.0ms | ActiveRecord: 10.8ms (0 queries, 0 cached) | GC: 1.7ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2024-12-26 20:39:54 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1616.0ms | GC: 5.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 1628.0ms | GC: 5.2ms)
+Completed 200 OK in 2404ms (Views: 2059.2ms | ActiveRecord: 5.2ms (0 queries, 0 cached) | GC: 11.7ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2024-12-26 20:40:01 -0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'user@example.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='LinuxBenchHub',controller='sessions'*/[0m
+Redirected to http://localhost:3000/
+Completed 303 See Other in 2216ms (ActiveRecord: 2.9ms (1 query, 0 cached) | GC: 5.4ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 20:40:04 -0800
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='LinuxBenchHub',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:3:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | GC: 0.0ms)
+Completed 200 OK in 272ms (Views: 15.2ms | ActiveRecord: 4.0ms (1 query, 0 cached) | GC: 5.4ms)
+
+
+Started GET "/users/sign_out" for ::1 at 2024-12-26 20:40:11 -0800
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1 /*action='destroy',application='LinuxBenchHub',controller='sessions'*/[0m
+Redirected to http://localhost:3000/
+Completed 303 See Other in 1204ms (ActiveRecord: 4.5ms (1 query, 0 cached) | GC: 10.5ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 20:40:12 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 61.4ms | GC: 0.0ms)
+Completed 200 OK in 106ms (Views: 93.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 20:40:26 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (4.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 263.0ms | GC: 15.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 286.9ms | GC: 18.4ms)
+Completed 200 OK in 436ms (Views: 304.0ms | ActiveRecord: 3.8ms (1 query, 0 cached) | GC: 18.4ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 20:41:55 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 4569.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4615.9ms | GC: 0.0ms)
+Completed 200 OK in 5787ms (Views: 4635.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 20:50:30 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 35.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 216.8ms | GC: 0.0ms)
+Completed 200 OK in 1414ms (Views: 1293.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 20:50:44 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 12.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 93.3ms | GC: 17.6ms)
+Completed 200 OK in 165ms (Views: 105.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 35.8ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 20:51:49 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 59.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 701.7ms | GC: 39.8ms)
+Completed 200 OK in 1261ms (Views: 862.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 39.8ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 20:52:16 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 37.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 83.1ms | GC: 0.0ms)
+Completed 200 OK in 141ms (Views: 97.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 20:52:26 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 20:52:27 -0800
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 14.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 30.7ms | GC: 0.0ms)
+Completed 200 OK in 526ms (Views: 33.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 7.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | GC: 0.0ms)
+Completed 200 OK in 23ms (Views: 14.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 21:54:20 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 17.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 130.3ms | GC: 5.7ms)
+Completed 200 OK in 476ms (Views: 187.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 5.7ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 21:54:45 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (2039.9ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:17
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 3304.4ms | GC: 20.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 3464.0ms | GC: 20.8ms)
+Completed 200 OK in 3515ms (Views: 1440.0ms | ActiveRecord: 2037.2ms (1 query, 0 cached) | GC: 20.8ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:04:21 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (104.6ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 202.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 273.9ms | GC: 0.0ms)
+Completed 200 OK in 342ms (Views: 180.6ms | ActiveRecord: 104.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:05:32 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (6.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 161.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 227.4ms | GC: 0.0ms)
+Completed 200 OK in 344ms (Views: 252.2ms | ActiveRecord: 5.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+[dotenv] Loaded [33m.env[0m
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:08:30 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20241227060815_remove_description_from_performance_benchmarks.rb
+
+
+):
+  
+activerecord (8.0.1) lib/active_record/migration.rb:743:in `check_pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:95:in `execute_if_updated'
+activerecord (8.0.1) lib/active_record/migration.rb:667:in `block in call'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.8) lib/rack/method_override.rb:28:in `call'
+rack (3.1.8) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.8) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.5.0) lib/puma/configuration.rb:279:in `call'
+puma (6.5.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.5.0) lib/puma/thread_pool.rb:389:in `with_force_shutdown'
+puma (6.5.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.5.0) lib/puma/server.rb:468:in `process_client'
+puma (6.5.0) lib/puma/server.rb:249:in `block in run'
+puma (6.5.0) lib/puma/thread_pool.rb:166:in `block in spawn_thread'
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to RemoveDescriptionFromPerformanceBenchmarks (20241227060815)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (8.9ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "description" text, "results" text, "user_id" integer, "configuration" json) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aperformance_benchmarks_on_user_id" ON "aperformance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id","configuration")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","description","results","user_id","configuration" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json, CONSTRAINT "fk_rails_c8a978fa2f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241227060815') RETURNING "version" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Started GET "/" for ::1 at 2024-12-26 22:10:20 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 4.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.0ms | GC: 0.0ms)
+Completed 200 OK in 773ms (Views: 583.6ms | ActiveRecord: 41.6ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:10:26 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.3ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 48.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 76.8ms | GC: 0.0ms)
+Completed 200 OK in 279ms (Views: 176.5ms | ActiveRecord: 1.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:12:48 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (2.0ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 173.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 224.5ms | GC: 0.0ms)
+Completed 200 OK in 3269ms (Views: 322.2ms | ActiveRecord: 237.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 22:13:14 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 2174.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2186.7ms | GC: 0.0ms)
+Completed 200 OK in 3537ms (Views: 2269.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:13:37 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 8.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | GC: 0.0ms)
+Completed 200 OK in 679ms (Views: 15.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 276.5ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:31:09 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 27.3ms | GC: 3.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 38.9ms | GC: 3.8ms)
+Completed 200 OK in 610ms (Views: 323.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 10.0ms)
+
+
+Started GET "/" for ::1 at 2024-12-26 22:31:15 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | GC: 0.0ms)
+Completed 200 OK in 30ms (Views: 7.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2024-12-26 22:31:19 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 11.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.7ms | GC: 0.0ms)
+Completed 200 OK in 97ms (Views: 48.6ms | ActiveRecord: 24.5ms (0 queries, 0 cached) | GC: 3.6ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:31:22 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.6ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 17.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.7ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 40ms (ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `reject' for an instance of String)
+Caused by: NoMethodError (undefined method `reject' for an instance of String)
+
+Information for: ActionView::Template::Error (undefined method `reject' for an instance of String):
+    17:         <tr>
+    18:           <td><%= benchmark.name %></td>
+    19:           <td><%= benchmark.linux_os %></td>
+    20:           <td><%= benchmark.benchmarks.reject(&:blank?).join(', ') %></td>
+    21:           <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
+    22:           <td>
+    23:             <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm' %>
+  
+app/views/performance_benchmarks/index.html.erb:20
+app/views/performance_benchmarks/index.html.erb:16
+
+Information for cause: NoMethodError (undefined method `reject' for an instance of String):
+  
+app/views/performance_benchmarks/index.html.erb:20
+app/views/performance_benchmarks/index.html.erb:16
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:31:31 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 2.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `reject' for an instance of String)
+Caused by: NoMethodError (undefined method `reject' for an instance of String)
+
+Information for: ActionView::Template::Error (undefined method `reject' for an instance of String):
+    17:         <tr>
+    18:           <td><%= benchmark.name %></td>
+    19:           <td><%= benchmark.linux_os %></td>
+    20:           <td><%= benchmark.benchmarks.reject(&:blank?).join(', ') %></td>
+    21:           <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
+    22:           <td>
+    23:             <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm' %>
+  
+app/views/performance_benchmarks/index.html.erb:20
+app/views/performance_benchmarks/index.html.erb:16
+
+Information for cause: NoMethodError (undefined method `reject' for an instance of String):
+  
+app/views/performance_benchmarks/index.html.erb:20
+app/views/performance_benchmarks/index.html.erb:16
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 22:31:38 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (0.2ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 17.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 26.8ms | GC: 0.0ms)
+Completed 200 OK in 57ms (Views: 29.3ms | ActiveRecord: 16.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 22:31:45 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 32.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 38.7ms | GC: 0.0ms)
+Completed 200 OK in 51ms (Views: 42.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:32:27 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 2, expected 1)):
+  
+app/models/performance_benchmark.rb:7:in `<class:PerformanceBenchmark>'
+app/models/performance_benchmark.rb:3:in `<main>'
+app/controllers/performance_benchmarks_controller.rb:20:in `create'
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:34:13 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 21.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 41.1ms | GC: 0.0ms)
+Completed 200 OK in 171ms (Views: 76.7ms | ActiveRecord: 18.5ms (0 queries, 0 cached) | GC: 2.8ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:34:20 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 15.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.6ms | GC: 0.0ms)
+Completed 200 OK in 50ms (Views: 29.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 22:48:56 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 71.8ms | GC: 24.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 167.3ms | GC: 58.5ms)
+Completed 200 OK in 826ms (Views: 444.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 141.2ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-26 23:02:09 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "Memory"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 13.3ms | GC: 2.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.7ms | GC: 2.1ms)
+Completed 200 OK in 152ms (Views: 85.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 13.5ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-26 23:02:14 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (103.8ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 130.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 133.8ms | GC: 0.0ms)
+Completed 200 OK in 171ms (Views: 30.7ms | ActiveRecord: 103.8ms (1 query, 0 cached) | GC: 4.6ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-26 23:23:55 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 64.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 86.4ms | GC: 0.0ms)
+Completed 200 OK in 289ms (Views: 103.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-27 07:27:35 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 90.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 120.9ms | GC: 0.0ms)
+Completed 200 OK in 739ms (Views: 148.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 43.2ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-27 22:32:44 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mPerformanceBenchmark Create (925.6ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 06:32:47.936750', '2024-12-28 06:32:47.936750', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (116.8ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+Completed 500 Internal Server Error in 51128ms (ActiveRecord: 1044.1ms (1 query, 0 cached) | GC: 63.9ms)
+
+
+  
+MsRest::ValidationError (location is required and cannot be nil):
+  
+app/services/benchmark_service.rb:50:in `run_benchmark'
+app/controllers/performance_benchmarks_controller.rb:23:in `create'
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Migrating to RemoveFieldsFromPerformanceBenchmarks (20241228065656)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "data" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aperformance_benchmarks_on_user_id" ON "aperformance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","data","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","data","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json, CONSTRAINT "fk_rails_c8a978fa2f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aperformance_benchmarks_on_user_id" ON "aperformance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","created_at","updated_at","linux_os","benchmarks","results","user_id","configuration" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json, CONSTRAINT "fk_rails_c8a978fa2f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","created_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","created_at","linux_os","benchmarks","results","user_id","configuration" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='LinuxBenchHub'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='LinuxBenchHub'*/[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aperformance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, "configuration" json) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aperformance_benchmarks_on_user_id" ON "aperformance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "aperformance_benchmarks" ("id","name","created_at","linux_os","benchmarks","results","user_id","configuration")
+                     SELECT "id","name","created_at","linux_os","benchmarks","results","user_id","configuration" FROM "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "performance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "performance_benchmarks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "linux_os" varchar, "benchmarks" text, "results" text, "user_id" integer, CONSTRAINT "fk_rails_c8a978fa2f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_performance_benchmarks_on_user_id" ON "performance_benchmarks" ("user_id") /*application='LinuxBenchHub'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("id","name","created_at","linux_os","benchmarks","results","user_id")
+                     SELECT "id","name","created_at","linux_os","benchmarks","results","user_id" FROM "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aperformance_benchmarks" /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='LinuxBenchHub'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241228065656') RETURNING "version" /*application='LinuxBenchHub'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LinuxBenchHub'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Started POST "/performance_benchmarks" for ::1 at 2024-12-27 23:08:49 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mPerformanceBenchmark Create (25.7ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 07:08:51.602895', '2024-12-28 07:08:51.602895', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+Completed 500 Internal Server Error in 99ms (ActiveRecord: 25.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: table performance_benchmarks has no column named data:
+INSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 07:08:51.602895', '2024-12-28 07:08:51.602895', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/)
+Caused by: SQLite3::SQLException (table performance_benchmarks has no column named data:
+INSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 07:08:51.602895', '2024-12-28 07:08:51.602895', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/)
+
+Information for: ActiveRecord::StatementInvalid (SQLite3::SQLException: table performance_benchmarks has no column named data:
+INSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 07:08:51.602895', '2024-12-28 07:08:51.602895', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/):
+  
+
+Information for cause: SQLite3::SQLException (table performance_benchmarks has no column named data:
+INSERT INTO "performance_benchmarks" ("name", "data", "created_at", "updated_at", "linux_os", "benchmarks", "results", "user_id", "configuration") VALUES ('Test', NULL, '2024-12-28 07:08:51.602895', '2024-12-28 07:08:51.602895', 'Ubuntu', '["","CPU"]', NULL, NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/):
+  
+app/controllers/performance_benchmarks_controller.rb:22:in `create'

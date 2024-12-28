@@ -26,7 +26,7 @@ class PerformanceBenchmarksController < ApplicationController
         flash.now[:error] = 'Failed to create benchmark. Please check the input and try again.'
         render :new
       end
-    end
+   end
  
    def debian
      @performance_benchmarks = current_user.performance_benchmarks.where(linux_os: 'Debian').order(created_at: :desc)
@@ -68,6 +68,6 @@ class PerformanceBenchmarksController < ApplicationController
    end
  
    def performance_benchmark_params
-      params.require(:performance_benchmark).permit(:name, :description, :linux_os, benchmarks: [], results: {}, configuration: {})
-    end
- end
+      params.require(:performance_benchmark).permit(:name, :linux_os, benchmarks: [])
+   end
+end
