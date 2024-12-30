@@ -3,145 +3,153 @@ require 'azure_mgmt_network'
 require 'azure_mgmt_resources'
 require 'net/ssh'
 require 'timeout'
+require 'securerandom'
 
 class BenchmarkService
   def self.run_benchmark(performance_benchmark)
-   begin
-    # Configure Azure credentials
-    client_id = ENV['AZURE_CLIENT_ID']
-    client_secret = ENV['AZURE_CLIENT_SECRET']
-    tenant_id = ENV['AZURE_TENANT_ID']
-    subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+    begin
+      # Configure Azure credentials
+      client_id = ENV['AZURE_CLIENT_ID']
+      client_secret = ENV['AZURE_CLIENT_SECRET']
+      tenant_id = ENV['AZURE_TENANT_ID']
+      subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
 
-    # Ensure location is set
-    location = 'eastus'
+      # Ensure location is set
+      location = 'eastus'
 
-    # Create Azure clients
-    provider = MsRestAzure::ApplicationTokenProvider.new(tenant_id, client_id, client_secret)
-    credentials = MsRest::TokenCredentials.new(provider)
+      # Create Azure clients
+      provider = MsRestAzure::ApplicationTokenProvider.new(tenant_id, client_id, client_secret)
+      credentials = MsRest::TokenCredentials.new(provider)
 
-    compute_client = Azure::Compute::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
-    compute_client.subscription_id = subscription_id
+      compute_client = Azure::Compute::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
+      compute_client.subscription_id = subscription_id
 
-    network_client = Azure::Network::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
-    network_client.subscription_id = subscription_id
+      network_client = Azure::Network::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
+      network_client.subscription_id = subscription_id
 
-    resource_client = Azure::Resources::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
-    resource_client.subscription_id = subscription_id
+      resource_client = Azure::Resources::Profiles::Latest::Mgmt::Client.new(credentials: credentials)
+      resource_client.subscription_id = subscription_id
 
-    # Define resource group and VM parameters
-    resource_group_name = 'LinuxBenchHub'
-    vm_name = "benchmark-vm-#{SecureRandom.hex(4)}"
-    vm_size = 'Standard_B1s'
+      # Define unique resource group and VM parameters
+      unique_id = SecureRandom.hex(4)
+      resource_group_name = "LinuxBenchHub-#{unique_id}"
+      vm_name = "benchmark-vm-#{unique_id}"
+      vnet_name = "vnet-#{unique_id}"
+      subnet_name = "subnet-#{unique_id}"
+      public_ip_name = "publicIP-#{unique_id}"
+      nic_name = "nic-#{unique_id}"
+      vm_size = 'Standard_B1s'
 
-    # Map the selected Linux OS to the corresponding image reference
-    image_reference = case performance_benchmark.linux_os
-                      when 'Ubuntu'
-                        { publisher: 'Canonical', offer: 'UbuntuServer', sku: '18.04-LTS', version: 'latest' }
-                      when 'Fedora'
-                        { publisher: 'Fedora', offer: 'Fedora-Cloud', sku: '32', version: 'latest' }
-                      when 'Debian'
-                        { publisher: 'Debian', offer: 'debian-10', sku: '10', version: 'latest' }
-                      else
-                        raise "Unsupported Linux OS: #{performance_benchmark.linux_os}"
-                      end
+      # Define image reference
+      image_reference = Azure::Compute::Profiles::Latest::Mgmt::Models::ImageReference.new
+      image_reference.publisher = 'Canonical'
+      image_reference.offer = 'UbuntuServer'
+      image_reference.sku = '18.04-LTS'
+      image_reference.version = 'latest'
 
-    # Create resource group
-    resource_group_params = Azure::Resources::Models::ResourceGroup.new
-    resource_group_params.location = location
-    puts "Creating resource group with location: #{location}"
-    resource_client.resource_groups.create_or_update(resource_group_name, resource_group_params)
-    # resource_client.resource_groups.create_or_update(resource_group_name, { location: location })
+      # Create resource group
+      resource_group_params = Azure::Resources::Profiles::Latest::Mgmt::Models::ResourceGroup.new
+      resource_group_params.location = location
+      puts "Creating resource group with location: #{location}"
+      resource_client.resource_groups.create_or_update(resource_group_name, resource_group_params)
 
-    # Create virtual network and subnet
-    vnet_params = {
-      location: location,
-      address_space: { address_prefixes: ['10.0.0.0/16'] }
-    }
-    network_client.virtual_networks.create_or_update(resource_group_name, 'vnet', vnet_params)
+      # Create virtual network
+      vnet_params = Azure::Network::Profiles::Latest::Mgmt::Models::VirtualNetwork.new
+      vnet_params.location = location
+      vnet_params.address_space = Azure::Network::Profiles::Latest::Mgmt::Models::AddressSpace.new
+      vnet_params.address_space.address_prefixes = ['10.0.0.0/16']
+      network_client.virtual_networks.create_or_update(resource_group_name, vnet_name, vnet_params)
 
-    subnet_params = {
-      address_prefix: '10.0.0.0/24'
-    }
-    subnet = network_client.subnets.create_or_update(resource_group_name, 'vnet', 'subnet', subnet_params)
+      # Create subnet
+      subnet_params = Azure::Network::Profiles::Latest::Mgmt::Models::Subnet.new
+      subnet_params.address_prefix = '10.0.0.0/24'
+      subnet = network_client.subnets.create_or_update(resource_group_name, vnet_name, subnet_name, subnet_params)
 
-    # Create public IP address
-    public_ip_params = {
-      location: location,
-      public_ip_allocation_method: 'Dynamic'
-    }
-    public_ip = network_client.public_ipaddresses.create_or_update(resource_group_name, 'publicIP', public_ip_params)
+      # Create public IP address
+      public_ip_params = Azure::Network::Profiles::Latest::Mgmt::Models::PublicIPAddress.new
+      public_ip_params.location = location
+      public_ip_params.public_ipallocation_method = 'Dynamic' # Corrected attribute name
 
-    # Create network interface
-    nic_params = {
-      location: location,
-      ip_configurations: [{
-        name: 'ipconfig1',
-        public_ipaddress: public_ip,
-        subnet: subnet
-      }]
-    }
-    nic = network_client.network_interfaces.create_or_update(resource_group_name, 'nic', nic_params)
+      public_ip = network_client.public_ipaddresses.create_or_update(resource_group_name, public_ip_name, public_ip_params)
 
-    # Create virtual machine
-    vm_params = {
-      location: location,
-      hardware_profile: {
-        vm_size: vm_size
-      },
-      storage_profile: {
-        image_reference: image_reference,
-        os_disk: {
-          name: 'osdisk',
-          caching: 'ReadWrite',
-          create_option: 'FromImage',
-          disk_size_gb: 30
+      # Create network interface
+      nic_params = Azure::Network::Profiles::Latest::Mgmt::Models::NetworkInterface.new
+      nic_params.location = location
+      nic_params.ip_configurations = [
+        Azure::Network::Profiles::Latest::Mgmt::Models::NetworkInterfaceIPConfiguration.new.tap do |ip_config|
+          ip_config.name = 'ipconfig1'
+          ip_config.public_ipaddress = public_ip
+          ip_config.subnet = Azure::Network::Profiles::Latest::Mgmt::Models::Subnet.new.tap do |s|
+            s.id = subnet.id
+          end
+        end
+      ]
+      nic = network_client.network_interfaces.create_or_update(resource_group_name, nic_name, nic_params)
+
+      # Create virtual machine
+      vm_params = Azure::Compute::Profiles::Latest::Mgmt::Models::VirtualMachine.new
+      vm_params.location = location
+      vm_params.hardware_profile = Azure::Compute::Profiles::Latest::Mgmt::Models::HardwareProfile.new
+      vm_params.hardware_profile.vm_size = vm_size
+
+      vm_params.storage_profile = Azure::Compute::Profiles::Latest::Mgmt::Models::StorageProfile.new
+      vm_params.storage_profile.image_reference = image_reference
+      vm_params.storage_profile.os_disk = Azure::Compute::Profiles::Latest::Mgmt::Models::OSDisk.new
+      vm_params.storage_profile.os_disk.name = 'osdisk'
+      vm_params.storage_profile.os_disk.caching = 'ReadWrite'
+      vm_params.storage_profile.os_disk.create_option = 'FromImage'
+      vm_params.storage_profile.os_disk.disk_size_gb = 30
+
+      vm_params.os_profile = Azure::Compute::Profiles::Latest::Mgmt::Models::OSProfile.new
+      vm_params.os_profile.computer_name = vm_name
+      vm_params.os_profile.admin_username = 'azureuser'
+      vm_params.os_profile.admin_password = 'Password123!'
+
+      vm_params.network_profile = Azure::Compute::Profiles::Latest::Mgmt::Models::NetworkProfile.new
+      vm_params.network_profile.network_interfaces = [
+        Azure::Compute::Profiles::Latest::Mgmt::Models::NetworkInterfaceReference.new.tap do |nic_ref|
+          nic_ref.id = nic.id
+          nic_ref.primary = true
+        end
+      ]
+
+      compute_client.virtual_machines.create_or_update(resource_group_name, vm_name, vm_params)
+
+      # Get the public IP address of the VM
+      public_ip = network_client.public_ipaddresses.get(resource_group_name, public_ip_name)
+      vm_ip = public_ip.ip_address
+
+      # Wait for the VM to be ready
+      sleep 60
+
+      # Connect to the VM and run the benchmark
+      Net::SSH.start(vm_ip, 'azureuser', password: 'Password123!') do |ssh|
+        # Install Phoronix Test Suite
+        ssh.exec!("sudo apt-get update && sudo apt-get install -y phoronix-test-suite")
+    
+        # Define supported benchmarks
+        supported_benchmarks = {
+          'CPU' => "c-ray",
+          'Memory' => "tinymembench",
+          'Network' => "aircrack-ng"
         }
-      },
-      os_profile: {
-        computer_name: vm_name,
-        admin_username: 'azureuser',
-        admin_password: 'Password123!'
-      },
-      network_profile: {
-        network_interfaces: [{
-          id: nic.id,
-          primary: true
-        }]
-      }
-    }
-    compute_client.virtual_machines.create_or_update(resource_group_name, vm_name, vm_params)
-
-    # Get the public IP address of the VM
-    public_ip = network_client.public_ipaddresses.get(resource_group_name, 'publicIP')
-    vm_ip = public_ip.ip_address
-
-    # Wait for the VM to be ready
-    sleep 60
-
-    # Connect to the VM and run the benchmark
-    Net::SSH.start(vm_ip, 'azureuser', password: 'Password123!') do |ssh|
-      # Install Phoronix Test Suite
-      ssh.exec!("sudo apt-get update && sudo apt-get install -y phoronix-test-suite")
-
-      # Run the selected benchmarks
-      performance_benchmark.benchmarks.each do |benchmark|
-        case benchmark
-        when 'CPU'
-          ssh.exec!("echo 'y' | phoronix-test-suite batch-benchmark c-ray")
-        when 'Memory'
-          ssh.exec!("echo 'y' | phoronix-test-suite batch-benchmark tinymembench")
-        when 'Network'
-          ssh.exec!("echo 'y' | phoronix-test-suite batch-benchmark aircrack-ng")
-        else
-          raise "Unsupported benchmark: #{benchmark}"
+    
+        # Run the selected benchmarks
+        performance_benchmark.benchmarks.each do |benchmark|
+          next if benchmark.strip.empty? # Skip empty strings
+    
+          test = supported_benchmarks[benchmark]
+          if test
+            ssh.exec!("echo 'y' | phoronix-test-suite batch-benchmark #{test}")
+          else
+            raise "Unsupported benchmark: #{benchmark}"
+          end
         end
       end
-    end
-   rescue StandardError => e
+    rescue StandardError => e
       puts "Error running benchmark: #{e.message}"
       puts e.backtrace.join("\n")
       raise
-   end
+    end
   end
 end

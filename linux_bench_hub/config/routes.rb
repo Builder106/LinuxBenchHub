@@ -21,10 +21,11 @@ Rails.application.routes.draw do
    get 'performance_benchmarks/compare', to: 'performance_benchmarks#compare', as: 'compare_benchmarks'
  
    # Resources for Performance Benchmarks with additional collection routes
-   resources :performance_benchmarks, only: [:index, :show, :new, :create] do
+   resources :performance_benchmarks, only: [:index, :show, :new, :create, :destroy] do
       member do
         get 'export'
         post 'share'
+        # delete 'destroy'
       end
       collection do
         get 'debian'

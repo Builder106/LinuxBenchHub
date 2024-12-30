@@ -27,6 +27,12 @@ class PerformanceBenchmarksController < ApplicationController
         render :new
       end
    end
+
+   def destroy
+    @performance_benchmark = PerformanceBenchmark.find(params[:id])
+    @performance_benchmark.destroy
+    redirect_to performance_benchmarks_path, notice: 'Benchmark was successfully deleted.'
+   end
  
    def debian
      @performance_benchmarks = current_user.performance_benchmarks.where(linux_os: 'Debian').order(created_at: :desc)
