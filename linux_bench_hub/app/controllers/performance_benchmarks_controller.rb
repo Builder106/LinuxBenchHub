@@ -66,7 +66,12 @@ class PerformanceBenchmarksController < ApplicationController
      @performance_benchmark = current_user.performance_benchmarks.find(params[:id])
      # Implement sharing logic, e.g., generating a shareable link or inviting users
    end
- 
+
+   def show_gui
+    @performance_benchmark = PerformanceBenchmark.find(params[:id])
+    @vm_ip = @performance_benchmark.vm_ip
+   end
+   
    private
  
    def set_benchmark
