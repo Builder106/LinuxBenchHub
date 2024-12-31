@@ -65,12 +65,20 @@ class BenchmarkService
       subnet_params.address_prefix = '10.0.0.0/24'
       subnet = network_client.subnets.create_or_update(resource_group_name, vnet_name, subnet_name, subnet_params)
 
-      # Create public IP address
-      public_ip_params = Azure::Network::Profiles::Latest::Mgmt::Models::PublicIPAddress.new
-      public_ip_params.location = location
-      public_ip_params.public_ipallocation_method = 'Dynamic' # Corrected attribute name
+      # Reuse existing public IPs
+      existing_public_ips = network_client.public_ipaddresses.list(resource_group_name)
+      public_ip = existing_public_ips.find { |ip| ip.name == public_ip_name }
 
-      public_ip = network_client.public_ipaddresses.create_or_update(resource_group_name, public_ip_name, public_ip_params)
+      unless public_ip
+        # Create new public IP address
+        public_ip_params = Azure::Network::Profiles::Latest::Mgmt::Models::PublicIPAddress.new
+        public_ip_params.location = location
+        public_ip_params.public_ipallocation_method = 'Static'
+        public_ip_params.dns_settings = Azure::Network::Profiles::Latest::Mgmt::Models::PublicIPAddressDnsSettings.new
+        public_ip_params.dns_settings.domain_name_label = "vm-#{unique_id}"
+
+        public_ip = network_client.public_ipaddresses.create_or_update(resource_group_name, public_ip_name, public_ip_params)
+      end
 
       # Create network interface
       nic_params = Azure::Network::Profiles::Latest::Mgmt::Models::NetworkInterface.new
@@ -85,6 +93,26 @@ class BenchmarkService
         end
       ]
       nic = network_client.network_interfaces.create_or_update(resource_group_name, nic_name, nic_params)
+
+      # Open port 5901 for VNC
+      security_rule = Azure::Network::Profiles::Latest::Mgmt::Models::SecurityRule.new
+      security_rule.name = "Allow-VNC"
+      security_rule.description = "Allow VNC inbound traffic"
+      security_rule.protocol = 'Tcp'
+      security_rule.direction = 'Inbound'
+      security_rule.priority = 1001
+      security_rule.source_address_prefix = '*'
+      security_rule.source_port_range = '*'
+      security_rule.destination_address_prefix = '*'
+      security_rule.destination_port_range = '5901'
+      security_rule.access = 'Allow'
+
+      network_client.security_rules.create_or_update(
+        resource_group_name,
+        "nsg-#{unique_id}",
+        "Allow-VNC",
+        security_rule
+      )
 
       # Create virtual machine
       vm_params = Azure::Compute::Profiles::Latest::Mgmt::Models::VirtualMachine.new
@@ -126,7 +154,15 @@ class BenchmarkService
       Net::SSH.start(vm_ip, 'azureuser', password: 'Password123!') do |ssh|
         # Install Phoronix Test Suite
         ssh.exec!("sudo apt-get update && sudo apt-get install -y phoronix-test-suite")
+
+        # Install GUI and VNC server
+        ssh.exec!("sudo apt-get install -y ubuntu-desktop tightvncserver")
     
+        # Set up VNC server
+        ssh.exec!("echo 'Password123!' | vncpasswd -f > ~/.vnc/passwd")
+        ssh.exec!("chmod 600 ~/.vnc/passwd")
+        ssh.exec!("tightvncserver :1 -geometry 1280x800 -depth 24")
+
         # Define supported benchmarks
         supported_benchmarks = {
           'CPU' => "c-ray",
@@ -137,7 +173,7 @@ class BenchmarkService
         # Run the selected benchmarks
         performance_benchmark.benchmarks.each do |benchmark|
           next if benchmark.strip.empty? # Skip empty strings
-    
+
           test = supported_benchmarks[benchmark]
           if test
             ssh.exec!("echo 'y' | phoronix-test-suite batch-benchmark #{test}")
@@ -150,6 +186,19 @@ class BenchmarkService
       puts "Error running benchmark: #{e.message}"
       puts e.backtrace.join("\n")
       raise
+    ensure
+      begin
+        # Implement cleanup logic to delete all created resources after use
+        compute_client.virtual_machines.delete(resource_group_name, vm_name)
+        network_client.network_interfaces.delete(resource_group_name, nic_name)
+        network_client.public_ipaddresses.delete(resource_group_name, public_ip_name)
+        network_client.subnets.delete(resource_group_name, vnet_name, subnet_name)
+        network_client.virtual_networks.delete(resource_group_name, vnet_name)
+        network_client.network_security_groups.delete(resource_group_name, "nsg-#{unique_id}")
+        resource_client.resource_groups.delete(resource_group_name)
+      rescue StandardError => e
+        puts "Error during cleanup: #{e.message}"
+      end
     end
   end
 end

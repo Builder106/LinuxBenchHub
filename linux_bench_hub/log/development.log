@@ -11378,3 +11378,239 @@ Processing by PerformanceBenchmarksController#index as HTML
 Completed 200 OK in 1109ms (Views: 574.3ms | ActiveRecord: 290.8ms (1 query, 0 cached) | GC: 21.4ms)
 
 
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for ::1 at 2024-12-29 19:57:04 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.7ms | GC: 0.0ms)
+Completed 200 OK in 950ms (Views: 133.3ms | ActiveRecord: 4.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-29 20:01:49 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (111.4ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 771.1ms | GC: 233.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 997.2ms | GC: 233.9ms)
+Completed 200 OK in 1057ms (Views: 872.1ms | ActiveRecord: 133.7ms (1 query, 0 cached) | GC: 233.9ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-29 20:01:55 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 195.7ms | GC: 8.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 197.9ms | GC: 8.6ms)
+Completed 200 OK in 260ms (Views: 199.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 8.6ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-29 20:02:02 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Testing", "linux_os"=>"Ubuntu", "benchmarks"=>["", "CPU"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mPerformanceBenchmark Create (3.1ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "created_at", "linux_os", "benchmarks", "results", "user_id") VALUES ('Testing', '2024-12-30 04:02:02.784026', 'Ubuntu', '["","CPU"]', NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+Completed 500 Internal Server Error in 70390ms (ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 207.9ms)
+
+
+  
+MsRestAzure::AzureOperationError ({
+  "message": "MsRestAzure::AzureOperationError: PublicIPCountLimitReached: Cannot create more than 3 public IP addresses for this subscription in this region.",
+  "request": {
+    "base_uri": "https://management.azure.com",
+    "path_template": "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPAddresses/{publicIpAddressName}",
+    "method": "put",
+    "path_params": {
+      "resourceGroupName": "LinuxBenchHub-73025f2b",
+      "publicIpAddressName": "publicIP-73025f2b",
+      "subscriptionId": "930f87ce-cc4b-4bf0-a4cb-048bc6d1c03a"
+    },
+    "skip_encoding_path_params": null,
+    "query_params": {
+      "api-version": "2020-08-01"
+    },
+    "skip_encoding_query_params": null,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "accept-language": "en-US",
+      "x-ms-client-request-id": "18239b93-fafc-49ae-a98d-49295279758e"
+    },
+    "body": "{\"location\":\"eastus\",\"properties\":{\"publicIPAllocationMethod\":\"Dynamic\"}}",
+    "middlewares": [
+      [
+        "MsRest::RetryPolicyMiddleware",
+        {
+          "times": 3,
+          "retry": 0.02
+        }
+      ],
+      [
+        "cookie_jar"
+      ]
+    ],
+    "log": null
+  },
+  "response": {
+    "body": "{\"error\":{\"code\":\"PublicIPCountLimitReached\",\"message\":\"Cannot create more than 3 public IP addresses for this subscription in this region.\",\"details\":[]}}",
+    "headers": {
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "content-length": "155",
+      "content-type": "application/json; charset=utf-8",
+      "expires": "-1",
+      "x-ms-request-id": "772e9580-cdee-4b64-b5aa-3724828bc0bb",
+      "x-ms-correlation-request-id": "4b378e2e-0b97-43ca-9daf-4d8f51bce732",
+      "x-ms-arm-service-request-id": "6758aade-d59b-4baa-9955-5252cb708f7e",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "x-ms-ratelimit-remaining-subscription-writes": "199",
+      "x-ms-ratelimit-remaining-subscription-global-writes": "2999",
+      "x-ms-routing-request-id": "WESTUS:20241230T040314Z:4b378e2e-0b97-43ca-9daf-4d8f51bce732",
+      "x-content-type-options": "nosniff",
+      "x-cache": "CONFIG_NOCACHE",
+      "x-msedge-ref": "Ref A: BD929F726E254E9CAB8B142B510D4907 Ref B: SJC211051203011 Ref C: 2024-12-30T04:03:13Z",
+      "date": "Mon, 30 Dec 2024 04:03:14 GMT"
+    },
+    "status": 400
+  }
+}):
+  
+azure_mgmt_network (0.26.1) lib/2020-08-01/generated/azure_mgmt_network/public_ipaddresses.rb:973:in `block in begin_create_or_update_async'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/promise.rb:534:in `block in on_fulfill'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/safe_task_executor.rb:24:in `block in execute'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `block in synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/safe_task_executor.rb:22:in `execute'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/promise.rb:564:in `block in realize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:359:in `run_task'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:350:in `block (3 levels) in create_worker'
+<internal:kernel>:187:in `loop'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:341:in `block (2 levels) in create_worker'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:340:in `catch'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:340:in `block in create_worker'
+Started GET "/" for ::1 at 2024-12-29 20:12:43 -0800
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 35.2ms | GC: 7.5ms)
+Completed 200 OK in 239ms (Views: 201.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 27.9ms)
+
+
+Started GET "/performance_benchmarks" for ::1 at 2024-12-29 20:12:47 -0800
+Processing by PerformanceBenchmarksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/index.html.erb within layouts/application
+  [1m[36mPerformanceBenchmark Load (216.5ms)[0m  [1m[34mSELECT "performance_benchmarks".* FROM "performance_benchmarks" ORDER BY "performance_benchmarks"."created_at" DESC /*action='index',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/views/performance_benchmarks/index.html.erb:16
+  Rendered performance_benchmarks/index.html.erb within layouts/application (Duration: 298.6ms | GC: 10.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 310.7ms | GC: 16.3ms)
+Completed 200 OK in 396ms (Views: 119.5ms | ActiveRecord: 216.5ms (1 query, 0 cached) | GC: 31.4ms)
+
+
+Started GET "/performance_benchmarks/new" for ::1 at 2024-12-29 20:12:51 -0800
+Processing by PerformanceBenchmarksController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering performance_benchmarks/new.html.erb within layouts/application
+  Rendered performance_benchmarks/new.html.erb within layouts/application (Duration: 7.5ms | GC: 1.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 1.2ms)
+Completed 200 OK in 98ms (Views: 9.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.2ms)
+
+
+Started POST "/performance_benchmarks" for ::1 at 2024-12-29 20:12:59 -0800
+Processing by PerformanceBenchmarksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "performance_benchmark"=>{"name"=>"Test2", "linux_os"=>"Fedora", "benchmarks"=>["", "CPU", "Memory"]}, "commit"=>"Create Benchmark"}
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mPerformanceBenchmark Create (26.8ms)[0m  [1m[32mINSERT INTO "performance_benchmarks" ("name", "created_at", "linux_os", "benchmarks", "results", "user_id") VALUES ('Test2', '2024-12-30 04:12:59.456663', 'Fedora', '["","CPU","Memory"]', NULL, NULL) RETURNING "id" /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='LinuxBenchHub',controller='performance_benchmarks'*/[0m
+  ↳ app/controllers/performance_benchmarks_controller.rb:22:in `create'
+Completed 500 Internal Server Error in 67519ms (ActiveRecord: 28.4ms (1 query, 0 cached) | GC: 14.8ms)
+
+
+  
+MsRestAzure::AzureOperationError ({
+  "message": "MsRestAzure::AzureOperationError: PublicIPCountLimitReached: Cannot create more than 3 public IP addresses for this subscription in this region.",
+  "request": {
+    "base_uri": "https://management.azure.com",
+    "path_template": "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPAddresses/{publicIpAddressName}",
+    "method": "put",
+    "path_params": {
+      "resourceGroupName": "LinuxBenchHub-3ceee62e",
+      "publicIpAddressName": "publicIP-3ceee62e",
+      "subscriptionId": "930f87ce-cc4b-4bf0-a4cb-048bc6d1c03a"
+    },
+    "skip_encoding_path_params": null,
+    "query_params": {
+      "api-version": "2020-08-01"
+    },
+    "skip_encoding_query_params": null,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "accept-language": "en-US",
+      "x-ms-client-request-id": "e4e18d14-eeae-4594-87cd-27a5252156ce"
+    },
+    "body": "{\"location\":\"eastus\",\"properties\":{\"publicIPAllocationMethod\":\"Dynamic\"}}",
+    "middlewares": [
+      [
+        "MsRest::RetryPolicyMiddleware",
+        {
+          "times": 3,
+          "retry": 0.02
+        }
+      ],
+      [
+        "cookie_jar"
+      ]
+    ],
+    "log": null
+  },
+  "response": {
+    "body": "{\"error\":{\"code\":\"PublicIPCountLimitReached\",\"message\":\"Cannot create more than 3 public IP addresses for this subscription in this region.\",\"details\":[]}}",
+    "headers": {
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "content-length": "155",
+      "content-type": "application/json; charset=utf-8",
+      "expires": "-1",
+      "x-ms-request-id": "02d22e9f-22a1-4b54-8fbf-1ed545b32708",
+      "x-ms-correlation-request-id": "0fcb0c27-6254-48a7-95e1-9486d00c4040",
+      "x-ms-arm-service-request-id": "89d31a77-c621-41c4-bcf5-fbde3fecef98",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "x-ms-ratelimit-remaining-subscription-writes": "199",
+      "x-ms-ratelimit-remaining-subscription-global-writes": "2999",
+      "x-ms-routing-request-id": "WESTUS:20241230T041408Z:0fcb0c27-6254-48a7-95e1-9486d00c4040",
+      "x-content-type-options": "nosniff",
+      "x-cache": "CONFIG_NOCACHE",
+      "x-msedge-ref": "Ref A: D1827D7743AA40CC942D80CAAC7595A5 Ref B: SJC211051201037 Ref C: 2024-12-30T04:14:06Z",
+      "date": "Mon, 30 Dec 2024 04:14:07 GMT"
+    },
+    "status": 400
+  }
+}):
+  
+azure_mgmt_network (0.26.1) lib/2020-08-01/generated/azure_mgmt_network/public_ipaddresses.rb:973:in `block in begin_create_or_update_async'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/promise.rb:534:in `block in on_fulfill'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/safe_task_executor.rb:24:in `block in execute'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `block in synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/synchronization/mutex_lockable_object.rb:48:in `synchronize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/safe_task_executor.rb:22:in `execute'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/promise.rb:564:in `block in realize'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:359:in `run_task'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:350:in `block (3 levels) in create_worker'
+<internal:kernel>:187:in `loop'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:341:in `block (2 levels) in create_worker'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:340:in `catch'
+concurrent-ruby (1.3.4) lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:340:in `block in create_worker'
