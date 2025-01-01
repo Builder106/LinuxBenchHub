@@ -1,11 +1,15 @@
-<h1>VM GUI</h1>
-<div id="noVNC_container" style="width: 800px; height: 600px;"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noVNC/1.3.0/noVNC.min.js"></script>
-<script>
-  const rfb = new RFB(document.getElementById('noVNC_container'), 'ws://<YOUR_WEBSOCKET_PROXY>');
-
-  rfb.viewOnly = false;
-  rfb.scaleViewport = true;
-  rfb.resizeSession = true;
-</script>
+<h1>Benchmark GUI</h1>
+<% if @performance_benchmark.vm_ip.present? %>
+  <p>Connect to your VM using the following IP and port:</p>
+  <p>IP: <%= @performance_benchmark.vm_ip %></p>
+  <p>Port: 5901</p>
+  <!-- Example using noVNC -->
+  <div id="vnc_container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@novnc/novnc@1.3.0/dist/novnc.min.js"></script>
+  <script>
+    const rfb = new RFB(document.getElementById('vnc_container'), 'ws://<%= @performance_benchmark.vm_ip %>:5901');
+    rfb.viewOnly = true;
+  </script>
+<% else %>
+  <p>VM is initializing...</p>
+<% end %>
