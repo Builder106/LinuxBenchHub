@@ -17,21 +17,23 @@ class PerformanceBenchmarksController < ApplicationController
    end
  
    def create
-      @performance_benchmark = current_user ? current_user.performance_benchmarks.new(performance_benchmark_params) : PerformanceBenchmark.new(performance_benchmark_params)
-      
-      if @performance_benchmark.save
-        BenchmarkService.run_benchmark(@performance_benchmark)
-        redirect_to @performance_benchmark, notice: 'Benchmark was successfully created.'
-      else
-        flash.now[:error] = 'Failed to create benchmark. Please check the input and try again.'
-        render :new
-      end
+    @performance_benchmark = current_user ? current_user.performance_benchmarks.new(performance_benchmark_params) : PerformanceBenchmark.new(performance_benchmark_params)
+  
+    if @performance_benchmark.save
+      BenchmarkJob.perform_later(@performance_benchmark.id)
+      redirect_to show_gui_performance_benchmark_path(@performance_benchmark), notice: 'Benchmark is running. Access the GUI below.'
+    else
+      flash.now[:error] = 'Failed to create benchmark. Please check the input and try again.'
+      render :new
+    end
    end
 
    def destroy
-    @performance_benchmark = PerformanceBenchmark.find(params[:id])
     @performance_benchmark.destroy
-    redirect_to performance_benchmarks_path, notice: 'Benchmark was successfully deleted.'
+    respond_to do |format|
+      format.html { redirect_to performance_benchmarks_url, notice: 'Benchmark was successfully deleted.' }
+      format.json { head :no_content }
+    end
    end
  
    def debian
