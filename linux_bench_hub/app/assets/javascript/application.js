@@ -3,6 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+// Import Rails UJS
+//= require rails-ujs
+//= require_tree .
+
 // Import Bootstrap
 import "bootstrap"
 
