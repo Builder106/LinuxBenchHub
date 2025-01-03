@@ -25,7 +25,6 @@ Rails.application.routes.draw do
       member do
         get 'export'
         post 'share'
-        # delete 'destroy'
       end
       collection do
         get 'debian'

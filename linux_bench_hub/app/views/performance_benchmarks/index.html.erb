@@ -20,9 +20,11 @@
           <td><%= benchmark.benchmarks.reject(&:blank?).join(', ') %></td>
           <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
           <td>
-            <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm' %>
-            <%= link_to 'Delete', performance_benchmark_path(benchmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm ms-2' %>
-          </td>
+            <div class="btn-group" role="group" aria-label="Actions">
+               <%= button_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm', form: { class: 'd-inline' } %>
+               <%# <%= button_to 'Delete', performance_benchmark_path(benchmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm', form: { class: 'd-inline' } %> %>
+            </div>
+         </td>
         </tr>
       <% end %>
     </tbody>

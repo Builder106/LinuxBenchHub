@@ -1,11 +1,8 @@
 class PerformanceBenchmarksController < ApplicationController
    before_action :authenticate_user!, except: [:index, :show, :new, :create]
-   before_action :set_benchmark, only: [:show]
+   before_action :set_benchmark, only: [:show, :destroy]
  
    def index
-      # if current_user
-      #   @performance_benchmarks = current_user.performance_benchmarks.order(created_at: :desc)
-      # else
       @performance_benchmarks = PerformanceBenchmark.order(created_at: :desc)
    end
  
