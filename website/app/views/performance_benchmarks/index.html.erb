@@ -1,0 +1,32 @@
+<h1 class="mb-4">Benchmark History</h1>
+<%= link_to 'New Benchmark', new_performance_benchmark_path, class: 'btn btn-primary mb-3' %>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Linux OS</th>
+        <th>Benchmark Types</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @performance_benchmarks.each do |benchmark| %>
+        <tr>
+          <td><%= benchmark.name %></td>
+          <td><%= benchmark.linux_os %></td>
+          <td><%= benchmark.benchmarks.reject(&:blank?).join(', ') %></td>
+          <td><%= benchmark.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Actions">
+               <%= link_to 'View', performance_benchmark_path(benchmark), class: 'btn btn-secondary btn-sm', form: { class: 'd-inline' } %>
+               <%# <%= button_to 'Delete', performance_benchmark_path(benchmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm', form: { class: 'd-inline' } %>
+            </div>
+         </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
