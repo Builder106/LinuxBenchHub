@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="420" viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="420" fill="#fbfcfd"/>
+  <rect x="0" y="0" width="6" height="420" fill="#0c8aa3"/>
+
+  <text x="64" y="76" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2.8" fill="#6b7a96" font-weight="700">VM BENCHMARKING DASHBOARD</text>
+
+  <text x="64" y="170" font-family="Helvetica, Arial, sans-serif" font-size="60" font-weight="700" fill="#0c1525" letter-spacing="-0.012em">LinuxBenchHub</text>
+
+  <text x="64" y="222" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#4a5872">Compare Linux distros under identical virtual hardware,</text>
+  <text x="64" y="250" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#4a5872">benchmark from a Rails dashboard, watch the VM live via noVNC.</text>
+
+  <g transform="translate(64, 348)" font-family="Helvetica, Arial, sans-serif">
+    <text font-size="12" letter-spacing="1.4" font-weight="700" fill="#6b7a96">
+      <tspan fill="#0c8aa3">VMWARE FUSION</tspan>
+      <tspan fill="#c4ccdb" dx="14">/</tspan>
+      <tspan fill="#0c8aa3" dx="14">PHORONIX TEST SUITE</tspan>
+      <tspan fill="#c4ccdb" dx="14">/</tspan>
+      <tspan fill="#0c8aa3" dx="14">RAILS 8</tspan>
+      <tspan fill="#c4ccdb" dx="14">/</tspan>
+      <tspan fill="#0c8aa3" dx="14">noVNC</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(770, 95)" font-family="Helvetica, Arial, sans-serif">
+    <text font-size="11" letter-spacing="1.8" fill="#6b7a96" font-weight="700" x="0" y="0">DISTROS UNDER TEST</text>
+
+    <g transform="translate(0, 18)">
+      <rect x="0" y="0" width="360" height="62" fill="#f3f5f9" stroke="#dce2ed" stroke-width="1" rx="6"/>
+      <text font-size="18" font-weight="700" fill="#0c1525" x="20" y="28">Ubuntu</text>
+      <text font-size="14" fill="#6b7a96" x="98" y="28">24.04 LTS</text>
+      <text font-size="11" letter-spacing="1.2" fill="#8a99b4" font-weight="600" x="20" y="50">CPU &#183; MEM &#183; NET</text>
+      <circle cx="338" cy="31" r="6" fill="#d94c4c"/>
+    </g>
+
+    <g transform="translate(0, 92)">
+      <rect x="0" y="0" width="360" height="62" fill="#f3f5f9" stroke="#dce2ed" stroke-width="1" rx="6"/>
+      <text font-size="18" font-weight="700" fill="#0c1525" x="20" y="28">Fedora</text>
+      <text font-size="14" fill="#6b7a96" x="98" y="28">40</text>
+      <text font-size="11" letter-spacing="1.2" fill="#8a99b4" font-weight="600" x="20" y="50">CPU &#183; MEM &#183; NET</text>
+      <circle cx="338" cy="31" r="6" fill="#0c8aa3"/>
+    </g>
+
+    <g transform="translate(0, 166)">
+      <rect x="0" y="0" width="360" height="62" fill="#f3f5f9" stroke="#dce2ed" stroke-width="1" rx="6"/>
+      <text font-size="18" font-weight="700" fill="#0c1525" x="20" y="28">Debian</text>
+      <text font-size="14" fill="#6b7a96" x="98" y="28">12</text>
+      <text font-size="11" letter-spacing="1.2" fill="#8a99b4" font-weight="600" x="20" y="50">CPU &#183; MEM &#183; NET</text>
+      <circle cx="338" cy="31" r="6" fill="#b88330"/>
+    </g>
+  </g>
+</svg>
