@@ -1,7 +1,9 @@
 <picture>
+  <source media="(prefers-color-scheme: dark)"  srcset="assets/banner-dark.svg"  type="image/svg+xml">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.svg" type="image/svg+xml">
   <source media="(prefers-color-scheme: dark)"  srcset="assets/banner-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.png">
-  <img alt="LinuxBenchHub — compare Linux distros under identical virtual hardware, with a Rails dashboard and live noVNC view." src="assets/banner-dark.png">
+  <img alt="LinuxBenchHub — compare Linux distros under identical virtual hardware, with a Rails dashboard and live noVNC view." src="assets/banner-dark.svg">
 </picture>
 
 [![CI](https://github.com/Builder106/LinuxBenchHub/actions/workflows/ci.yml/badge.svg)](https://github.com/Builder106/LinuxBenchHub/actions/workflows/ci.yml)
