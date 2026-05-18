@@ -34,7 +34,11 @@ The fully parsed sample is Ubuntu 24.04 LTS on 2&times; Intel Core i5-7360U (3 c
 | **Tinymembench** (memset) | `pts/tinymembench-1.0.2` | MB/s | 23,480.2 | 25,745.6 | 5,731.1 |
 | **Aircrack-ng** (network) | `pts/aircrack-ng-1.3.0` | k/s | 4,542.6 | 4,943.1 | 835.1 |
 
-Full per-run data and visualizations: [**`benchmarks/ubuntu/ubuntu.md`**](benchmarks/ubuntu/ubuntu.md). Fedora and Debian raw `pts/*` outputs are captured but the per-distro markdown writeups are in progress &mdash; see [Project status](#project-status).
+Full per-run data and visualizations:
+
+- [**`benchmarks/ubuntu/ubuntu.md`**](benchmarks/ubuntu/ubuntu.md) &mdash; Ubuntu 24.04
+- [**`benchmarks/fedora/fedora.md`**](benchmarks/fedora/fedora.md) &mdash; Fedora Linux 41
+- [**`benchmarks/debian/debian.md`**](benchmarks/debian/debian.md) &mdash; Debian 12
 
 ## How the pieces fit
 
@@ -119,9 +123,9 @@ Deployment is configured for **Kamal** &mdash; see `website/.kamal/`. Production
 
 This is a mid-build project; pieces work in isolation but the end-to-end "click benchmark, watch the VM run, see the chart" loop is not stable across all three distros. Specifically:
 
-- **Ubuntu 24.04**: full benchmark capture and the R parser are working. The published numbers above are real.
-- **Fedora 40 / Debian 12**: raw `pts/*` runs are captured but the per-distro markdown writeups are stubs. The R parsers are written but not run against the new composites.
-- **Rails dashboard**: scaffolded with Devise auth, Sidekiq jobs, Chartkick charts, and the embedded noVNC viewer. The latest commit on `main` is `Trying to fix this`; expect rough edges, broken paths, and at least one half-merged feature branch.
+- **Ubuntu 24.04 / Fedora 41 / Debian 12**: full benchmark captures and per-distro markdown writeups are in place. Numbers come from running the R parser at `benchmarks/<distro>/Parse_composite_<Distro>.R` against the captured `pts/composite.xml`.
+- **Cross-distro comparison page**: the three writeups exist independently; a side-by-side comparison page is not yet written.
+- **Rails dashboard**: scaffolded with Devise auth, Sidekiq jobs, Chartkick charts, and the embedded noVNC viewer. The most recent app-code commit is `Trying to fix this`; expect rough edges, broken paths, and at least one half-merged feature branch.
 - **Kamal deploy**: configured but not currently pointing at a live host.
 
 If you want the experience the README banner is selling, the static Ubuntu writeup + R parsers is the bit to read; the Rails app is a snapshot of where the project was headed, not a finished product.
