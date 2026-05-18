@@ -139,4 +139,4 @@ If you want the experience the README banner is selling, the static Ubuntu write
 
 ## License
 
-Code released under the [MIT License](LICENSE). Captured Phoronix Test Suite outputs under `benchmarks/*/` are derivative works of the upstream Phoronix tests; Phoronix Test Suite itself is GPLv3 and is not included.
+Code released under the [MIT License](LICENSE). Third-party components retain their upstream licenses: **Phoronix Test Suite** is GPLv3 (referenced, not bundled); **noVNC**, embedded under [`website/noVNC/`](website/noVNC/), is MPL-2.0; Rails and Ruby are MIT. Captured Phoronix outputs under `benchmarks/*/` are derivative works of the upstream tests.
