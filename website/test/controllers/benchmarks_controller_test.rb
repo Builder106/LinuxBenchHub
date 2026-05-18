@@ -1,23 +1,9 @@
 require "test_helper"
 
+# Scaffold leftover: the real resource is PerformanceBenchmarksController, mounted
+# under `resources :performance_benchmarks` (see config/routes.rb). The original
+# generated tests referenced URL helpers that don't exist for that resource and
+# hit endpoints behind Devise auth. Replace with real coverage when sign-in
+# helpers and route fixtures are added.
 class BenchmarksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get benchmarks_index_url
-    assert_response :success
-  end
-
-  test "should get show" do
-    get benchmarks_show_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get benchmarks_new_url
-    assert_response :success
-  end
-
-  test "should get create" do
-    get benchmarks_create_url
-    assert_response :success
-  end
 end

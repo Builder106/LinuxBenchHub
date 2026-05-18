@@ -17,18 +17,14 @@ User.find_or_create_by!(email: 'user@example.com') do |user|
  # Create sample performance benchmarks for the user
  user = User.find_by(email: 'user@example.com')
  
- user.performance_benchmarks.create!(
-   name: 'Benchmark 1',
-   description: 'CPU and Memory Performance Test.',
-   linux_os: 'Ubuntu 22.04',
-   benchmarks: ['CPU', 'Memory'],
-   results: { cpu: 'Pass', memory: 'Pass' }
- )
- 
- user.performance_benchmarks.create!(
-   name: 'Benchmark 2',
-   description: 'Network Performance Test.',
-   linux_os: 'Fedora 36',
-   benchmarks: ['Network'],
-   results: { network: 'Fail' }
- )
+ user.performance_benchmarks.find_or_create_by!(name: 'Benchmark 1') do |b|
+   b.linux_os = 'Ubuntu 22.04'
+   b.benchmarks = ['CPU', 'Memory']
+   b.results = { cpu: 'Pass', memory: 'Pass' }
+ end
+
+ user.performance_benchmarks.find_or_create_by!(name: 'Benchmark 2') do |b|
+   b.linux_os = 'Fedora 36'
+   b.benchmarks = ['Network']
+   b.results = { network: 'Fail' }
+ end
