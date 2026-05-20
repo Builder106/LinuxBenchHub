@@ -4,3 +4,8 @@ node_modules
 tmp
 .DS_Store
 **/.DS_Store
+.vercel
+site/.next
+site/out
+site/node_modules
+site/next-env.d.ts
