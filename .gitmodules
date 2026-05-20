@@ -1,0 +1,4 @@
+[submodule "website/noVNC"]
+	path = website/noVNC
+	url = https://github.com/novnc/noVNC.git
+	ignore = untracked
