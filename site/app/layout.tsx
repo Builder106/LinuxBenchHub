@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { HexMark } from "./components/HexMark";
 import { TuxMark } from "./components/TuxMark";
+import { DistroMark } from "./components/DistroMark";
 import { ThemeToggle } from "./components/ThemeToggle";
 import "./globals.css";
 
@@ -73,24 +74,15 @@ export default function RootLayout({
             <div className="nav-links">
               <a href="/">Overview</a>
               <a href="/benchmarks/ubuntu/" className="nav-distro">
-                <span
-                  className="nav-distro-dot"
-                  style={{ background: "var(--distro-ubuntu)" }}
-                />
+                <DistroMark distro="ubuntu" size={18} className="nav-distro-mark" />
                 Ubuntu
               </a>
               <a href="/benchmarks/fedora/" className="nav-distro">
-                <span
-                  className="nav-distro-dot"
-                  style={{ background: "var(--distro-fedora)" }}
-                />
+                <DistroMark distro="fedora" size={18} className="nav-distro-mark" />
                 Fedora
               </a>
               <a href="/benchmarks/debian/" className="nav-distro">
-                <span
-                  className="nav-distro-dot"
-                  style={{ background: "var(--distro-debian)" }}
-                />
+                <DistroMark distro="debian" size={18} className="nav-distro-mark" />
                 Debian
               </a>
               <a

@@ -180,13 +180,10 @@ a:hover {
 .nav-links a.nav-distro {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
 }
 
-.nav-distro-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+.nav-distro-mark {
   display: inline-block;
   flex-shrink: 0;
 }
