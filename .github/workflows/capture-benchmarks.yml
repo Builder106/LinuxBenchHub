@@ -116,12 +116,29 @@ jobs:
           ln -sf /opt/pts/bin/phoronix-test-suite /usr/local/bin/phoronix-test-suite
           phoronix-test-suite version
 
-      - name: Seed batch-mode config
+      - name: Seed phone-home opt-outs
         if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
           install -d /root/.phoronix-test-suite
           cp .github/scripts/pts-batch-config.xml /root/.phoronix-test-suite/user-config.xml
+
+      - name: Configure batch mode (non-interactive)
+        if: env.RUN_THIS_DISTRO == '1'
+        shell: bash
+        run: |
+          # PTS's `batch-setup` asks 7 yes/no questions. The seeded XML sets
+          # the same values, but PTS only treats batch mode as "configured"
+          # when its own writer flips the flag — piping answers here is the
+          # canonical CI-friendly way.
+          #   Q1 Save results when in batch mode  -> Y
+          #   Q2 Open browser after run            -> N
+          #   Q3 Auto upload to OpenBenchmarking   -> N
+          #   Q4 Prompt for test identifier        -> N
+          #   Q5 Prompt for test description       -> N
+          #   Q6 Prompt for saved results name     -> N
+          #   Q7 Run all test options              -> N
+          printf 'y\nn\nn\nn\nn\nn\nn\n' | phoronix-test-suite batch-setup
 
       - name: Run pts/c-ray, pts/tinymembench, pts/aircrack-ng
         if: env.RUN_THIS_DISTRO == '1'
