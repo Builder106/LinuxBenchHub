@@ -28,7 +28,6 @@ concurrency:
 jobs:
   capture:
     name: ${{ matrix.distro }} ${{ matrix.version }}
-    if: github.event.inputs.distro == 'all' || github.event.inputs.distro == matrix.distro || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     strategy:
@@ -71,20 +70,38 @@ jobs:
       RESULT_NAME: "lbh-${{ matrix.distro }}-ci"
 
     steps:
+      # Job-level `if:` can't reference `matrix`, so the dispatch-distro filter
+      # lives here at step scope and gates the rest of the job via env.
+      - name: Gate on selected distro
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" \
+             && "${{ github.event.inputs.distro }}" != "all" \
+             && "${{ github.event.inputs.distro }}" != "${{ matrix.distro }}" ]]; then
+            echo "RUN_THIS_DISTRO=0" >> "$GITHUB_ENV"
+            echo "Skipping ${{ matrix.distro }} (selected: ${{ github.event.inputs.distro }})"
+          else
+            echo "RUN_THIS_DISTRO=1" >> "$GITHUB_ENV"
+          fi
+
       - name: Install distro packages
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: ${{ matrix.pkg_install }}
 
       - name: Set RUN_DATE
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: echo "RUN_DATE=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
 
       - name: Checkout
+        if: env.RUN_THIS_DISTRO == '1'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # need full history for pull --rebase before push
 
       - name: Install Phoronix Test Suite
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
           git clone --depth 1 https://github.com/phoronix-test-suite/phoronix-test-suite.git /tmp/pts
@@ -94,12 +111,14 @@ jobs:
           phoronix-test-suite version
 
       - name: Seed batch-mode config
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
           install -d /root/.phoronix-test-suite
           cp .github/scripts/pts-batch-config.xml /root/.phoronix-test-suite/user-config.xml
 
       - name: Run pts/c-ray, pts/tinymembench, pts/aircrack-ng
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         env:
           TEST_RESULTS_NAME: ${{ env.RESULT_NAME }}-${{ env.RUN_DATE }}
@@ -107,6 +126,7 @@ jobs:
           phoronix-test-suite batch-benchmark pts/c-ray pts/tinymembench pts/aircrack-ng
 
       - name: Stage composite.xml
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
           composite=$(find /root/.phoronix-test-suite/test-results -name composite.xml -print -quit)
@@ -123,6 +143,7 @@ jobs:
           echo "Saved $captures/composite-${RUN_DATE}.xml and composite-latest.xml"
 
       - name: Upload artifact
+        if: env.RUN_THIS_DISTRO == '1'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.distro }}-${{ matrix.version }}-${{ env.RUN_DATE }}
@@ -132,6 +153,7 @@ jobs:
           retention-days: 365
 
       - name: Commit and push
+        if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
