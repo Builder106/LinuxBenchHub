@@ -159,11 +159,22 @@ jobs:
         if: env.RUN_THIS_DISTRO == '1'
         shell: bash
         run: |
-          composite=$(find /root/.phoronix-test-suite/test-results -name composite.xml -print -quit)
+          # PTS keeps user-config.xml under $HOME/.phoronix-test-suite/ but
+          # writes tests and results to /var/lib/phoronix-test-suite/ in
+          # system-mode installs (which is what install-sh produces).
+          composite=$(find /var/lib/phoronix-test-suite /root/.phoronix-test-suite \
+                       -name composite.xml -print -quit 2>/dev/null)
           if [ -z "$composite" ]; then
             echo "::error::No composite.xml produced — benchmark run failed."
+            echo "=== Debug: PTS data dirs ==="
+            for d in /var/lib/phoronix-test-suite /root/.phoronix-test-suite; do
+              echo "--- $d ---"
+              ls -la "$d" 2>&1 || echo "(missing)"
+              [ -d "$d/test-results" ] && ls -la "$d/test-results/" 2>&1
+            done
             exit 1
           fi
+          echo "Found composite at: $composite"
           captures="benchmarks/${{ matrix.distro }}/captures"
           mkdir -p "$captures"
           cp "$composite" "$captures/composite-${RUN_DATE}.xml"
