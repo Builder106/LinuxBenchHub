@@ -88,7 +88,7 @@ function SpreadBar({ b }: { b: Benchmark }) {
 const stack = [
   {
     label: "Capture",
-    chips: ["Phoronix Test Suite", "VMware Fusion Pro 13.6"],
+    chips: ["Phoronix Test Suite", "GitHub Actions", "ubuntu-latest"],
   },
   {
     label: "Analyze",
@@ -106,24 +106,12 @@ const stack = [
     ],
   },
   {
-    label: "Background",
-    chips: ["Sidekiq", "Whenever"],
-  },
-  {
-    label: "Live VM",
-    chips: ["noVNC", "WebSocket"],
-  },
-  {
     label: "Storage",
     chips: ["SQLite", "Puma"],
   },
   {
     label: "Auth",
     chips: ["Devise"],
-  },
-  {
-    label: "Cloud",
-    chips: ["azure_mgmt_compute", "azure_mgmt_network", "azure_mgmt_resources"],
   },
   {
     label: "Deploy",
@@ -375,14 +363,14 @@ function Flowchart() {
           y1={n.vmware.y}
           x2={n.pts.x - r}
           y2={n.pts.y}
-          label="ssh"
+          label="cron"
         />
         <FlowArrow
           x1={n.pts.x + r}
           y1={n.pts.y}
           x2={n.composite.x - r}
           y2={n.composite.y}
-          label="run"
+          label="batch"
         />
         <FlowArrow
           x1={n.composite.x + 28}
@@ -412,8 +400,8 @@ function Flowchart() {
         <FlowchartNode
           x={n.vmware.x}
           y={n.vmware.y}
-          l1="VMware"
-          l2="Fusion Pro"
+          l1="GitHub"
+          l2="Actions"
         />
         <FlowchartNode x={n.pts.x} y={n.pts.y} l1="Phoronix" l2="Test Suite" />
         <FlowchartNode
@@ -438,14 +426,14 @@ function Flowchart() {
           x={n.rails.x}
           y={n.rails.y}
           l1="Rails 8"
-          l2="+ Sidekiq"
+          l2="+ Devise"
           emphasis
         />
         <FlowchartNode
           x={n.dashboard.x}
           y={n.dashboard.y}
           l1="Chartkick"
-          l2="+ noVNC"
+          l2="+ Groupdate"
           emphasis
         />
       </svg>
@@ -502,17 +490,23 @@ export default function Home() {
       </div>
 
       <p className="lede">
-        A VM benchmarking platform for Linux distros — run Phoronix Test Suite
-        across identical virtual hardware on Ubuntu, Fedora, and Debian, see
-        the results in a Rails dashboard, and connect to the live VM through
-        an embedded noVNC viewer.
+        A benchmarking dataset for Linux distros — Phoronix Test Suite runs
+        on Ubuntu, Fedora, and Debian, captured monthly in GitHub Actions on
+        identical runner hardware, with a Rails dashboard and R parsers
+        consuming the same composite XML.
       </p>
 
       <div className="callout">
-        <strong>Note</strong> this site is the static showcase for the
-        LinuxBenchHub project. The interactive Rails dashboard with embedded
-        noVNC and Sidekiq-driven VM benchmarks runs on a Docker host deployed
-        with Kamal — see the{" "}
+        <strong>Note</strong> this site is the static showcase. Fresh captures
+        land in the repo on the 1st of every month via the{" "}
+        <a
+          href="https://github.com/Builder106/LinuxBenchHub/blob/main/.github/workflows/capture-benchmarks.yml"
+          target="_blank"
+          rel="noreferrer"
+        >
+          capture-benchmarks
+        </a>{" "}
+        workflow. The Rails dashboard reads the same composite XML — see the{" "}
         <a
           href="https://github.com/Builder106/LinuxBenchHub#setup"
           target="_blank"
@@ -607,21 +601,28 @@ export default function Home() {
           <div className="status-row">
             <span className="status-pill done">DONE</span>
             <span>
-              Per-distro Phoronix captures for Ubuntu, Fedora, Debian
+              Bare-metal Phoronix sample for Ubuntu, Fedora, Debian
             </span>
           </div>
           <div className="status-row">
             <span className="status-pill done">DONE</span>
             <span>
               R parser pipeline producing markdown writeups from{" "}
-              <code>pts/composite.xml</code>
+              <code>composite.xml</code>
+            </span>
+          </div>
+          <div className="status-row">
+            <span className="status-pill done">DONE</span>
+            <span>
+              Monthly CI capture in <code>.github/workflows/capture-benchmarks.yml</code>{" "}
+              — committing fresh runs back to <code>benchmarks/</code>
             </span>
           </div>
           <div className="status-row">
             <span className="status-pill wip">WIP</span>
             <span>
-              Rails dashboard — scaffolded with Devise, Sidekiq, Chartkick,
-              noVNC; rough edges
+              Rails dashboard — reads <code>composite.xml</code> directly; on-demand-VM
+              code retired
             </span>
           </div>
           <div className="status-row">
@@ -630,7 +631,7 @@ export default function Home() {
           </div>
           <div className="status-row">
             <span className="status-pill todo">TODO</span>
-            <span>Live Kamal deploy of the Rails dashboard</span>
+            <span>Fill in Kamal deploy targets and ship the dashboard</span>
           </div>
         </div>
       </section>
