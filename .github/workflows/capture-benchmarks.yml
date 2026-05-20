@@ -146,7 +146,14 @@ jobs:
         env:
           TEST_RESULTS_NAME: ${{ env.RESULT_NAME }}-${{ env.RUN_DATE }}
         run: |
-          phoronix-test-suite batch-benchmark pts/c-ray pts/tinymembench pts/aircrack-ng
+          # batch-setup silences identifier/description prompts but per-test
+          # option menus still ask. Feed the historical bare-metal answers
+          # (see benchmarks/ubuntu/CPU/.../composite.xml: -s 1920x1080 -r 16)
+          # so CI captures match the existing dataset.
+          #   c-ray resolution menu     -> 1   (1080p)
+          #   c-ray rays-per-pixel free -> 16
+          # tinymembench and aircrack-ng have no further interactive prompts.
+          printf '1\n16\n' | phoronix-test-suite batch-benchmark pts/c-ray pts/tinymembench pts/aircrack-ng
 
       - name: Stage composite.xml
         if: env.RUN_THIS_DISTRO == '1'
