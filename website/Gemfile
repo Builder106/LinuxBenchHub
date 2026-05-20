@@ -26,10 +26,6 @@ gem 'sidekiq'
 #Use bootstrap and sassc-rails for styling
 gem "bootstrap"
 gem "sassc-rails"
-#Use Azure SDK for compute
-gem 'azure_mgmt_resources'
-gem 'azure_mgmt_network'
-gem 'azure_mgmt_compute'
 # Use dotenv-rails for environment variables
 gem 'dotenv-rails', groups: [:development, :test]
 # Use devise for authentication

@@ -20,9 +20,6 @@ Rails.application.routes.draw do
    # Compare benchmarks route
    get 'performance_benchmarks/compare', to: 'performance_benchmarks#compare', as: 'compare_benchmarks'
 
-   # Show GUI route
-   get 'performance_benchmarks/:id/show_gui', to: 'performance_benchmarks#show_gui', as: 'show_gui_performance_benchmark'
- 
    # Resources for Performance Benchmarks with additional collection routes
    resources :performance_benchmarks, only: [:index, :show, :new, :create, :destroy] do
       member do

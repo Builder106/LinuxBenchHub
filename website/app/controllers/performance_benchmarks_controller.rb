@@ -15,10 +15,9 @@ class PerformanceBenchmarksController < ApplicationController
  
    def create
     @performance_benchmark = current_user ? current_user.performance_benchmarks.new(performance_benchmark_params) : PerformanceBenchmark.new(performance_benchmark_params)
-  
+
     if @performance_benchmark.save
-      BenchmarkJob.perform_later(@performance_benchmark.id)
-      redirect_to show_gui_performance_benchmark_path(@performance_benchmark), notice: 'Benchmark is running. Access the GUI below.'
+      redirect_to @performance_benchmark, notice: 'Benchmark saved. Captures land here when the monthly CI workflow ingests them.'
     else
       flash.now[:error] = 'Failed to create benchmark. Please check the input and try again.'
       render :new
@@ -66,11 +65,6 @@ class PerformanceBenchmarksController < ApplicationController
      # Implement sharing logic, e.g., generating a shareable link or inviting users
    end
 
-   def show_gui
-    @performance_benchmark = PerformanceBenchmark.find(params[:id])
-    @vm_ip = @performance_benchmark.vm_ip
-   end
-   
    private
  
    def set_benchmark
