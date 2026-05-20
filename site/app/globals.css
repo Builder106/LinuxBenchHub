@@ -1,5 +1,5 @@
 :root,
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --bg: #0a0507;
   --panel: #150c10;
   --panel-deep: #1f0a10;
@@ -57,7 +57,7 @@
   }
 }
 
-[data-theme="light"] {
+:root[data-theme="light"] {
   --bg: #fdf9f8;
   --panel: #faf0ee;
   --panel-deep: #fff5f3;
