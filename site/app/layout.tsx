@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { HexMark } from "./components/HexMark";
+import { TuxMark } from "./components/TuxMark";
 import { ThemeToggle } from "./components/ThemeToggle";
 import "./globals.css";
 
@@ -63,14 +64,35 @@ export default function RootLayout({
         <div className="page">
           <nav className="nav">
             <div className="nav-brand">
-              <HexMark size={20} />
+              <div className="nav-brand-marks">
+                <HexMark size={20} />
+                <TuxMark size={20} />
+              </div>
               <span>LinuxBenchHub</span>
             </div>
             <div className="nav-links">
               <a href="/">Overview</a>
-              <a href="/benchmarks/ubuntu/">Ubuntu</a>
-              <a href="/benchmarks/fedora/">Fedora</a>
-              <a href="/benchmarks/debian/">Debian</a>
+              <a href="/benchmarks/ubuntu/" className="nav-distro">
+                <span
+                  className="nav-distro-dot"
+                  style={{ background: "var(--distro-ubuntu)" }}
+                />
+                Ubuntu
+              </a>
+              <a href="/benchmarks/fedora/" className="nav-distro">
+                <span
+                  className="nav-distro-dot"
+                  style={{ background: "var(--distro-fedora)" }}
+                />
+                Fedora
+              </a>
+              <a href="/benchmarks/debian/" className="nav-distro">
+                <span
+                  className="nav-distro-dot"
+                  style={{ background: "var(--distro-debian)" }}
+                />
+                Debian
+              </a>
               <a
                 href="https://github.com/Builder106/LinuxBenchHub"
                 target="_blank"
@@ -85,6 +107,7 @@ export default function RootLayout({
           <footer className="footer">
             <div className="footer-brand">
               <HexMark size={14} />
+              <TuxMark size={14} />
               <span>LINUXBENCHHUB · MIT</span>
             </div>
             <div>

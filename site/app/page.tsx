@@ -1,5 +1,5 @@
 import { FacetDivider, SectionFlag } from "./components/FacetDivider";
-import { HexMark } from "./components/HexMark";
+import { DistroMark } from "./components/DistroMark";
 
 type Benchmark = {
   name: string;
@@ -167,10 +167,9 @@ function HexTile({ distro }: { distro: Distro }) {
   return (
     <a className="hex-tile" href={`/benchmarks/${distro.slug}/`}>
       <div className="hex-tile-inner">
-        <div
-          className="hex-tile-flag"
-          style={{ background: distro.color }}
-        />
+        <div className="hex-tile-mark">
+          <DistroMark distro={distro.slug} size={44} />
+        </div>
         <div className="hex-tile-name">{distro.name}</div>
         <div className="hex-tile-version">{distro.version}</div>
         {distro.stat ? (
@@ -555,7 +554,7 @@ export default function Home() {
       <FacetDivider />
 
       <section className="section">
-        <SectionFlag>Per-distro writeups</SectionFlag>
+        <SectionFlag withTux>Per-distro writeups</SectionFlag>
         <p style={{ color: "var(--fg-muted)", maxWidth: "60ch" }}>
           Three distros, same VM specs. Ubuntu is the parsed sample; Fedora
           and Debian have captured runs but the parsed-out hero numbers are

@@ -1,4 +1,5 @@
 import { HexMark } from "./HexMark";
+import { TuxMark } from "./TuxMark";
 
 export function FacetDivider() {
   return (
@@ -36,10 +37,17 @@ export function FacetDivider() {
   );
 }
 
-export function SectionFlag({ children }: { children: React.ReactNode }) {
+export function SectionFlag({
+  children,
+  withTux = false,
+}: {
+  children: React.ReactNode;
+  withTux?: boolean;
+}) {
   return (
     <div className="section-flag">
       <HexMark size={18} />
+      {withTux && <TuxMark size={18} />}
       <h2>{children}</h2>
     </div>
   );

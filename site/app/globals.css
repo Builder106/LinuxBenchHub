@@ -157,8 +157,15 @@ a:hover {
   color: var(--fg);
 }
 
+.nav-brand-marks {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 22px;
   font-size: 12px;
   letter-spacing: 0.14em;
@@ -168,6 +175,20 @@ a:hover {
 .nav-links a {
   color: var(--fg-dim);
   text-transform: uppercase;
+}
+
+.nav-links a.nav-distro {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.nav-distro-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .nav-links a:hover {
@@ -608,10 +629,12 @@ img {
   text-align: center;
 }
 
-.hex-tile-flag {
-  width: 32px;
-  height: 4px;
+.hex-tile-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 14px;
+  height: 44px;
 }
 
 .hex-tile-name {
