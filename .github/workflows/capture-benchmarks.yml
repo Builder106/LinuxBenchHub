@@ -1,0 +1,148 @@
+name: Capture benchmarks
+
+# Monthly captures of pts/c-ray, pts/tinymembench, pts/aircrack-ng across the
+# three target distros. Each matrix entry runs inside a distro container on
+# the same ubuntu-latest runner so the underlying CPU is identical across
+# distros — the comparison is fair, but absolute numbers are virtualized
+# runner numbers, not bare-metal numbers. The previous bare-metal sample
+# stays in benchmarks/ubuntu/composite.xml as the historical reference.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"  # 1st of the month, 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      distro:
+        description: "Run only one distro (ubuntu / fedora / debian / all)"
+        type: choice
+        default: all
+        options: [all, ubuntu, fedora, debian]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: capture-benchmarks
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    name: ${{ matrix.distro }} ${{ matrix.version }}
+    if: github.event.inputs.distro == 'all' || github.event.inputs.distro == matrix.distro || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 1  # serialize so each job can pull-rebase the previous push
+      matrix:
+        include:
+          - distro: ubuntu
+            version: "24.04"
+            image: ubuntu:24.04
+            pkg_install: |
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update
+              apt-get install -y --no-install-recommends \
+                ca-certificates curl git php-cli php-xml php-zip \
+                build-essential libssl-dev zlib1g-dev unzip
+          - distro: fedora
+            version: "41"
+            image: fedora:41
+            pkg_install: |
+              dnf install -y --setopt=install_weak_deps=False \
+                ca-certificates curl git php-cli php-xml \
+                make gcc gcc-c++ openssl-devel zlib-devel unzip findutils
+          - distro: debian
+            version: "12"
+            image: debian:12
+            pkg_install: |
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update
+              apt-get install -y --no-install-recommends \
+                ca-certificates curl git php-cli php-xml php-zip \
+                build-essential libssl-dev zlib1g-dev unzip
+
+    container:
+      image: ${{ matrix.image }}
+      options: --user root
+
+    env:
+      RUN_DATE: ""  # populated below
+      RESULT_NAME: "lbh-${{ matrix.distro }}-ci"
+
+    steps:
+      - name: Install distro packages
+        shell: bash
+        run: ${{ matrix.pkg_install }}
+
+      - name: Set RUN_DATE
+        shell: bash
+        run: echo "RUN_DATE=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need full history for pull --rebase before push
+
+      - name: Install Phoronix Test Suite
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/phoronix-test-suite/phoronix-test-suite.git /tmp/pts
+          cd /tmp/pts
+          ./install-sh /opt/pts
+          ln -sf /opt/pts/bin/phoronix-test-suite /usr/local/bin/phoronix-test-suite
+          phoronix-test-suite version
+
+      - name: Seed batch-mode config
+        shell: bash
+        run: |
+          install -d /root/.phoronix-test-suite
+          cp .github/scripts/pts-batch-config.xml /root/.phoronix-test-suite/user-config.xml
+
+      - name: Run pts/c-ray, pts/tinymembench, pts/aircrack-ng
+        shell: bash
+        env:
+          TEST_RESULTS_NAME: ${{ env.RESULT_NAME }}-${{ env.RUN_DATE }}
+        run: |
+          phoronix-test-suite batch-benchmark pts/c-ray pts/tinymembench pts/aircrack-ng
+
+      - name: Stage composite.xml
+        shell: bash
+        run: |
+          composite=$(find /root/.phoronix-test-suite/test-results -name composite.xml -print -quit)
+          if [ -z "$composite" ]; then
+            echo "::error::No composite.xml produced — benchmark run failed."
+            exit 1
+          fi
+          captures="benchmarks/${{ matrix.distro }}/captures"
+          mkdir -p "$captures"
+          cp "$composite" "$captures/composite-${RUN_DATE}.xml"
+          # Also overwrite the canonical latest pointer so the dashboard and
+          # the R parser always have a stable path.
+          cp "$composite" "benchmarks/${{ matrix.distro }}/composite-latest.xml"
+          echo "Saved $captures/composite-${RUN_DATE}.xml and composite-latest.xml"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.distro }}-${{ matrix.version }}-${{ env.RUN_DATE }}
+          path: |
+            benchmarks/${{ matrix.distro }}/captures/composite-${{ env.RUN_DATE }}.xml
+            benchmarks/${{ matrix.distro }}/composite-latest.xml
+          retention-days: 365
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name  "linuxbenchhub-bot"
+          git config user.email "linuxbenchhub-bot@users.noreply.github.com"
+          git add benchmarks/${{ matrix.distro }}/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Capture ${{ matrix.distro }} ${{ matrix.version }} benchmarks ${RUN_DATE}"
+          # Another matrix entry may have pushed since checkout — rebase.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

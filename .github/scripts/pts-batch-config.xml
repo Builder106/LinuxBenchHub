@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+  Phoronix Test Suite user config seeded into the runner before any benchmark
+  runs. Disables every interactive prompt and every "phone home" so the suite
+  runs cleanly under `phoronix-test-suite batch-benchmark ...` with no TTY.
+-->
+<PhoronixTestSuite>
+  <Options>
+    <OpenBenchmarking>
+      <AnonymousUsageReporting>FALSE</AnonymousUsageReporting>
+      <AnonymousSoftwareReporting>FALSE</AnonymousSoftwareReporting>
+      <AnonymousHardwareReporting>FALSE</AnonymousHardwareReporting>
+      <IndexCacheTTL>3</IndexCacheTTL>
+      <AlwaysUploadSystemLogs>FALSE</AlwaysUploadSystemLogs>
+      <AllowResultUploadsToOpenBenchmarking>FALSE</AllowResultUploadsToOpenBenchmarking>
+    </OpenBenchmarking>
+    <General>
+      <DefaultBrowser></DefaultBrowser>
+      <UsePhodeviCache>TRUE</UsePhodeviCache>
+      <DefaultDisplayMode>BATCH</DefaultDisplayMode>
+    </General>
+    <Modules>
+      <AutoLoadModules>toggle_screensaver, update_checker</AutoLoadModules>
+    </Modules>
+    <Installation>
+      <RemoveDownloadFiles>TRUE</RemoveDownloadFiles>
+      <SearchMediaForCache>FALSE</SearchMediaForCache>
+      <SymLinkFilesFromCache>FALSE</SymLinkFilesFromCache>
+      <PromptForDownloadMirror>FALSE</PromptForDownloadMirror>
+    </Installation>
+    <Testing>
+      <SaveSystemLogs>TRUE</SaveSystemLogs>
+      <SaveInstallationLogs>FALSE</SaveInstallationLogs>
+      <SaveTestLogs>FALSE</SaveTestLogs>
+      <AlwaysUploadResultsToOpenBenchmarking>FALSE</AlwaysUploadResultsToOpenBenchmarking>
+      <AutoSortRunQueue>TRUE</AutoSortRunQueue>
+    </Testing>
+    <TestResultValidation>
+      <DynamicRunCount>TRUE</DynamicRunCount>
+      <LimitDynamicToTestLength>20</LimitDynamicToTestLength>
+      <StandardDeviationThreshold>3.50</StandardDeviationThreshold>
+      <ExportResultsTo></ExportResultsTo>
+    </TestResultValidation>
+    <BatchMode>
+      <SaveResults>TRUE</SaveResults>
+      <OpenBrowser>FALSE</OpenBrowser>
+      <UploadResults>FALSE</UploadResults>
+      <PromptForTestIdentifier>FALSE</PromptForTestIdentifier>
+      <PromptForTestDescription>FALSE</PromptForTestDescription>
+      <PromptSaveName>FALSE</PromptSaveName>
+      <RunAllTestCombinations>FALSE</RunAllTestCombinations>
+      <Configured>TRUE</Configured>
+    </BatchMode>
+    <Networking>
+      <NoInternetCommunication>FALSE</NoInternetCommunication>
+      <NoNetworkCommunication>FALSE</NoNetworkCommunication>
+      <Timeout>20</Timeout>
+    </Networking>
+  </Options>
+</PhoronixTestSuite>
