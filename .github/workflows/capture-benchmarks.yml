@@ -42,15 +42,19 @@ jobs:
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
               apt-get install -y --no-install-recommends \
-                ca-certificates curl git php-cli php-xml php-zip \
-                build-essential libssl-dev zlib1g-dev unzip
+                ca-certificates curl git php-cli php-xml php-zip unzip \
+                build-essential autoconf automake libtool pkg-config shtool \
+                libssl-dev zlib1g-dev \
+                libnl-3-dev libnl-genl-3-dev libpcap-dev libsqlite3-dev libpcre2-dev
           - distro: fedora
             version: "41"
             image: fedora:41
             pkg_install: |
               dnf install -y --setopt=install_weak_deps=False \
-                ca-certificates curl git php-cli php-xml \
-                make gcc gcc-c++ openssl-devel zlib-devel unzip findutils
+                ca-certificates curl git php-cli php-xml unzip findutils \
+                make gcc gcc-c++ autoconf automake libtool pkgconf-pkg-config shtool \
+                openssl-devel zlib-devel \
+                libnl3-devel libpcap-devel sqlite-devel pcre2-devel
           - distro: debian
             version: "12"
             image: debian:12
@@ -58,8 +62,10 @@ jobs:
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
               apt-get install -y --no-install-recommends \
-                ca-certificates curl git php-cli php-xml php-zip \
-                build-essential libssl-dev zlib1g-dev unzip
+                ca-certificates curl git php-cli php-xml php-zip unzip \
+                build-essential autoconf automake libtool pkg-config shtool \
+                libssl-dev zlib1g-dev \
+                libnl-3-dev libnl-genl-3-dev libpcap-dev libsqlite3-dev libpcre2-dev
 
     container:
       image: ${{ matrix.image }}
@@ -96,7 +102,7 @@ jobs:
 
       - name: Checkout
         if: env.RUN_THIS_DISTRO == '1'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0  # need full history for pull --rebase before push
 
@@ -144,7 +150,7 @@ jobs:
 
       - name: Upload artifact
         if: env.RUN_THIS_DISTRO == '1'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.distro }}-${{ matrix.version }}-${{ env.RUN_DATE }}
           path: |
