@@ -188,6 +188,17 @@ a:hover {
   flex-shrink: 0;
 }
 
+.nav-links a.nav-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-github-mark {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
 .nav-links a:hover {
   color: var(--accent-bright);
   text-decoration: none;

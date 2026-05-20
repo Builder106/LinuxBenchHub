@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { HexMark } from "./components/HexMark";
 import { TuxMark } from "./components/TuxMark";
 import { DistroMark } from "./components/DistroMark";
+import { GithubMark } from "./components/GithubMark";
 import { ThemeToggle } from "./components/ThemeToggle";
 import "./globals.css";
 
@@ -89,8 +90,11 @@ export default function RootLayout({
                 href="https://github.com/Builder106/LinuxBenchHub"
                 target="_blank"
                 rel="noreferrer"
+                className="nav-github"
+                aria-label="LinuxBenchHub on GitHub"
               >
-                GitHub ↗
+                <GithubMark size={16} className="nav-github-mark" />
+                GitHub
               </a>
               <ThemeToggle />
             </div>

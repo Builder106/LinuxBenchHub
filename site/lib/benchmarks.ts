@@ -145,7 +145,7 @@ function parseTest(block: string): Test {
 
 export function parseDistroMarkdown(md: string): ParsedDistro {
   const titleMatch = md.match(/^#\s+(.+)$/m);
-  const introMatch = md.match(/^#\s+.+\n+([^\n#].+?)\n+##/s);
+  const introMatch = md.match(/^#\s+[^\n]+\n+([\s\S]*?)\n+(?=^##\s)/m);
 
   const hwMatch = md.match(/### Hardware\s*\n+([\s\S]*?)\n+###/);
   const swMatch = md.match(/### Software\s*\n+([\s\S]*?)\n+---/);
