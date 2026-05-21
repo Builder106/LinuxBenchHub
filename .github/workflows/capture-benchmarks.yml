@@ -52,7 +52,8 @@ jobs:
             pkg_install: |
               dnf install -y --setopt=install_weak_deps=False \
                 ca-certificates curl git php-cli php-xml unzip findutils \
-                make gcc gcc-c++ autoconf automake libtool pkgconf-pkg-config shtool \
+                make gcc gcc-c++ autoconf autoconf-archive automake libtool \
+                pkgconf-pkg-config shtool hwloc-devel \
                 openssl-devel zlib-devel \
                 libnl3-devel libpcap-devel sqlite-devel pcre2-devel
           - distro: debian
@@ -154,6 +155,27 @@ jobs:
           #   c-ray rays-per-pixel free -> 16
           # tinymembench and aircrack-ng have no further interactive prompts.
           printf '1\n16\n' | phoronix-test-suite batch-benchmark pts/c-ray pts/tinymembench pts/aircrack-ng
+
+      - name: Surface any per-test install failures
+        if: env.RUN_THIS_DISTRO == '1'
+        shell: bash
+        run: |
+          # PTS skips a test whose build fails and proceeds with the rest, so
+          # the job conclusion can be 'success' with a missing benchmark. Dump
+          # any install-failed.log so partial captures are easy to diagnose.
+          shopt -s nullglob
+          fails=(/var/lib/phoronix-test-suite/installed-tests/pts/*/install-failed.log)
+          if [ ${#fails[@]} -eq 0 ]; then
+            echo "All requested tests installed cleanly."
+            exit 0
+          fi
+          for log in "${fails[@]}"; do
+            test=$(basename "$(dirname "$log")")
+            echo "::warning::pts/$test failed to install — captured composite will be incomplete"
+            echo "--- $log ---"
+            cat "$log"
+            echo "--- end $log ---"
+          done
 
       - name: Stage composite.xml
         if: env.RUN_THIS_DISTRO == '1'
