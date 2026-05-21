@@ -141,6 +141,73 @@ jobs:
           #   Q7 Run all test options              -> N
           printf 'y\nn\nn\nn\nn\nn\nn\n' | phoronix-test-suite batch-setup
 
+      # DEBUG: temporary — diagnose why pts/aircrack-ng-1.3.0 install dies
+      # in ~150ms on Fedora with an empty install-failed.log. Remove once
+      # the root cause is fixed.
+      - name: Debug — isolate aircrack-ng install on Fedora
+        if: env.RUN_THIS_DISTRO == '1' && matrix.distro == 'fedora'
+        shell: bash
+        run: |
+          set +e
+          echo "=========================================="
+          echo "[1] Try PTS's own install path, capture both streams"
+          echo "=========================================="
+          phoronix-test-suite install pts/aircrack-ng \
+            >/tmp/pts-install.stdout 2>/tmp/pts-install.stderr
+          rc=$?
+          echo "exit code: $rc"
+          echo "--- stdout ---"; sed -n '1,80p' /tmp/pts-install.stdout
+          echo "--- stderr ---"; sed -n '1,80p' /tmp/pts-install.stderr
+
+          echo "=========================================="
+          echo "[2] PTS-generated install.sh contents"
+          echo "=========================================="
+          installed=/var/lib/phoronix-test-suite/installed-tests/pts/aircrack-ng-1.3.0
+          profile=/var/lib/phoronix-test-suite/test-profiles/pts/aircrack-ng-1.3.0
+          for d in "$installed" "$profile"; do
+            for f in "$d"/install.sh "$d"/pre-install.sh "$d"/post-install.sh; do
+              if [ -f "$f" ]; then
+                echo "--- $f ---"
+                cat "$f"
+              fi
+            done
+          done
+
+          echo "=========================================="
+          echo "[3] install-failed.log + installed dir listing"
+          echo "=========================================="
+          if [ -f "$installed/install-failed.log" ]; then
+            echo "(size $(stat -c%s "$installed/install-failed.log") bytes)"
+            cat "$installed/install-failed.log"
+          else
+            echo "(no install-failed.log)"
+          fi
+          echo "--- ls $installed ---"
+          ls -la "$installed" 2>&1 || echo "(missing)"
+
+          echo "=========================================="
+          echo "[4] Manual bash -x trace of install.sh"
+          echo "=========================================="
+          if [ -f "$installed/install.sh" ]; then
+            (cd "$installed" && bash -x ./install.sh) 2>&1 | tail -120
+          else
+            echo "(no install.sh — PTS didn't produce one)"
+          fi
+
+          echo "=========================================="
+          echo "[5] Sanity checks: tools the install script likely needs"
+          echo "=========================================="
+          for t in autoreconf autopoint aclocal automake autoconf libtool \
+                   pkg-config make gcc which gettext bison flex; do
+            if command -v "$t" >/dev/null 2>&1; then
+              echo "  ok    $t -> $(command -v "$t")"
+            else
+              echo "  MISS  $t"
+            fi
+          done
+          # Don't fail the job — this is diagnostic.
+          exit 0
+
       - name: Run pts/c-ray, pts/tinymembench, pts/aircrack-ng
         if: env.RUN_THIS_DISTRO == '1'
         shell: bash
