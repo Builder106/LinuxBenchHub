@@ -290,12 +290,21 @@ jobs:
           ssh-keyscan -H "$OCI_AMPERE_HOST" >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Run lbh-capture on the Ampere host
+        # No step-level timeout — the job's 60-minute cap is the backstop.
         run: |
-          # The script on the VM produces /home/ubuntu/captures/composite-latest.xml.
-          # Use -tt so PTS's progress output flushes to the Actions log in real
-          # time instead of being buffered into one big lump at the end.
-          ssh -tt -i ~/.ssh/lbh-ampere ubuntu@"$OCI_AMPERE_HOST" \
-            'set -e; /usr/local/bin/lbh-capture'
+          # -tt:                      pseudo-tty for real-time output streaming
+          # ServerAliveInterval=30:   client pings server every 30s
+          # ServerAliveCountMax=20:   tolerate 20 missed pings (10 min) before dropping
+          # TCPKeepAlive=yes:         kernel-level keepalive as a second safety net
+          # Without these, idle middleboxes drop the connection during the long
+          # quiet stretches when PTS is mid-test (only prints progress every minute
+          # or two), and SIGHUP propagates from -tt and kills the remote run.
+          ssh -tt \
+              -o ServerAliveInterval=30 \
+              -o ServerAliveCountMax=20 \
+              -o TCPKeepAlive=yes \
+              -i ~/.ssh/lbh-ampere ubuntu@"$OCI_AMPERE_HOST" \
+              'set -e; /usr/local/bin/lbh-capture'
 
       - name: Pull composite back from the VM
         run: |
