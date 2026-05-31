@@ -1,0 +1,29 @@
+# Copy to terraform.tfvars (which is gitignored) and fill in your values.
+# `oci setup config` produces the first five — `cat ~/.oci/config` to read
+# them out, or use the Console > Identity > API Keys flow.
+
+tenancy_ocid     = "ocid1.tenancy.oc1..aaaaaaaa..."
+user_ocid        = "ocid1.user.oc1..aaaaaaaa..."
+fingerprint      = "aa:bb:cc:dd:ee:ff:00:11:22:33:44:55:66:77:88:99"
+private_key_path = "~/.oci/oci_api_key.pem"
+region           = "us-ashburn-1"
+
+# Compartment to drop resources into. Use tenancy_ocid for the root
+# compartment (simplest), or create a dedicated one in Console > Identity >
+# Compartments first.
+compartment_ocid = "ocid1.tenancy.oc1..aaaaaaaa..."
+
+# Your laptop's SSH public key. `cat ~/.ssh/id_ed25519.pub` — paste the full
+# `ssh-ed25519 AAAA... user@host` line.
+ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... you@host"
+
+# Narrow this. `curl ifconfig.me` → "203.0.113.42" → "203.0.113.42/32".
+# Leaving 0.0.0.0/0 works but you'll see bot login attempts in /var/log/auth.log
+# within minutes.
+ssh_ingress_cidr = "0.0.0.0/0"
+
+# Optional overrides — defaults claim the full free-tier allocation.
+# ocpus                   = 4
+# memory_in_gbs           = 24
+# boot_volume_size_in_gbs = 50
+# instance_name           = "linuxbenchhub-ampere"

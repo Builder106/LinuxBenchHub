@@ -1,0 +1,94 @@
+# JOURNAL — LinuxBenchHub
+
+> Dated log of decisions, pivots, incidents, and quotes. Add entries as
+> things happen — retrospectives need this raw material to land.
+> Reverse-chronological; one paragraph max per entry.
+
+## 2026-05-31 — arm64 capture pipeline fully wired #milestone
+
+End-to-end automation for the aarch64 leg landed in one session. Five pieces:
+
+1. **Parser refactor.** `benchmarks/ubuntu/Parse_composite_Ubuntu.R` now takes `<composite.xml> <output_dir>` args and the same script handles both x86 and arm64 captures. `process_result_node` prefers the per-result `<Scale>` from the XML so a single combined composite with c-ray + tinymembench + aircrack-ng (each in different units) renders correctly. Backwards-compat: no-args falls back to the legacy 2024 per-test-type sample paths. Also corrected the c-ray unit label from "Milliseconds" to "Seconds" — that was a 2024-era bug nobody caught because the legacy script also reads `<Scale>` from the XML and ignored the passed-in label.
+2. **CI job.** New `capture-ampere-arm64` job in `.github/workflows/capture-benchmarks.yml` runs after the x86 matrix on the same monthly cron. SSHes into the Ampere host using a base64'd private key secret, runs `lbh-capture`, scp's the composite back, commits to `benchmarks/ubuntu-arm64/`. Manual dispatches honour a new `include_arm64` boolean input.
+3. **Repo secrets.** `OCI_AMPERE_HOST=129.146.183.26` and `OCI_AMPERE_SSH_KEY` (base64 of `~/.ssh/lbh-ampere`) set via `gh secret set`. Visible via `gh secret list --repo Builder106/LinuxBenchHub`.
+4. **OCI budget alert.** $1/mo budget (`linuxbenchhub-smoke-detector`, OCID `ocid1.budget.oc1.phx.amaaaaaa7gaigyqazsu4qxxw3nos6oknpx6mxc3fv7flmy3bwwcbbft2zlra`) with a 100%-actual-spend email alert to vaughanolayinka@gmail.com. **CLI quirk discovered**: the command is `oci budgets budget budget create` (doubled "budget") and alert rules are `oci budgets budget alert-rule create` — the OCI CLI's namespace nesting is unusual and the obvious `oci budgets budget create` form fails with a misleading "No such command 'list'" error.
+5. **VM reboot.** Kernel went from `6.17.0-1011-oracle` to `6.17.0-1016-oracle`; `/var/run/reboot-required` cleared. Port 22 came back in 10 seconds — much faster than I'd guessed.
+
+The monthly cron at 06:00 UTC on the 1st now produces 4 composites (3 x86 containers + 1 arm64 VM) instead of 3. The next firing is 2026-06-01.
+
+## 2026-05-31 — First aarch64 capture + /home/ubuntu ownership quirk #milestone #incident
+
+`lbh-capture` ran the full c-ray + tinymembench + aircrack-ng suite end-to-end on the Ampere host in ~25 minutes. Headline numbers (Ampere A1, 4 OCPU / 24 GB aarch64): c-ray 1080p@16rpp **212.0 s**, tinymembench memset **47,576 MB/s**, aircrack-ng **4,154 k/s**. The script then failed on the very last step with `mkdir: cannot create directory '/home/ubuntu/captures': Permission denied`. Root cause: **OCI's Ubuntu cloud image ships with `/home/ubuntu` owned by `root:root`, not `ubuntu:ubuntu`** — the home directory exists in the image before cloud-init's datasource creates the user, and cloud-init's users-groups module doesn't fix ownership of a pre-existing dir. Ubuntu can traverse `$HOME` (perms are 0755) so SSH and existing subdirs work, but `mkdir` of a new top-level entry fails silently. Fixed on the live VM with `sudo chown ubuntu:ubuntu /home/ubuntu` + manual `cp` of the composite. cloud-init.yml patched to chown as the first runcmd step. **How to apply:** any future cloud-init for OCI Ubuntu images should chown `/home/ubuntu` to `ubuntu:ubuntu` in the FIRST runcmd entry, before any step that creates new files or dirs in `$HOME`. The cloud-init `users:` directive does NOT solve this — only runcmd does. Composite saved at [benchmarks/ubuntu-arm64/composite-latest.xml](benchmarks/ubuntu-arm64/composite-latest.xml) as the first aarch64 data point in the dataset.
+
+## 2026-05-28 — cloud-init partial failure + patch on the Ampere VM #incident #decision
+
+`cloud-init status --wait` came back `status: error` on the first SSH after provisioning. Two distinct failures in one bootstrap:
+
+1. **`write_files` failed with "Unknown user or group: 'ubuntu'"**. OCI's Ubuntu images create the `ubuntu` user from the cloud datasource late enough that the default `config`-stage `write_files` module loses the race. Both planned files — `~ubuntu/.phoronix-test-suite/user-config.xml` and `/usr/local/bin/lbh-capture` — were never written. Fix: added `defer: true` to both write_files entries so they run in the `final` stage, after user creation. Documented cloud-init recipe for exactly this race (cloud-init ≥ 23.4).
+2. **`package_install` reported failure on `libfreetype6-dev`** — the package was renamed to `libfreetype-dev` in Ubuntu 24.04 and the `6` variant no longer exists. cloud-init flagged the batch as failed in `status --long` even though apt actually fell through and installed every other package successfully (verified via `dpkg -l` after the fact). Fix: dropped the `6` from the package name.
+
+**The bright spot**: `runcmd` ran despite the earlier module errors, so PTS, R, and the R libraries (`tidyr`, `dplyr`, etc.) all installed. The 30 build deps for c-ray / tinymembench / aircrack-ng were also all present per `dpkg -l`. Patching the live VM took two `ssh + tee` calls (user-config.xml + lbh-capture script) and no rebuild was required. The cloud-init.yml fix is committed for future provisions; this VM stays as-is. **How to apply:** when authoring cloud-init for OCI Ubuntu images, default to `defer: true` on any `write_files` entry that targets `/home/ubuntu/`. Treat `cloud-init status --long` errors as advisory, not definitive — always verify actual filesystem state via `dpkg -l` / `ls -la` before concluding what's broken.
+
+## 2026-05-28 — Ampere VM live in us-phoenix-1 #milestone
+
+`tofu apply` succeeded on the second try (post-PAYG). 6 resources, ~45 seconds total, instance creation itself was 38s. Public IP `129.146.183.26`, instance OCID `ocid1.instance.oc1.phx.anyhqljr7gaigyqckdltgd5mawrkwn3zotky4nvradhtid6vtaqqu5pe5l3q`. cloud-init runs in the background after provisioning — PTS install, R deps, the `lbh-capture` helper script. SSH works immediately; `lbh-capture` available after cloud-init finishes (~3–5 min). Next: SSH in, `cloud-init status --wait`, run `lbh-capture` to produce the first aarch64 composite.xml. After that the work shifts to wiring `.github/workflows/capture-benchmarks.yml` to dispatch over SSH.
+
+## 2026-05-28 — Upgraded to Oracle PAYG to unlock service-limit requests #decision #pivot
+
+Discovered mid-flow that **Free Tier tenancies cannot file service limit increase requests at all** — submitting the form returns "Your tenancy is not eligible." This is an undocumented-in-banner Oracle policy that pushes toward Pay-as-you-go. Three viable paths after this discovery: switch LinuxBenchHub to `uk-london-1` (fresh 2-VCN quota, no upgrade needed), reuse `ocaml-lob-vcn` as a data source (coupling penalty), or upgrade to PAYG. Picked PAYG. **Why:** keeps every OCI project in one region/console, doesn't entangle LinuxBenchHub's networking with OCaml-LOB's lifecycle, and unlocks the limit-request capability for future projects (this would have recurred at project #4 anyway). **Surprise on the other side:** PAYG didn't just unlock SR-filing — it auto-bumped the VCN limit from 2 to 50 in Phoenix, making the SR moot. The cancelled limit-request form was the actual signal that the upgrade had taken effect. Same likely true for IGW count, IP count, and other soft caps that were quietly throttling Free Tier. **How to apply:** the 4-OCPU/24-GB A1.Flex shape still qualifies as Always-Free on PAYG, so the projected bill stays $0 — but the "$0 ongoing cost" thesis is now an active discipline, not an automatic property. Any future resource creation must explicitly stay within Always-Free shape caps (4 OCPU + 24 GB Ampere, 200 GB block storage, 2 E2 micros) or it starts billing. Worth pinning a billing alert at >$1/mo as a smoke detector.
+
+## 2026-05-28 — Hit OCI's 2-VCN-per-region quota in us-phoenix-1 #incident #decision
+
+`tofu apply` failed on the very first resource with `400-LimitExceeded: vcn-count` — Oracle's Always-Free tenancies cap at 2 VCNs per region, and Phoenix was already full with `econos-vcn` and `ocaml-lob-vcn` (both 2026-05-10, both hosting live `E2.1.Micro` instances for sibling Quant projects). Neither could be deleted or reused: deleting would kill their VMs; reusing would couple LinuxBenchHub's network to another project's lifecycle. Three options weighed — quota increase, region split to `uk-london-1`, or VCN reuse via data source. Picked the quota increase strategy (bump to 5 VCNs in Phoenix); see follow-up entry on the eligibility blocker. **Why:** keeps every project in one region/console, decoupled networks, future-proof for the next two OCI projects. Region split saves the wait but adds a second OCI region to track; VCN reuse saves a network but couples two projects' teardown lifecycles. **How to apply:** any future OCI module in this repo (or sibling repos) should assume the 2-VCN-per-region cap exists and either check `oci network vcn list` first or request a quota increase pre-emptively. The capacity-vs-quota distinction matters: capacity errors are transient (retry later), quota errors are structural (need a request). Note that VM.Standard.E2.1.Micro (the Quant projects' shape) is a *different* free-tier pool from VM.Standard.A1.Flex (Ampere) — they don't compete on OCPU, only on VCN/IP/storage counts.
+
+## 2026-05-28 — OpenTofu over Terraform for the OCI module #decision
+
+HashiCorp dropped Terraform from Homebrew's main formulae when they relicensed to BSL in 2023, which forced the question. Picked OpenTofu: MIT license matches the rest of this repo (avoids the BSL "competitive offering" clause entirely, even though provisioning my own VM doesn't plausibly trigger it), the Linux Foundation steward'd fork has been stable for over a year, and the `oracle/oci` provider ships to both registries identically. CLI is `tofu`; the [infra/oci-ampere/README.md](infra/oci-ampere/README.md) provisioning commands use it. The `terraform { required_version = ... }` block in versions.tf still works — OpenTofu reads the canonical Terraform block.
+
+## 2026-05-28 — Reintroducing live VMs, but on Oracle Ampere arm64 #decision #pivot
+
+Re-opening the live-VM capture path that the 2026-05-20 pivot closed — but narrowly, and on a different axis. GitHub Actions only offers x86_64 runners on the free plan, so the entire dataset is x86-only. Provisioning an always-free Oracle Cloud Ampere A1 Flex instance (4 OCPUs / 24 GB aarch64) buys an arm64 column at zero ongoing cost and without re-introducing the per-click Azure churn that originally killed the live-VM approach. Crucially this is a *long-lived* VM driven by the same cron schedule the CI job uses, not a per-request VM created and torn down on each user click — that distinction is what makes the security/cleanup story acceptable this time. Infra lives at [infra/oci-ampere/](infra/oci-ampere/) as Terraform; a follow-up commit will wire `capture-benchmarks.yml` to dispatch over SSH to this host for the arm64 leg.
+
+## 2026-05-23 — noVNC pinned at last working SHA #decision
+
+noVNC is still wired in as a git submodule under `website/noVNC/` even though the on-demand-VM live-view feature it served was retired on 2026-05-20. Keeping it for now rather than removing — the Rails ingester rewrite still imports it, and a clean rip-out is its own task. Submodule SHA bumps on 2026-05-22 and 2026-05-23 were just tracking upstream tags so the lockstep didn't go stale.
+
+## 2026-05-21 — Fedora aircrack-ng build wars #incident
+
+Three CI re-runs the same day chasing the same root cause: `fedora:41`'s minimal image ships without `which`, `gettext-devel`, `bison`, `flex`, or `autoconf-archive`, and aircrack-ng's `autogen.sh` uses `which libtoolize` to locate libtoolize. When `which` is missing, `which libtoolize` silently emits an empty string, `autogen.sh` continues, and `make` runs against an unconfigured tree — the test "compiles" but produces no usable binary, so PTS marks it install-failed and the composite ships without the network benchmark. Fixed across 1b42793 (autoconf-archive), 3d4713c (diagnostic step), 0f6ed5a (which + autotools). Note for future: `dnf install -y --setopt=install_weak_deps=False` is aggressive — re-check whenever a new PTS test gets added.
+
+## 2026-05-20 — Pivot: Azure-per-click → monthly CI captures #pivot #decision
+
+The original architecture spun up an Azure VM per user click (commits 15faa66, 520c484, cad8872), exposed a live noVNC view of the running benchmark, and tore the VM down after. Killed it today across three commits — 324fd27 (add CI capture job), 027a4af (drop Azure VM code paths from Rails), 0d327ec (rewrite README + static site around the new architecture). Trade: lost the live-demo wow factor, gained reproducibility (`composite-YYYY-MM-DD.xml` in git), $0 ongoing cost, no SSH password leak risk, no public VNC ports, no cleanup race when the user navigates away mid-run. The dormant Kamal deploy workflow went with it (bf5970d) since there was no production app to deploy until the dashboard rewrite settles.
+
+## 2026-05-20 — Static showcase split off to its own Next.js app on Vercel #decision
+
+Rails dashboard isn't ready for prime time and may never be the public-facing surface anyway. Split off [`site/`](site/) as a static Next.js export deployed to Vercel (commits c7024c5, 7016fc4, 7f6ed7e) — this becomes the page judges and recruiters land on. The Rails app keeps owning the live ingestion + drill-down workflow once it's stable. Two-surface architecture: marketing site on Vercel, app on its own host later.
+
+## 2026-05-20 — PTS batch-mode is not idempotent from XML alone #incident
+
+Spent the morning chasing why `pts-batch-config.xml` setting `<BatchMode><Configured>TRUE</Configured></BatchMode>` wasn't enough — PTS still prompted for the 7 yes/no questions on first run. Turns out PTS only treats batch mode as "configured" when its *own* writer flips the flag, not when the XML is dropped in place. Workaround in 776fed8: `printf 'y\nn\nn\nn\nn\nn\nn\n' | phoronix-test-suite batch-setup`. Then 776fed8's batch-setup *still* didn't silence the per-test option menus (c-ray asks for resolution + rays-per-pixel), so d2a65d9 added `printf '1\n16\n' |` in front of `batch-benchmark` to feed those answers via stdin too. Lesson: PTS's "non-interactive" surface has three independent layers (config XML, batch-setup, per-test stdin).
+
+## 2026-05-18 — Repo revival: standard baseline + dashboard back online #milestone
+
+Project sat dormant from June 2025 to May 2026 — the only commit in that window was 41bb80c "Trying to fix this" with no follow-up. Today: applied the standard repo baseline (5bb93d7) — banner, LICENSE detected by GitHub, CONTRIBUTING.md, CI workflow. Got the Rails dashboard booting again (906ec65). Parsed all three distro composites (8bf3e79) and shipped full per-distro writeups. The bare-metal sample was already there from 2024 but never had Fedora/Debian writeups to match Ubuntu's.
+
+## 2025-06-15 — "Trying to fix this" #incident
+
+Solo commit 41bb80c with that message, then six months of silence. The thing being fixed isn't documented anywhere — probably the Azure VM creation path stopped working after some Azure SDK breaking change, but that's inference. Recording the gap explicitly so future-me knows the dormant period wasn't a deliberate pause.
+
+## 2025-01-03 — Rails UJS re-added for benchmark destroy #decision
+
+Rails 8 ships without UJS by default; the destroy buttons on benchmark cards relied on `data-method="delete"` link rewriting (383b6a0). Reverted to UJS rather than rewriting every destroy to a Turbo-styled button form — at the time the Turbo path felt like a bigger change than the feature warranted. Worth revisiting whenever the dashboard UI rewrite happens.
+
+## 2025-01-01 — Background job for benchmark execution + VM connection details UI #milestone
+
+Three pieces landed together (cad8872): a background job kicks off the PTS run instead of blocking the request, the GUI shows VM connection details (IP, VNC URL, status), and resource cleanup runs on job completion. This was the on-demand-VM architecture at its peak. Five months later (2026-05-20) the whole thing got ripped out — keeping the entry as a marker for why the noVNC submodule still hangs around in the tree.
+
+## 2024-12-30 — Live noVNC view of benchmark VMs #milestone
+
+VNC support and a browser-side noVNC viewer landed (3d183ff) so users could *watch* the Phoronix run inside the spun-up Azure VM in real time. This was the visual centerpiece of the on-demand architecture — the thing that justified the per-click VM cost. Pivot away from this was non-trivial and is captured under 2026-05-20.
+
+## 2024-12-21 — Tied benchmark execution to per-distro Azure VM creation #decision
+
+Enhanced the benchmark execution path to create an Azure VM matching the user-selected distro (15faa66, 520c484). Each click → fresh VM → PTS run → tear down. This is the architecture that defined the project for the next five months and that 2026-05-20 retired. The current `linux_benchmarking.rb` at the repo root is a vestige of that era; it predates Rails ownership of the run loop.

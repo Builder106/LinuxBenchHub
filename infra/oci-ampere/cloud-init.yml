@@ -1,0 +1,185 @@
+#cloud-config
+# LinuxBenchHub — first-boot bootstrap for the Ampere A1 host.
+#
+# Mirrors the apt install list from .github/workflows/capture-benchmarks.yml's
+# ubuntu matrix entry (aarch64 has the same package names), then installs
+# Phoronix Test Suite and the R packages the parse scripts need so captures
+# can either be SCP'd off-box or processed in place.
+
+package_update: true
+package_upgrade: true
+
+packages:
+  # PTS runtime + build deps for c-ray, tinymembench, aircrack-ng on Ubuntu 24.04 arm64.
+  - ca-certificates
+  - curl
+  - git
+  - php-cli
+  - php-xml
+  - php-zip
+  - unzip
+  - build-essential
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+  - shtool
+  - libssl-dev
+  - zlib1g-dev
+  - libnl-3-dev
+  - libnl-genl-3-dev
+  - libpcap-dev
+  - libsqlite3-dev
+  - libpcre2-dev
+  # R + system libs the Parse_composite_*.R scripts need.
+  - r-base
+  - libxml2-dev
+  - libcurl4-openssl-dev
+  - libssl-dev
+  - libfontconfig1-dev
+  - libharfbuzz-dev
+  - libfribidi-dev
+  - libfreetype-dev
+  - libpng-dev
+  - libtiff5-dev
+  - libjpeg-dev
+
+write_files:
+  # Seed the same PTS user-config used by the CI matrix so behaviour matches.
+  # Path mirrors the workflow: /root/.phoronix-test-suite/user-config.xml when
+  # PTS runs as root; we install for the ubuntu user instead so unattended
+  # SSH-driven runs don't need sudo.
+  #
+  # `defer: true` makes this entry run in the `final` stage instead of `config`.
+  # On OCI's Ubuntu images the `ubuntu` user is created by the datasource late
+  # enough that the default `config`-stage write_files race-loses and fails with
+  # "Unknown user or group: 'ubuntu'". Deferring sidesteps the race entirely.
+  - path: /home/ubuntu/.phoronix-test-suite/user-config.xml
+    owner: ubuntu:ubuntu
+    permissions: '0644'
+    defer: true
+    content: |
+      <?xml version="1.0"?>
+      <PhoronixTestSuite>
+        <Options>
+          <OpenBenchmarking>
+            <AnonymousUsageReporting>FALSE</AnonymousUsageReporting>
+            <AnonymousSoftwareReporting>FALSE</AnonymousSoftwareReporting>
+            <AnonymousHardwareReporting>FALSE</AnonymousHardwareReporting>
+            <IndexCacheTTL>3</IndexCacheTTL>
+            <AlwaysUploadSystemLogs>FALSE</AlwaysUploadSystemLogs>
+            <AllowResultUploadsToOpenBenchmarking>FALSE</AllowResultUploadsToOpenBenchmarking>
+          </OpenBenchmarking>
+          <General>
+            <DefaultBrowser></DefaultBrowser>
+            <UsePhodeviCache>TRUE</UsePhodeviCache>
+            <DefaultDisplayMode>BATCH</DefaultDisplayMode>
+          </General>
+          <Modules>
+            <AutoLoadModules>toggle_screensaver, update_checker</AutoLoadModules>
+          </Modules>
+          <Installation>
+            <RemoveDownloadFiles>TRUE</RemoveDownloadFiles>
+            <SearchMediaForCache>FALSE</SearchMediaForCache>
+            <SymLinkFilesFromCache>FALSE</SymLinkFilesFromCache>
+            <PromptForDownloadMirror>FALSE</PromptForDownloadMirror>
+          </Installation>
+          <Testing>
+            <SaveSystemLogs>TRUE</SaveSystemLogs>
+            <SaveInstallationLogs>FALSE</SaveInstallationLogs>
+            <SaveTestLogs>FALSE</SaveTestLogs>
+            <AlwaysUploadResultsToOpenBenchmarking>FALSE</AlwaysUploadResultsToOpenBenchmarking>
+            <AutoSortRunQueue>TRUE</AutoSortRunQueue>
+          </Testing>
+          <TestResultValidation>
+            <DynamicRunCount>TRUE</DynamicRunCount>
+            <LimitDynamicToTestLength>20</LimitDynamicToTestLength>
+            <StandardDeviationThreshold>3.50</StandardDeviationThreshold>
+            <ExportResultsTo></ExportResultsTo>
+          </TestResultValidation>
+          <BatchMode>
+            <SaveResults>TRUE</SaveResults>
+            <OpenBrowser>FALSE</OpenBrowser>
+            <UploadResults>FALSE</UploadResults>
+            <PromptForTestIdentifier>FALSE</PromptForTestIdentifier>
+            <PromptForTestDescription>FALSE</PromptForTestDescription>
+            <PromptSaveName>FALSE</PromptSaveName>
+            <RunAllTestCombinations>FALSE</RunAllTestCombinations>
+            <Configured>TRUE</Configured>
+          </BatchMode>
+          <Networking>
+            <NoInternetCommunication>FALSE</NoInternetCommunication>
+            <NoNetworkCommunication>FALSE</NoNetworkCommunication>
+            <Timeout>20</Timeout>
+          </Networking>
+        </Options>
+      </PhoronixTestSuite>
+
+  # Helper script: runs the same three tests CI runs, drops composite.xml at
+  # a predictable path so the GitHub Action can scp it back to the repo.
+  - path: /usr/local/bin/lbh-capture
+    owner: root:root
+    permissions: '0755'
+    defer: true
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      RUN_DATE="$(date -u +%Y-%m-%d)"
+      RESULT_NAME="lbh-ubuntu-arm64-${RUN_DATE}"
+      export TEST_RESULTS_NAME="${RESULT_NAME}"
+
+      # PTS batch-setup needs to be flipped via the writer once. Idempotent —
+      # safe to run on every capture.
+      printf 'y\nn\nn\nn\nn\nn\nn\n' | phoronix-test-suite batch-setup
+
+      # Match the historical c-ray args (1080p, 16 rpp). tinymembench and
+      # aircrack-ng have no further prompts.
+      printf '1\n16\n' | phoronix-test-suite batch-benchmark \
+        pts/c-ray pts/tinymembench pts/aircrack-ng
+
+      # Surface install failures the way the CI step does — PTS will skip
+      # tests with failed builds and the composite will silently be incomplete.
+      shopt -s nullglob
+      fails=(/var/lib/phoronix-test-suite/installed-tests/pts/*/install-failed.log \
+             "$HOME/.phoronix-test-suite/installed-tests/pts"/*/install-failed.log)
+      for log in "${fails[@]}"; do
+        test=$(basename "$(dirname "$log")")
+        echo "warning: pts/$test failed to install — composite incomplete" >&2
+        cat "$log" >&2 || true
+      done
+
+      composite=$(find /var/lib/phoronix-test-suite "$HOME/.phoronix-test-suite" \
+                  -name composite.xml -print -quit 2>/dev/null || true)
+      if [ -z "$composite" ]; then
+        echo "error: no composite.xml produced" >&2
+        exit 1
+      fi
+
+      out=/home/ubuntu/captures
+      mkdir -p "$out"
+      cp "$composite" "$out/composite-${RUN_DATE}.xml"
+      cp "$composite" "$out/composite-latest.xml"
+      echo "$out/composite-${RUN_DATE}.xml"
+
+runcmd:
+  # OCI's Ubuntu image ships with /home/ubuntu owned by root:root because the
+  # directory exists in the image before cloud-init's datasource creates the
+  # ubuntu user. cloud-init's users-groups module doesn't fix the ownership of
+  # a pre-existing home dir, so without this chown the ubuntu user can read
+  # and traverse $HOME but can't `mkdir` new top-level entries in it — every
+  # subsequent step that writes to /home/ubuntu/<new-dir>/ silently fails.
+  - [ chown, 'ubuntu:ubuntu', /home/ubuntu ]
+
+  # Install Phoronix Test Suite into /opt/pts and symlink onto PATH. Mirrors
+  # the CI workflow's install step exactly so behaviour stays comparable.
+  - [ git, clone, --depth, '1', 'https://github.com/phoronix-test-suite/phoronix-test-suite.git', /tmp/pts ]
+  - [ bash, -lc, 'cd /tmp/pts && ./install-sh /opt/pts' ]
+  - [ ln, -sf, /opt/pts/bin/phoronix-test-suite, /usr/local/bin/phoronix-test-suite ]
+  - [ chown, -R, 'ubuntu:ubuntu', /home/ubuntu/.phoronix-test-suite ]
+  # Pre-install R deps that Parse_composite_*.R loads. Doing this in cloud-init
+  # rather than at capture-time keeps the per-capture runtime predictable.
+  - [ Rscript, -e, "install.packages(c('XML','dplyr','ggplot2','tidyr','jsonlite','rlang'), repos='https://cran.rstudio.com/')" ]
+  # Sanity check — fail the bootstrap if PTS isn't on PATH for the ubuntu user.
+  - [ sudo, -u, ubuntu, phoronix-test-suite, version ]
+
+final_message: "LinuxBenchHub bootstrap complete. Run /usr/local/bin/lbh-capture to produce a composite.xml, or SSH in and dispatch from CI."
