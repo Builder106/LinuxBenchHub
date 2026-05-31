@@ -24,18 +24,21 @@ LinuxBenchHub has three components:
 
 ## Sample results &mdash; Ubuntu 24.04
 
-The fully parsed sample is Ubuntu 24.04 LTS on 2&times; Intel Core i5-7360U (3 cores), 4 GB RAM, 21 GB disk, in VMware Fusion Pro 13.6.1:
+The dataset has two reference platforms. The x86 sample is the original 2024 bare-metal capture on a 2&times; Intel Core i5-7360U (3 cores), 4 GB RAM, 21 GB disk, in VMware Fusion Pro 13.6.1. The arm64 sample is a 2026 capture on Oracle Cloud's Always-Free Ampere A1 (Neoverse-N1, 4 OCPU, 24 GB), captured natively over SSH by the CI workflow against the host provisioned in [`infra/oci-ampere/`](infra/oci-ampere/).
 
-| Benchmark | Test | Metric | Mean | Median | StdDev |
-| --- | --- | --- | --- | --- | --- |
-| **C-Ray** (CPU) | `pts/c-ray-2.0.0`, 1080p @ 16 rpp | ms | 1,088.8 | 1,141.1 | 222.5 |
-| **Tinymembench** (memcpy) | `pts/tinymembench-1.0.2` | MB/s | 11,209.5 | 11,873.6 | 2,761.1 |
-| **Tinymembench** (memset) | `pts/tinymembench-1.0.2` | MB/s | 23,480.2 | 25,745.6 | 5,731.1 |
-| **Aircrack-ng** (network) | `pts/aircrack-ng-1.3.0` | k/s | 4,542.6 | 4,943.1 | 835.1 |
+| Benchmark | Test | Metric | x86 (i5-7360U) | arm64 (Ampere A1) |
+| --- | --- | --- | --- | --- |
+| **C-Ray** (CPU) | `pts/c-ray-2.0.0`, 1080p @ 16 rpp | Seconds | 1,088.8 | 212.0 |
+| **Tinymembench** (memcpy) | `pts/tinymembench-1.0.2` | MB/s | 11,209.5 | 12,155.5 |
+| **Tinymembench** (memset) | `pts/tinymembench-1.0.2` | MB/s | 23,480.2 | 47,575.6 |
+| **Aircrack-ng** (network) | `pts/aircrack-ng-1.3.0` | k/s | 4,542.6 | 4,154.3 |
+
+Headline gap: Ampere is **~5&times; faster on C-Ray** and **~2&times; faster on memset**, comparable on memcpy and aircrack-ng. (Note: the x86 C-Ray label was previously "ms" in this README; PTS's `<Scale>` is `Seconds` &mdash; this row is now corrected.)
 
 Full per-run data and visualizations:
 
-- [**`benchmarks/ubuntu/ubuntu.md`**](benchmarks/ubuntu/ubuntu.md) &mdash; Ubuntu 24.04
+- [**`benchmarks/ubuntu/ubuntu.md`**](benchmarks/ubuntu/ubuntu.md) &mdash; Ubuntu 24.04 (x86, VMware bare-metal sample)
+- [**`benchmarks/ubuntu-arm64/composite-latest.xml`**](benchmarks/ubuntu-arm64/composite-latest.xml) &mdash; Ubuntu 24.04 (arm64, Ampere A1)
 - [**`benchmarks/fedora/fedora.md`**](benchmarks/fedora/fedora.md) &mdash; Fedora Linux 41
 - [**`benchmarks/debian/debian.md`**](benchmarks/debian/debian.md) &mdash; Debian 12
 
@@ -44,9 +47,10 @@ Full per-run data and visualizations:
 ```mermaid
 flowchart LR
   cron[GitHub Actions<br/>monthly cron]
-  ubuntu[ubuntu:24.04 container]
-  fedora[fedora:41 container]
-  debian[debian:12 container]
+  ubuntu[ubuntu:24.04 container<br/>x86_64]
+  fedora[fedora:41 container<br/>x86_64]
+  debian[debian:12 container<br/>x86_64]
+  ampere[Ampere A1 VM<br/>aarch64 over SSH]
   pts[Phoronix Test Suite<br/>c-ray, tinymembench, aircrack-ng]
   composite[benchmarks/*/composite-latest.xml]
   rparser[benchmarks/*/Parse_composite_*.R<br/>summary stats + plots]
@@ -55,9 +59,11 @@ flowchart LR
   cron --> ubuntu
   cron --> fedora
   cron --> debian
+  cron -.->|SSH| ampere
   ubuntu --> pts
   fedora --> pts
   debian --> pts
+  ampere --> pts
   pts --> composite
   composite --> rparser
   rparser --> md
@@ -75,13 +81,16 @@ The R parsers and the Rails app are interchangeable consumers of the same `compo
 
 ```
 .
-|-- benchmarks/              # captured Phoronix results, per distro
+|-- benchmarks/              # captured Phoronix results, per platform
 |   |-- ubuntu/              #   ubuntu.md + Parse_composite_Ubuntu.R + composite-latest.xml + captures/
+|   |-- ubuntu-arm64/        #   Ampere A1 aarch64 captures (CI-captured over SSH)
 |   |-- fedora/
 |   `-- debian/
+|-- infra/
+|   `-- oci-ampere/          # OpenTofu module: Always-Free Ampere A1 host for arm64 captures
 |-- .github/
 |   |-- workflows/
-|   |   |-- capture-benchmarks.yml   # monthly CI capture per distro
+|   |   |-- capture-benchmarks.yml   # monthly CI capture (containers + Ampere SSH)
 |   |   |-- ci.yml                    # Rails test suite gate
 |   |   `-- deploy.yml                # Rails app deploy
 |   `-- scripts/
@@ -105,10 +114,19 @@ Captures happen automatically on the 1st of every month via [`.github/workflows/
 To re-derive the summary stats from a fresh `composite.xml` locally:
 
 ```bash
-Rscript benchmarks/ubuntu/Parse_composite_Ubuntu.R benchmarks/ubuntu/composite-latest.xml
+# x86 CI capture
+Rscript benchmarks/ubuntu/Parse_composite_Ubuntu.R \
+  benchmarks/ubuntu/composite-latest.xml benchmarks/ubuntu/plots
+# Ampere arm64 capture
+Rscript benchmarks/ubuntu/Parse_composite_Ubuntu.R \
+  benchmarks/ubuntu-arm64/composite-latest.xml benchmarks/ubuntu-arm64/plots
 ```
 
-R deps: `xml2`, `dplyr`, `ggplot2`, `tidyr`. The `.lintr` at repo root pins the lint rules.
+The script accepts `<composite.xml> <output_dir>` since the 2026-05 refactor, so the same parser handles both arches. R deps: `XML`, `dplyr`, `ggplot2`, `tidyr`, `jsonlite`, `rlang`. The `.lintr` at repo root pins the lint rules.
+
+### Capturing arm64 (Ampere)
+
+The arm64 leg runs on a long-lived Always-Free Ampere A1 host, not a container. Provisioning is one `tofu apply` in [`infra/oci-ampere/`](infra/oci-ampere/) &mdash; see that directory's README for the OCI-account prerequisites. Once the host exists and the repo secrets `OCI_AMPERE_HOST` + `OCI_AMPERE_SSH_KEY` (base64'd private key) are set, the monthly cron drives it automatically. Manual dispatches honour the `include_arm64` toggle.
 
 ### Running the Rails dashboard
 
@@ -128,14 +146,17 @@ Deployment is configured for **Kamal** &mdash; see [`website/.kamal/`](website/.
 The architecture pivoted from "on-demand Azure VMs per click" to "monthly CI captures into git." That trade dropped the live-VM demo but bought reproducibility, $0 ongoing cost, and a much smaller security surface (no SSH passwords, no public VNC ports, no cloud cleanup races).
 
 - **Ubuntu 24.04 / Fedora 41 / Debian 12** &mdash; the bare-metal sample sits at the root of each `benchmarks/<distro>/`, captured once on VMware Fusion Pro. CI runs capture fresh containerized numbers monthly into `benchmarks/<distro>/captures/`.
+- **Ubuntu 24.04 arm64 (Ampere A1)** &mdash; captured natively over SSH against an Oracle Cloud Always-Free Ampere VM provisioned via [`infra/oci-ampere/`](infra/oci-ampere/). Same three tests as the x86 matrix; gives the dataset an aarch64 column GitHub's x86-only runners can't produce. First capture landed 2026-05-31.
 - **Cross-distro comparison page** &mdash; the three writeups exist independently; a side-by-side comparison page is not yet written.
 - **Rails dashboard** &mdash; scaffolded with Devise auth and Chartkick. Reads `composite.xml` directly. Expect rough edges &mdash; the most recent ingester rewrite is in flight.
 - **Kamal deploy** &mdash; `deploy.yml` still has scaffold placeholders. Fill them in or pick a different host (Fly.io / Render both run the same Dockerfile).
 
 ## Tech stack
 
-- **Benchmarks**: Phoronix Test Suite, R (`xml2`, `dplyr`, `ggplot2`, `tidyr`)
-- **Capture**: GitHub Actions (monthly cron, distro containers on `ubuntu-latest`)
+- **Benchmarks**: Phoronix Test Suite, R (`XML`, `dplyr`, `ggplot2`, `tidyr`, `jsonlite`, `rlang`)
+- **Capture (x86)**: GitHub Actions (monthly cron, distro containers on `ubuntu-latest`)
+- **Capture (arm64)**: Oracle Cloud Ampere A1 (Always-Free, Ubuntu 24.04 aarch64), driven over SSH from the same workflow
+- **Infra**: OpenTofu &mdash; see [`infra/oci-ampere/`](infra/oci-ampere/) for the VCN/subnet/security-list/instance module
 - **Dashboard**: Rails 8.0, Ruby 3.3, SQLite, Puma, Hotwire (Turbo + Stimulus), Bootstrap, Chartkick + Groupdate
 - **Auth**: Devise
 - **Deploy**: Docker + Kamal (or any Docker-host PaaS)

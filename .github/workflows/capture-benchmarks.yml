@@ -17,6 +17,10 @@ on:
         type: choice
         default: all
         options: [all, ubuntu, fedora, debian]
+      include_arm64:
+        description: "Also run the Ampere arm64 capture (Ubuntu only)"
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -235,5 +239,89 @@ jobs:
           fi
           git commit -m "Capture ${{ matrix.distro }} ${{ matrix.version }} benchmarks ${RUN_DATE}"
           # Another matrix entry may have pushed since checkout — rebase.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
+
+  # arm64 capture runs on a real Ampere VM (Oracle Cloud Always-Free), not in
+  # a runner container — GitHub Actions has no public arm64 runner on the free
+  # plan, and the whole point of this leg is to add aarch64 to a dataset the
+  # x86 container matrix can't produce. The job SSHes in, runs lbh-capture,
+  # and scp's the composite back. Provisioning lives in infra/oci-ampere/.
+  capture-ampere-arm64:
+    name: ubuntu 24.04 (arm64, Ampere)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    needs: capture  # let the x86 matrix push first so this commit doesn't race
+    # Scheduled runs always include arm64; manual dispatches honour the toggle
+    # and only run when distro is "all" or "ubuntu".
+    if: |
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' &&
+       github.event.inputs.include_arm64 == 'true' &&
+       (github.event.inputs.distro == 'all' || github.event.inputs.distro == 'ubuntu'))
+
+    env:
+      OCI_AMPERE_HOST: ${{ secrets.OCI_AMPERE_HOST }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set RUN_DATE
+        run: echo "RUN_DATE=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          # The secret is the base64-encoded private key. Decoding here keeps
+          # the original key file out of the workflow YAML and avoids quoting
+          # issues with multi-line PEM contents.
+          echo "${{ secrets.OCI_AMPERE_SSH_KEY }}" | base64 -d > ~/.ssh/lbh-ampere
+          chmod 600 ~/.ssh/lbh-ampere
+          # Pin the host key so the SSH session doesn't prompt or warn. If the
+          # VM gets rebuilt the key changes — re-run `ssh-keyscan` and update.
+          ssh-keyscan -H "$OCI_AMPERE_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Run lbh-capture on the Ampere host
+        run: |
+          # The script on the VM produces /home/ubuntu/captures/composite-latest.xml.
+          # Use -tt so PTS's progress output flushes to the Actions log in real
+          # time instead of being buffered into one big lump at the end.
+          ssh -tt -i ~/.ssh/lbh-ampere ubuntu@"$OCI_AMPERE_HOST" \
+            'set -e; /usr/local/bin/lbh-capture'
+
+      - name: Pull composite back from the VM
+        run: |
+          mkdir -p benchmarks/ubuntu-arm64/captures
+          scp -i ~/.ssh/lbh-ampere \
+            ubuntu@"$OCI_AMPERE_HOST":/home/ubuntu/captures/composite-latest.xml \
+            "benchmarks/ubuntu-arm64/composite-latest.xml"
+          # Keep the dated archive too — matches the x86 captures/ layout.
+          cp benchmarks/ubuntu-arm64/composite-latest.xml \
+             "benchmarks/ubuntu-arm64/captures/composite-${RUN_DATE}.xml"
+          ls -la benchmarks/ubuntu-arm64/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ubuntu-arm64-${{ env.RUN_DATE }}
+          path: |
+            benchmarks/ubuntu-arm64/composite-latest.xml
+            benchmarks/ubuntu-arm64/captures/composite-${{ env.RUN_DATE }}.xml
+          retention-days: 365
+
+      - name: Commit and push
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name  "linuxbenchhub-bot"
+          git config user.email "linuxbenchhub-bot@users.noreply.github.com"
+          git add benchmarks/ubuntu-arm64/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Capture ubuntu 24.04 arm64 benchmarks ${RUN_DATE}"
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin HEAD:"${GITHUB_REF_NAME}"
