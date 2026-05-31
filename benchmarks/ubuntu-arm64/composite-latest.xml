@@ -3,7 +3,7 @@
 <PhoronixTestSuite>
   <Generated>
     <Title>lbh-ubuntu-arm64-2026-05-31</Title>
-    <LastModified>2026-05-31 05:41:50</LastModified>
+    <LastModified>2026-05-31 17:25:36</LastModified>
     <TestClient>Phoronix Test Suite v10.8.6</TestClient>
     <Description>KVM testing on Ubuntu 24.04 via the Phoronix Test Suite.</Description>
   </Generated>
@@ -12,7 +12,7 @@
     <Hardware>Processor: ARMv8 Neoverse-N1 (4 Cores), Motherboard: QEMU KVM Virtual Machine (1.6.6 BIOS), Chipset: Red Hat QEMU PCIe, Memory: 16 + 8 RAM, Disk: 54GB BlockVolume, Graphics: Red Hat Virtio 1.0 GPU, Monitor: QEMU Monitor, Network: Red Hat Virtio 1.0 device</Hardware>
     <Software>OS: Ubuntu 24.04, Kernel: 6.17.0-1011-oracle (aarch64), Compiler: GCC 13.3.0, File-System: ext4, Screen Resolution: 1280x800, System Layer: KVM</Software>
     <User>ubuntu</User>
-    <TimeStamp>2026-05-31 05:10:37</TimeStamp>
+    <TimeStamp>2026-05-31 16:53:51</TimeStamp>
     <TestClientVersion>10.8.6</TestClientVersion>
     <Notes></Notes>
     <JSON>{"compiler-configuration":"--build=aarch64-linux-gnu --disable-libquadmath --disable-libquadmath-support --disable-werror --enable-bootstrap --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-fix-cortex-a53-843419 --enable-gnu-unique-object --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2 --enable-libphobos-checking=release --enable-libstdcxx-backtrace --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-link-serialization=4 --enable-multiarch --enable-nls --enable-objc-gc=auto --enable-offload-defaulted --enable-offload-targets=nvptx-none=\/build\/gcc-13-f9pAEi\/gcc-13-13.3.0\/debian\/tmp-nvptx\/usr --enable-plugin --enable-shared --enable-threads=posix --host=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --target=aarch64-linux-gnu --with-build-config=bootstrap-lto-lean --with-default-libstdcxx-abi=new --with-gcc-major-version-only --with-target-system-zlib=auto --without-cuda-driver -v","kernel-parameters":"libiscsi.debug_libiscsi_eh=1","kernel-extra-details":"Transparent Huge Pages: madvise","security":"gather_data_sampling: Not affected + ghostwrite: Not affected + indirect_target_selection: Not affected + itlb_multihit: Not affected + l1tf: Not affected + mds: Not affected + meltdown: Not affected + mmio_stale_data: Not affected + old_microcode: Not affected + reg_file_data_sampling: Not affected + retbleed: Not affected + spec_rstack_overflow: Not affected + spec_store_bypass: Mitigation of SSB disabled via prctl + spectre_v1: Mitigation of __user pointer sanitization + spectre_v2: Mitigation of CSV2 BHB + srbds: Not affected + tsa: Not affected + tsx_async_abort: Not affected + vmscape: Not affected"}</JSON>
@@ -29,9 +29,9 @@
     <Data>
       <Entry>
         <Identifier>ARMv8 Neoverse-N1</Identifier>
-        <Value>12155.5</Value>
-        <RawString>12170.6:12170.4:12125.5</RawString>
-        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-O2 -lm"},"test-run-times":"326.51:305.15:324.01"}</JSON>
+        <Value>12064.1</Value>
+        <RawString>12088.6:12018.4:12085.3</RawString>
+        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-O2 -lm"},"test-run-times":"394.37:373.99:358.70"}</JSON>
       </Entry>
     </Data>
   </Result>
@@ -47,9 +47,9 @@
     <Data>
       <Entry>
         <Identifier>ARMv8 Neoverse-N1</Identifier>
-        <Value>47575.6</Value>
-        <RawString>47576.1:47587.2:47563.6</RawString>
-        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-O2 -lm"},"test-run-times":"326.51:305.15:324.01"}</JSON>
+        <Value>47446.7</Value>
+        <RawString>47543.5:47367.2:47429.4</RawString>
+        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-O2 -lm"},"test-run-times":"394.37:373.99:358.70"}</JSON>
       </Entry>
     </Data>
   </Result>
@@ -65,9 +65,9 @@
     <Data>
       <Entry>
         <Identifier>ARMv8 Neoverse-N1</Identifier>
-        <Value>211.977</Value>
-        <RawString>212.192:211.195:212.544</RawString>
-        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-lpthread -lm"},"test-run-times":"212.41:211.42:212.77"}</JSON>
+        <Value>212.152</Value>
+        <RawString>212.093:212.963:211.399</RawString>
+        <JSON>{"compiler-options":{"compiler-type":"CC","compiler":"gcc","compiler-options":"-lpthread -lm"},"test-run-times":"212.31:213.19:211.62"}</JSON>
       </Entry>
     </Data>
   </Result>
@@ -83,9 +83,9 @@
     <Data>
       <Entry>
         <Identifier>ARMv8 Neoverse-N1</Identifier>
-        <Value>4154.322</Value>
-        <RawString>3839.719:4206.595:4205.091:4205.106:4207.766:4209.823:4206.151</RawString>
-        <JSON>{"compiler-options":{"compiler-type":"CXX","compiler":"g++","compiler-options":"-std=gnu++17 -O3 -fvisibility=hidden -fcommon -rdynamic -lnl-3 -lnl-genl-3 -lsqlite3 -lpthread -lz -lssl -lcrypto -ldl -lm -pthread"},"test-run-times":"30.17:31.22:31.24:31.20:31.19:31.19:30.05"}</JSON>
+        <Value>4198.280</Value>
+        <RawString>4196.324:4202.006:4196.509</RawString>
+        <JSON>{"compiler-options":{"compiler-type":"CXX","compiler":"g++","compiler-options":"-std=gnu++17 -O3 -fvisibility=hidden -fcommon -rdynamic -lnl-3 -lnl-genl-3 -lsqlite3 -lpthread -lz -lssl -lcrypto -ldl -lm -pthread"},"test-run-times":"31.20:31.23:30.14"}</JSON>
       </Entry>
     </Data>
   </Result>
