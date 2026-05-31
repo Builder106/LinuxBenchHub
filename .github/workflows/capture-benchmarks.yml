@@ -273,13 +273,18 @@ jobs:
         run: echo "RUN_DATE=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
 
       - name: Set up SSH key
+        env:
+          # Pass the secret through an env var so YAML doesn't quote-mangle
+          # the multi-line PEM. The previous base64-encoded version tripped
+          # over macOS-base64-wrapping vs GNU-base64-d strictness.
+          SSH_KEY: ${{ secrets.OCI_AMPERE_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          # The secret is the base64-encoded private key. Decoding here keeps
-          # the original key file out of the workflow YAML and avoids quoting
-          # issues with multi-line PEM contents.
-          echo "${{ secrets.OCI_AMPERE_SSH_KEY }}" | base64 -d > ~/.ssh/lbh-ampere
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/lbh-ampere
           chmod 600 ~/.ssh/lbh-ampere
+          # Validate the key parsed correctly before we try to use it — fails
+          # fast with a clear message if the secret got corrupted in transit.
+          ssh-keygen -y -f ~/.ssh/lbh-ampere > /dev/null
           # Pin the host key so the SSH session doesn't prompt or warn. If the
           # VM gets rebuilt the key changes — re-run `ssh-keyscan` and update.
           ssh-keyscan -H "$OCI_AMPERE_HOST" >> ~/.ssh/known_hosts 2>/dev/null

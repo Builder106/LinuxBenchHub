@@ -126,7 +126,7 @@ The script accepts `<composite.xml> <output_dir>` since the 2026-05 refactor, so
 
 ### Capturing arm64 (Ampere)
 
-The arm64 leg runs on a long-lived Always-Free Ampere A1 host, not a container. Provisioning is one `tofu apply` in [`infra/oci-ampere/`](infra/oci-ampere/) &mdash; see that directory's README for the OCI-account prerequisites. Once the host exists and the repo secrets `OCI_AMPERE_HOST` + `OCI_AMPERE_SSH_KEY` (base64'd private key) are set, the monthly cron drives it automatically. Manual dispatches honour the `include_arm64` toggle.
+The arm64 leg runs on a long-lived Always-Free Ampere A1 host, not a container. Provisioning is one `tofu apply` in [`infra/oci-ampere/`](infra/oci-ampere/) &mdash; see that directory's README for the OCI-account prerequisites. Once the host exists and the repo secrets `OCI_AMPERE_HOST` + `OCI_AMPERE_SSH_KEY` (raw PEM &mdash; pipe via `gh secret set OCI_AMPERE_SSH_KEY < ~/.ssh/lbh-ampere`) are set, the monthly cron drives it automatically. Manual dispatches honour the `include_arm64` toggle.
 
 ### Running the Rails dashboard
 
