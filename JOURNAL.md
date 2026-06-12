@@ -4,6 +4,10 @@
 > things happen — retrospectives need this raw material to land.
 > Reverse-chronological; one paragraph max per entry.
 
+## 2026-06-12 — Ruby 4.0 bundled-gem fallout + dev CSS build regression #incident
+
+The Rails site stopped booting under Ruby 4.0.5, surfacing as a cascade of "next error" pages. First `LoadError: cannot load such file -- csv` from `require 'csv'` in `PerformanceBenchmark` — `csv` stopped being a default gem in Ruby 3.4 and is now a *bundled* gem, unloadable unless declared in the Gemfile. There was already a precedent in the Gemfile (`gem "cgi"`, commented "moved to separate package in Ruby 4.0+"), so the same class of bug had been hit before. Added `gem "csv"`; `tsort` threw the same load *warning* and was added pre-emptively. **How to apply:** on Ruby 3.4/4.0, any `require` of a stdlib that's now bundled (csv, cgi, tsort, base64, bigdecimal, mutex_m, …) needs an explicit Gemfile entry — the LoadError names the file, the fix is always `gem "<name>"`. Second, after csv was fixed: `Propshaft::MissingAssetError: application.css` — `app/assets/builds/` didn't exist because `bin/dev` had been reduced to `exec "./bin/rails", "server"`, dropping the `dartsass:watch` process, so SCSS never compiled on a fresh checkout. Restored the standard `Procfile.dev` (web + css) and a foreman-based `bin/dev`, and gitignored the regenerated `builds/` dir. Note: `foreman` must be installed as a system gem (`gem install foreman`) — kept out of the Gemfile by Rails convention.
+
 ## 2026-05-31 — arm64 capture pipeline fully wired #milestone
 
 End-to-end automation for the aarch64 leg landed in one session. Five pieces:
