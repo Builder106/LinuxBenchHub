@@ -94,8 +94,12 @@ jobs:
           cache: npm
           cache-dependency-path: site/package-lock.json
 
+      # `npm install`, not `npm ci`: a transitive @types/node floats by npm
+      # version, so a lockfile resolved under one npm (e.g. node 24/npm 11)
+      # trips `npm ci`'s strict sync check under another (node 22/npm 10).
+      # install reconciles instead of hard-failing — fine for a test-only job.
       - name: Install deps
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Test
         run: npm test
