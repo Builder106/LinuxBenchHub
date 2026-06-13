@@ -14798,3 +14798,120 @@ Completed 200 OK in 394ms (Views: 72.4ms | ActiveRecord: 6.4ms (1 query, 0 cache
 
 
 [ActiveJob] [BenchmarkJob] [ce6884c0-b9f1-435a-97db-fdfadfc86500] Performed BenchmarkJob (Job ID: ce6884c0-b9f1-435a-97db-fdfadfc86500) from Async(default) in 309031.33ms
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for ::1 at 2026-06-12 07:34:27 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by HomeController#index as HTML
+Completed 500 Internal Server Error in 308ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.9ms)
+
+
+  
+LoadError (cannot load such file -- csv):
+  
+app/models/performance_benchmark.rb:1:in '<main>'
+app/controllers/home_controller.rb:7:in 'HomeController#index'
+Started GET "/favicon.ico" for ::1 at 2026-06-12 07:34:30 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for ::1 at 2026-06-12 07:38:54 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LinuxBenchHub'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 150.3ms | GC: 54.3ms)
+Completed 500 Internal Server Error in 442ms (ActiveRecord: 2.9ms (0 queries, 0 cached) | GC: 54.3ms)
+
+
+  
+ActionView::Template::Error (The asset 'application.css' was not found in the load path.)
+Caused by: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.)
+
+Information for: ActionView::Template::Error (The asset 'application.css' was not found in the load path.):
+    12: 
+    13:     <%= favicon_link_tag asset_path('logo.png') %>
+    14: 
+    15:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    16:     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    17:     <%= javascript_importmap_tags %>
+    18:     <style>
+  
+app/views/layouts/application.html.erb:15
+
+Information for cause: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.):
+  
+app/views/layouts/application.html.erb:15
+Started GET "/favicon.ico" for ::1 at 2026-06-12 07:38:57 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for ::1 at 2026-06-12 08:47:53 -0700
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 41.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 92.3ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 397ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (The asset 'application.css' was not found in the load path.)
+Caused by: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.)
+
+Information for: ActionView::Template::Error (The asset 'application.css' was not found in the load path.):
+    12: 
+    13:     <%= favicon_link_tag asset_path('logo.png') %>
+    14: 
+    15:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    16:     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    17:     <%= javascript_importmap_tags %>
+    18:     <style>
+  
+app/views/layouts/application.html.erb:15
+
+Information for cause: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.):
+  
+app/views/layouts/application.html.erb:15
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mAZURE_CLIENT_ID[0m, [36mAZURE_CLIENT_SECRET[0m, [36mAZURE_TENANT_ID[0m, and [36mAZURE_SUBSCRIPTION_ID[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for ::1 at 2026-06-12 08:56:39 -0700
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 19.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 63.1ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 191ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (The asset 'application.css' was not found in the load path.)
+Caused by: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.)
+
+Information for: ActionView::Template::Error (The asset 'application.css' was not found in the load path.):
+    12: 
+    13:     <%= favicon_link_tag asset_path('logo.png') %>
+    14: 
+    15:     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    16:     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    17:     <%= javascript_importmap_tags %>
+    18:     <style>
+  
+app/views/layouts/application.html.erb:15
+
+Information for cause: Propshaft::MissingAssetError (The asset 'application.css' was not found in the load path.):
+  
+app/views/layouts/application.html.erb:15
