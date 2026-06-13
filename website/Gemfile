@@ -81,3 +81,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Pin minitest to 5.x: minitest 6 changed Runnable#run's arity, which breaks
+# Rails 8.0.1's Rails::LineFiltering#run override (it gets 3 args, expects 2)
+# and crashes the entire `rails test` runner. Drop this once railties ships
+# minitest-6 compatibility.
+gem "minitest", "~> 5.25"
