@@ -103,3 +103,31 @@ jobs:
 
       - name: Test
         run: npm test
+
+  playwright:
+    name: E2E tests (Playwright BDD)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install deps
+        run: npm install --no-audit --no-fund
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Generate Gherkin specs
+        run: npx bddgen
+
+      - name: Run Playwright
+        run: npx playwright test
