@@ -18,7 +18,7 @@ on:
         default: all
         options: [all, ubuntu, fedora, debian]
       include_arm64:
-        description: "Also run the Ampere arm64 capture (Ubuntu only)"
+        description: "Also run the Ampere arm64 captures (same distro selection as above)"
         type: boolean
         default: true
 
@@ -40,8 +40,8 @@ jobs:
       matrix:
         include:
           - distro: ubuntu
-            version: "24.04"
-            image: ubuntu:24.04
+            version: "26.04"
+            image: ubuntu:26.04
             pkg_install: |
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
@@ -51,10 +51,10 @@ jobs:
                 libssl-dev zlib1g-dev \
                 libnl-3-dev libnl-genl-3-dev libpcap-dev libsqlite3-dev libpcre2-dev
           - distro: fedora
-            version: "41"
-            image: fedora:41
+            version: "44"
+            image: fedora:44
             pkg_install: |
-              # `which`, `gettext-devel`, `bison`, `flex` aren't in fedora:41's
+              # `which`, `gettext-devel`, `bison`, `flex` aren't in fedora's
               # minimal image. aircrack-ng's autogen.sh uses `which libtoolize`
               # to find libtoolize, which silently empties out if `which` is
               # missing — autogen.sh then bails and `make` runs in an
@@ -67,8 +67,8 @@ jobs:
                 openssl-devel zlib-devel \
                 libnl3-devel libpcap-devel sqlite-devel pcre2-devel
           - distro: debian
-            version: "12"
-            image: debian:12
+            version: "13"
+            image: debian:13
             pkg_install: |
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
@@ -242,37 +242,95 @@ jobs:
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin HEAD:"${GITHUB_REF_NAME}"
 
-  # arm64 capture runs on a real Ampere VM (Oracle Cloud Always-Free), not in
-  # a runner container — GitHub Actions has no public arm64 runner on the free
-  # plan, and the whole point of this leg is to add aarch64 to a dataset the
-  # x86 container matrix can't produce. The job SSHes in, runs lbh-capture,
-  # and scp's the composite back. Provisioning lives in infra/oci-ampere/.
+  # arm64 captures run on a real Ampere VM (Oracle Cloud Always-Free), not in
+  # a GitHub-hosted runner — GitHub Actions has no public arm64 runner on the
+  # free plan, and the whole point of this leg is to add aarch64 to a dataset
+  # the x86 container matrix can't produce. Unlike the x86 job (which uses
+  # GitHub's native `container:` key), this job SSHes into the Ampere host
+  # and drives `docker run` there directly — same distro images, same
+  # pkg_install lists, same container-capture.sh body as the x86 legs, so the
+  # only variable between an x86 and arm64 row for a given distro is the CPU
+  # architecture. Provisioning (including Docker itself) lives in
+  # infra/oci-ampere/cloud-init.yml.
   capture-ampere-arm64:
-    name: ubuntu 24.04 (arm64, Ampere)
+    name: ${{ matrix.distro }} ${{ matrix.version }} (arm64, Ampere)
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     needs: capture  # let the x86 matrix push first so this commit doesn't race
-    # Scheduled runs always include arm64; manual dispatches honour the toggle
-    # and only run when distro is "all" or "ubuntu".
+    strategy:
+      fail-fast: false
+      max-parallel: 1  # serialize: one Ampere host, and each job pull-rebases
+      matrix:
+        include:
+          - distro: ubuntu
+            version: "26.04"
+            image: ubuntu:26.04
+            pkg_install: |
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update
+              apt-get install -y --no-install-recommends \
+                ca-certificates curl git php-cli php-xml php-zip unzip \
+                build-essential autoconf automake libtool pkg-config shtool \
+                libssl-dev zlib1g-dev \
+                libnl-3-dev libnl-genl-3-dev libpcap-dev libsqlite3-dev libpcre2-dev
+          - distro: fedora
+            version: "44"
+            image: fedora:44
+            pkg_install: |
+              dnf install -y --setopt=install_weak_deps=False \
+                ca-certificates curl git php-cli php-xml unzip findutils which \
+                make gcc gcc-c++ autoconf autoconf-archive automake libtool \
+                pkgconf-pkg-config shtool gettext-devel bison flex hwloc-devel \
+                openssl-devel zlib-devel \
+                libnl3-devel libpcap-devel sqlite-devel pcre2-devel
+          - distro: debian
+            version: "13"
+            image: debian:13
+            pkg_install: |
+              export DEBIAN_FRONTEND=noninteractive
+              apt-get update
+              apt-get install -y --no-install-recommends \
+                ca-certificates curl git php-cli php-xml php-zip unzip \
+                build-essential autoconf automake libtool pkg-config shtool \
+                libssl-dev zlib1g-dev \
+                libnl-3-dev libnl-genl-3-dev libpcap-dev libsqlite3-dev libpcre2-dev
+    # Scheduled runs always include arm64, for every distro. Manual dispatches
+    # honour the include_arm64 toggle; the per-distro filter is applied below
+    # via the same step-level gate the x86 job uses, so `distro: ubuntu` skips
+    # the fedora/debian rows here too.
     if: |
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' &&
-       github.event.inputs.include_arm64 == 'true' &&
-       (github.event.inputs.distro == 'all' || github.event.inputs.distro == 'ubuntu'))
+       github.event.inputs.include_arm64 == 'true')
 
     env:
       OCI_AMPERE_HOST: ${{ secrets.OCI_AMPERE_HOST }}
 
     steps:
+      - name: Gate on selected distro
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" \
+             && "${{ github.event.inputs.distro }}" != "all" \
+             && "${{ github.event.inputs.distro }}" != "${{ matrix.distro }}" ]]; then
+            echo "RUN_THIS_DISTRO=0" >> "$GITHUB_ENV"
+            echo "Skipping ${{ matrix.distro }} (selected: ${{ github.event.inputs.distro }})"
+          else
+            echo "RUN_THIS_DISTRO=1" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout
+        if: env.RUN_THIS_DISTRO == '1'
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set RUN_DATE
+        if: env.RUN_THIS_DISTRO == '1'
         run: echo "RUN_DATE=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
 
       - name: Set up SSH key
+        if: env.RUN_THIS_DISTRO == '1'
         env:
           # Pass the secret through an env var so YAML doesn't quote-mangle
           # the multi-line PEM. The previous base64-encoded version tripped
@@ -289,53 +347,79 @@ jobs:
           # VM gets rebuilt the key changes — re-run `ssh-keyscan` and update.
           ssh-keyscan -H "$OCI_AMPERE_HOST" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Run lbh-capture on the Ampere host
-        # No step-level timeout — the job's 60-minute cap is the backstop.
+      - name: Render package-install script
+        if: env.RUN_THIS_DISTRO == '1'
         run: |
-          # -tt:                      pseudo-tty for real-time output streaming
-          # ServerAliveInterval=30:   client pings server every 30s
-          # ServerAliveCountMax=20:   tolerate 20 missed pings (10 min) before dropping
-          # TCPKeepAlive=yes:         kernel-level keepalive as a second safety net
-          # Without these, idle middleboxes drop the connection during the long
-          # quiet stretches when PTS is mid-test (only prints progress every minute
-          # or two), and SIGHUP propagates from -tt and kills the remote run.
+          { echo '#!/usr/bin/env bash'; echo 'set -euo pipefail'; \
+            printf '%s\n' "${{ matrix.pkg_install }}"; } > /tmp/pkg-install.sh
+
+      - name: Copy capture scripts to the Ampere host
+        if: env.RUN_THIS_DISTRO == '1'
+        run: |
+          run_dir="/home/ubuntu/lbh-run/${{ matrix.distro }}"
+          ssh -i ~/.ssh/lbh-ampere ubuntu@"$OCI_AMPERE_HOST" \
+            "mkdir -p $run_dir /home/ubuntu/captures/${{ matrix.distro }}"
+          scp -i ~/.ssh/lbh-ampere \
+            /tmp/pkg-install.sh \
+            .github/scripts/container-capture.sh \
+            .github/scripts/pts-batch-config.xml \
+            ubuntu@"$OCI_AMPERE_HOST":"$run_dir/"
+
+      - name: Run ${{ matrix.distro }} capture in a container on the Ampere host
+        if: env.RUN_THIS_DISTRO == '1'
+        # No step-level timeout — the job's 90-minute cap is the backstop.
+        run: |
+          # -tt / ServerAlive* / TCPKeepAlive: see the original ubuntu-only
+          # job for why — idle middleboxes drop the connection during the
+          # long quiet stretches mid-PTS-test otherwise.
+          run_dir="/home/ubuntu/lbh-run/${{ matrix.distro }}"
+          out_dir="/home/ubuntu/captures/${{ matrix.distro }}"
           ssh -tt \
               -o ServerAliveInterval=30 \
               -o ServerAliveCountMax=20 \
               -o TCPKeepAlive=yes \
               -i ~/.ssh/lbh-ampere ubuntu@"$OCI_AMPERE_HOST" \
-              'set -e; /usr/local/bin/lbh-capture'
+              "set -e; docker run --rm \
+                 -v $run_dir/pkg-install.sh:/pkg-install.sh:ro \
+                 -v $run_dir/container-capture.sh:/container-capture.sh:ro \
+                 -v $run_dir/pts-batch-config.xml:/pts-batch-config.xml:ro \
+                 -v $out_dir:/output \
+                 ${{ matrix.image }} \
+                 bash -c 'bash /pkg-install.sh && bash /container-capture.sh'"
 
       - name: Pull composite back from the VM
+        if: env.RUN_THIS_DISTRO == '1'
         run: |
-          mkdir -p benchmarks/ubuntu-arm64/captures
+          dest="benchmarks/${{ matrix.distro }}-arm64"
+          mkdir -p "$dest/captures"
           scp -i ~/.ssh/lbh-ampere \
-            ubuntu@"$OCI_AMPERE_HOST":/home/ubuntu/captures/composite-latest.xml \
-            "benchmarks/ubuntu-arm64/composite-latest.xml"
+            ubuntu@"$OCI_AMPERE_HOST":/home/ubuntu/captures/${{ matrix.distro }}/composite.xml \
+            "$dest/composite-latest.xml"
           # Keep the dated archive too — matches the x86 captures/ layout.
-          cp benchmarks/ubuntu-arm64/composite-latest.xml \
-             "benchmarks/ubuntu-arm64/captures/composite-${RUN_DATE}.xml"
-          ls -la benchmarks/ubuntu-arm64/
+          cp "$dest/composite-latest.xml" "$dest/captures/composite-${RUN_DATE}.xml"
+          ls -la "$dest/"
 
       - name: Upload artifact
+        if: env.RUN_THIS_DISTRO == '1'
         uses: actions/upload-artifact@v5
         with:
-          name: ubuntu-arm64-${{ env.RUN_DATE }}
+          name: ${{ matrix.distro }}-arm64-${{ env.RUN_DATE }}
           path: |
-            benchmarks/ubuntu-arm64/composite-latest.xml
-            benchmarks/ubuntu-arm64/captures/composite-${{ env.RUN_DATE }}.xml
+            benchmarks/${{ matrix.distro }}-arm64/composite-latest.xml
+            benchmarks/${{ matrix.distro }}-arm64/captures/composite-${{ env.RUN_DATE }}.xml
           retention-days: 365
 
       - name: Commit and push
+        if: env.RUN_THIS_DISTRO == '1'
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name  "linuxbenchhub-bot"
           git config user.email "linuxbenchhub-bot@users.noreply.github.com"
-          git add benchmarks/ubuntu-arm64/
+          git add benchmarks/${{ matrix.distro }}-arm64/
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "Capture ubuntu 24.04 arm64 benchmarks ${RUN_DATE}"
+          git commit -m "Capture ${{ matrix.distro }} ${{ matrix.version }} arm64 benchmarks ${RUN_DATE}"
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin HEAD:"${GITHUB_REF_NAME}"

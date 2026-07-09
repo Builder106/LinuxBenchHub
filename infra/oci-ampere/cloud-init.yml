@@ -5,6 +5,15 @@
 # ubuntu matrix entry (aarch64 has the same package names), then installs
 # Phoronix Test Suite and the R packages the parse scripts need so captures
 # can either be SCP'd off-box or processed in place.
+#
+# Also installs Docker: the ubuntu/fedora/debian arm64 captures all run via
+# `docker run` on this host (driven remotely by capture-benchmarks.yml's
+# capture-ampere-arm64 job), the same way the x86 legs run inside GitHub's
+# native `container:` — same images, same pkg_install lists, same
+# container-capture.sh body, so the only difference between an x86 and arm64
+# row for a given distro is the CPU architecture. The bare-host PTS/R install
+# above is kept for ad-hoc/manual use (see README) but isn't what CI drives
+# for fedora/debian; only the legacy `lbh-capture` path still uses it directly.
 
 package_update: true
 package_upgrade: true
@@ -43,6 +52,10 @@ packages:
   - libpng-dev
   - libtiff5-dev
   - libjpeg-dev
+  # Runs the ubuntu/fedora/debian containers for the arm64 captures. The
+  # distro-packaged build is plenty for `docker run` with bind mounts — no
+  # need for Docker's official apt repo here.
+  - docker.io
 
 write_files:
   # Seed the same PTS user-config used by the CI matrix so behaviour matches.
@@ -169,6 +182,13 @@ runcmd:
   # and traverse $HOME but can't `mkdir` new top-level entries in it — every
   # subsequent step that writes to /home/ubuntu/<new-dir>/ silently fails.
   - [ chown, 'ubuntu:ubuntu', /home/ubuntu ]
+
+  # docker.io's postinst already enables+starts the daemon; this just lets
+  # the ubuntu user run `docker` without sudo, since capture-benchmarks.yml's
+  # arm64 job SSHes in as ubuntu, not root. Takes effect on the *next* SSH
+  # login (group membership is read at login), which is always the case here
+  # since CI opens a fresh SSH session per step.
+  - [ usermod, -aG, docker, ubuntu ]
 
   # Install Phoronix Test Suite into /opt/pts and symlink onto PATH. Mirrors
   # the CI workflow's install step exactly so behaviour stays comparable.
