@@ -20,7 +20,7 @@ Terraform module that provisions a single Always-Free Ampere A1 Flex instance (U
 │                                          │
 │  Ampere A1 Flex — 4 OCPU / 24 GB / 50 GB │
 │  Ubuntu 24.04 LTS aarch64                │
-│  cloud-init: PTS + R + capture script    │
+│  cloud-init: PTS + R + Docker            │
 └──────────────────────────────────────────┘
 ```
 
@@ -73,17 +73,22 @@ Removes every resource the module created. Useful when Oracle's free-tier capaci
 - **cloud-init doesn't re-run on `apply`.** Editing `cloud-init.yml` and re-applying does *not* re-bootstrap the existing instance — cloud-init only runs on first boot. Either `terraform destroy && terraform apply` to rebuild, or SSH in and run the relevant commands manually.
 - **Free-tier reclamation.** Idle Ampere VMs get reclaimed after a few weeks of low CPU. The monthly capture cron will exercise the CPU enough to keep it alive, but a long pause in captures (or a code freeze) can lose the host. `terraform apply` rebuilds it identically.
 
-## How the GitHub Action will use this
+## How the GitHub Action uses this
 
-Not wired up yet. Planned shape:
+`.github/workflows/capture-benchmarks.yml`'s `capture-ampere-arm64` job stores `OCI_AMPERE_HOST` (IP) and `OCI_AMPERE_SSH_KEY` (private key PEM) as repo secrets, then runs a `[ubuntu, fedora, debian]` matrix against this one host — same images, same `pkg_install` lists, and the same `.github/scripts/container-capture.sh` body the x86 legs run inside GitHub's native `container:`, just driven remotely instead of locally:
 
-1. CI workflow stores `OCI_AMPERE_HOST` (IP) and `OCI_AMPERE_SSH_KEY` (private key, base64) as repo secrets.
-2. New matrix entry in `.github/workflows/capture-benchmarks.yml` for `distro: ubuntu, arch: arm64`. The step list skips the container path and instead runs:
-   ```
-   ssh ubuntu@$OCI_AMPERE_HOST 'sudo /usr/local/bin/lbh-capture'
-   scp ubuntu@$OCI_AMPERE_HOST:/home/ubuntu/captures/composite-latest.xml \
-     benchmarks/ubuntu-arm64/composite-latest.xml
-   ```
-3. R parser + Rails dashboard learn to render `arch` alongside `distro`. The composite XML already includes the host's `Hardware` and `Software` strings, so the data is already there — surfacing it is the work.
+```
+scp pkg-install.sh container-capture.sh pts-batch-config.xml ubuntu@$OCI_AMPERE_HOST:~/lbh-run/<distro>/
+ssh ubuntu@$OCI_AMPERE_HOST "docker run --rm \
+  -v ~/lbh-run/<distro>/pkg-install.sh:/pkg-install.sh:ro \
+  -v ~/lbh-run/<distro>/container-capture.sh:/container-capture.sh:ro \
+  -v ~/lbh-run/<distro>/pts-batch-config.xml:/pts-batch-config.xml:ro \
+  -v ~/captures/<distro>:/output \
+  <image> bash -c 'bash /pkg-install.sh && bash /container-capture.sh'"
+scp ubuntu@$OCI_AMPERE_HOST:~/captures/<distro>/composite.xml \
+  benchmarks/<distro>-arm64/composite-latest.xml
+```
 
-Tracked as a follow-up to the 2026-05-28 journal entry.
+Only the `ubuntu` row still has a bare-host fallback (`/usr/local/bin/lbh-capture`, installed via `runcmd` above) for ad-hoc manual runs — CI itself always goes through Docker for all three distros, so the x86 and arm64 numbers for a given distro come from the same install steps and the same PTS config, differing only in CPU architecture.
+
+Still open: the R parser + Next.js site (`site/lib/benchmarks.ts`) only know about the three x86 `distros` today and don't render an `arch` dimension yet — the arm64 composite XML is captured and committed, but nothing displays it. Tracked as a follow-up.
