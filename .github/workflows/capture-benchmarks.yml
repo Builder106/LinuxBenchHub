@@ -33,7 +33,11 @@ jobs:
   capture:
     name: ${{ matrix.distro }} ${{ matrix.version }}
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # Was 90 — too tight against a cold ubuntu:26.04 image with nothing
+    # cached (full apt-get install + PTS git-clone-and-build from scratch).
+    # A 2026-07-09 run hit this ceiling mid-way through the c-ray benchmark
+    # after ~60 minutes of setup + tinymembench alone.
+    timeout-minutes: 150
     strategy:
       fail-fast: false
       max-parallel: 1  # serialize so each job can pull-rebase the previous push
@@ -259,7 +263,9 @@ jobs:
   capture-ampere-arm64:
     name: ${{ matrix.distro }} ${{ matrix.version }} (arm64, Ampere)
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # Same workload as the x86 legs (see capture's timeout-minutes comment)
+    # plus SSH/scp overhead and a cold image pull on the Ampere host itself.
+    timeout-minutes: 180
     needs: capture  # let the x86 matrix push first so this commit doesn't race
     strategy:
       fail-fast: false
