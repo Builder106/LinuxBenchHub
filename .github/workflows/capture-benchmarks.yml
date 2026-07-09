@@ -6,6 +6,14 @@ name: Capture benchmarks
 # distros — the comparison is fair, but absolute numbers are virtualized
 # runner numbers, not bare-metal numbers. The previous bare-metal sample
 # stays in benchmarks/ubuntu/composite.xml as the historical reference.
+#
+# The benchmark runs themselves are fully independent (different distros,
+# different hosts for arm64), so both matrices run at full parallelism. The
+# only shared resource is the git branch, so each matrix only uploads a
+# build artifact — a single downstream "publish" job per matrix (publish-x86,
+# publish-arm64) downloads everything and does one commit+push, which is
+# also what removes any need to serialize the capture jobs against each
+# other or run arm64 after x86.
 
 on:
   schedule:
@@ -40,7 +48,6 @@ jobs:
     timeout-minutes: 150
     strategy:
       fail-fast: false
-      max-parallel: 1  # serialize so each job can pull-rebase the previous push
       matrix:
         include:
           - distro: ubuntu
@@ -122,8 +129,6 @@ jobs:
       - name: Checkout
         if: env.RUN_THIS_DISTRO == '1'
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0  # need full history for pull --rebase before push
 
       - name: Install Phoronix Test Suite
         if: env.RUN_THIS_DISTRO == '1'
@@ -233,22 +238,65 @@ jobs:
             benchmarks/${{ matrix.distro }}/composite-latest.xml
           retention-days: 365
 
-      - name: Commit and push
-        if: env.RUN_THIS_DISTRO == '1'
-        shell: bash
+  # Single publish point for the whole x86 matrix. Each capture job only
+  # uploads an artifact (no git push), so three distros can run fully in
+  # parallel with zero risk of racing each other's commit/push — this job
+  # is the only thing in the x86 path that touches git, and it does it once.
+  publish-x86:
+    name: Publish x86 results
+    runs-on: ubuntu-latest
+    needs: capture
+    if: always() && needs.capture.result != 'skipped'
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download x86 capture artifacts
+        uses: actions/download-artifact@v5
+        with:
+          pattern: "*-[0-9]*-*"  # excludes the arm64 job's "<distro>-arm64-<date>" names
+          path: /tmp/artifacts
+        continue-on-error: true  # no artifacts at all (e.g. every distro failed before upload) shouldn't fail this job
+
+      - name: Stage and commit each distro's results
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name  "linuxbenchhub-bot"
           git config user.email "linuxbenchhub-bot@users.noreply.github.com"
-          git add benchmarks/${{ matrix.distro }}/
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          git commit -m "Capture ${{ matrix.distro }} ${{ matrix.version }} benchmarks ${RUN_DATE}"
-          # Another matrix entry may have pushed since checkout — rebase.
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push origin HEAD:"${GITHUB_REF_NAME}"
+          for distro in ubuntu fedora debian; do
+            dir=$(find /tmp/artifacts -maxdepth 1 -type d -name "${distro}-*" 2>/dev/null | head -n1)
+            if [ -z "$dir" ]; then
+              echo "No artifact for $distro — its capture job didn't succeed or wasn't selected. Skipping."
+              continue
+            fi
+            mkdir -p "benchmarks/$distro/captures"
+            find "$dir/captures" -maxdepth 1 -name 'composite-*.xml' -exec cp {} "benchmarks/$distro/captures/" \;
+            cp "$dir/composite-latest.xml" "benchmarks/$distro/composite-latest.xml"
+            git add "benchmarks/$distro/"
+            if git diff --cached --quiet; then
+              echo "No changes for $distro."
+            else
+              git commit -m "Capture $distro benchmarks $(date -u +%Y-%m-%d)"
+            fi
+          done
+
+      - name: Push
+        run: |
+          # Retry a few times in case publish-arm64 (disjoint paths, but the
+          # same branch) pushes in the same window.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:"${GITHUB_REF_NAME}"; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt) — rebasing and retrying."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+            sleep $(( (RANDOM % 5) + 1 ))
+          done
+          echo "::error::Failed to push after 5 attempts."
+          exit 1
 
   # arm64 captures run on a real Ampere VM (Oracle Cloud Always-Free), not in
   # a GitHub-hosted runner — GitHub Actions has no public arm64 runner on the
@@ -259,17 +307,22 @@ jobs:
   # pkg_install lists, same container-capture.sh body as the x86 legs, so the
   # only variable between an x86 and arm64 row for a given distro is the CPU
   # architecture. Provisioning (including Docker itself) lives in
-  # infra/oci-ampere/cloud-init.yml.
+  # infra/oci-ampere/cloud-init.yml. Runs independently of the x86 matrix —
+  # they touch disjoint benchmarks/ subdirectories, so there's no reason for
+  # one to wait on the other.
   capture-ampere-arm64:
     name: ${{ matrix.distro }} ${{ matrix.version }} (arm64, Ampere)
     runs-on: ubuntu-latest
     # Same workload as the x86 legs (see capture's timeout-minutes comment)
     # plus SSH/scp overhead and a cold image pull on the Ampere host itself.
     timeout-minutes: 180
-    needs: capture  # let the x86 matrix push first so this commit doesn't race
     strategy:
       fail-fast: false
-      max-parallel: 1  # serialize: one Ampere host, and each job pull-rebases
+      # One Ampere host runs all three containers — still serialize the
+      # actual capture jobs so they don't fight each other for the VM's
+      # CPU/network at the same time (unlike the x86 matrix, which gets a
+      # fresh isolated runner per distro).
+      max-parallel: 1
       matrix:
         include:
           - distro: ubuntu
@@ -332,8 +385,6 @@ jobs:
       - name: Checkout
         if: env.RUN_THIS_DISTRO == '1'
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Set RUN_DATE
         if: env.RUN_THIS_DISTRO == '1'
@@ -377,7 +428,7 @@ jobs:
 
       - name: Run ${{ matrix.distro }} capture in a container on the Ampere host
         if: env.RUN_THIS_DISTRO == '1'
-        # No step-level timeout — the job's 90-minute cap is the backstop.
+        # No step-level timeout — the job's 180-minute cap is the backstop.
         run: |
           # -tt / ServerAlive* / TCPKeepAlive: see the original ubuntu-only
           # job for why — idle middleboxes drop the connection during the
@@ -419,17 +470,59 @@ jobs:
             benchmarks/${{ matrix.distro }}-arm64/captures/composite-${{ env.RUN_DATE }}.xml
           retention-days: 365
 
-      - name: Commit and push
-        if: env.RUN_THIS_DISTRO == '1'
+  # Mirrors publish-x86: one commit+push point for the whole arm64 matrix,
+  # so the three Ampere captures don't each try to push on their own.
+  publish-arm64:
+    name: Publish arm64 results
+    runs-on: ubuntu-latest
+    needs: capture-ampere-arm64
+    if: always() && needs.capture-ampere-arm64.result != 'skipped'
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download arm64 capture artifacts
+        uses: actions/download-artifact@v5
+        with:
+          pattern: "*-arm64-*"
+          path: /tmp/artifacts
+        continue-on-error: true
+
+      - name: Stage and commit each distro's results
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name  "linuxbenchhub-bot"
           git config user.email "linuxbenchhub-bot@users.noreply.github.com"
-          git add benchmarks/${{ matrix.distro }}-arm64/
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          git commit -m "Capture ${{ matrix.distro }} ${{ matrix.version }} arm64 benchmarks ${RUN_DATE}"
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push origin HEAD:"${GITHUB_REF_NAME}"
+          for distro in ubuntu fedora debian; do
+            dir=$(find /tmp/artifacts -maxdepth 1 -type d -name "${distro}-arm64-*" 2>/dev/null | head -n1)
+            if [ -z "$dir" ]; then
+              echo "No artifact for ${distro}-arm64 — its capture job didn't succeed or wasn't selected. Skipping."
+              continue
+            fi
+            dest="benchmarks/${distro}-arm64"
+            mkdir -p "$dest/captures"
+            find "$dir/captures" -maxdepth 1 -name 'composite-*.xml' -exec cp {} "$dest/captures/" \;
+            cp "$dir/composite-latest.xml" "$dest/composite-latest.xml"
+            git add "$dest/"
+            if git diff --cached --quiet; then
+              echo "No changes for ${distro}-arm64."
+            else
+              git commit -m "Capture ${distro} arm64 benchmarks $(date -u +%Y-%m-%d)"
+            fi
+          done
+
+      - name: Push
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:"${GITHUB_REF_NAME}"; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt) — rebasing and retrying."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+            sleep $(( (RANDOM % 5) + 1 ))
+          done
+          echo "::error::Failed to push after 5 attempts."
+          exit 1
