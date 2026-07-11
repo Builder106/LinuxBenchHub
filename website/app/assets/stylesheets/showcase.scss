@@ -1,3 +1,8 @@
+// Design system for the CI-captured benchmark showcase (/showcase, /showcase/:distro).
+// Ported from the retired Next.js site/ — see JOURNAL.md. Loaded only by
+// layouts/showcase.html.erb, kept out of application.scss on purpose so it
+// never touches the Bootstrap-based dashboard/auth pages.
+
 :root,
 :root[data-theme="dark"] {
   --bg: #0a0507;
@@ -90,20 +95,16 @@
   --distro-fedora: #51a2da;
   --distro-debian: #d8a04a;
 
-  --font-display: var(--font-geist), "Inter", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-body: var(--font-geist), "Inter", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace,
-    SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-* {
+.page * {
   box-sizing: border-box;
 }
 
-html,
-body {
+body:has(.page) {
   margin: 0;
   padding: 0;
   background-color: var(--bg);
@@ -118,12 +119,12 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-a {
+.page a {
   color: var(--accent-bright);
   text-decoration: none;
 }
 
-a:hover {
+.page a:hover {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: var(--accent-dim);
@@ -170,6 +171,7 @@ a:hover {
   font-size: 12px;
   letter-spacing: 0.14em;
   font-weight: 500;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -199,6 +201,10 @@ a:hover {
   flex-shrink: 0;
 }
 
+.nav-links a.nav-app-link {
+  color: var(--accent-bright);
+}
+
 .nav-links a:hover {
   color: var(--accent-bright);
   text-decoration: none;
@@ -210,14 +216,7 @@ a:hover {
   width: 100%;
   height: auto;
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    16px 0,
-    100% 0,
-    100% calc(100% - 16px),
-    calc(100% - 16px) 100%,
-    0 100%,
-    0 16px
-  );
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
   box-shadow: var(--banner-shadow);
 }
 
@@ -259,14 +258,7 @@ a:hover {
   cursor: pointer;
   padding: 0;
   margin-left: 4px;
-  clip-path: polygon(
-    6px 0,
-    100% 0,
-    100% calc(100% - 6px),
-    calc(100% - 6px) 100%,
-    0 100%,
-    0 6px
-  );
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
   transition: color 0.15s ease, background 0.15s ease;
 }
 
@@ -277,6 +269,38 @@ a:hover {
 
 .theme-toggle svg {
   display: block;
+}
+
+.theme-toggle-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-icon-sun {
+  display: inline-flex;
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-toggle-icon-sun {
+    display: none;
+  }
+  .theme-toggle-icon-moon {
+    display: inline-flex;
+  }
+}
+
+[data-theme="dark"] .theme-toggle-icon-sun {
+  display: inline-flex;
+}
+[data-theme="dark"] .theme-toggle-icon-moon {
+  display: none;
+}
+[data-theme="light"] .theme-toggle-icon-sun {
+  display: none;
+}
+[data-theme="light"] .theme-toggle-icon-moon {
+  display: inline-flex;
 }
 
 .lede {
@@ -310,48 +334,48 @@ a:hover {
   margin: 0;
 }
 
-h1,
-h2,
-h3,
-h4 {
+.page h1,
+.page h2,
+.page h3,
+.page h4 {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
   color: var(--fg);
 }
 
-h1 {
+.page h1 {
   font-size: 2.2rem;
   margin: 0 0 8px;
   font-weight: 700;
 }
 
-h2 {
+.page h2 {
   font-size: 1.45rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
-h3 {
+.page h3 {
   font-size: 1.1rem;
   margin: 24px 0 8px;
   font-weight: 600;
 }
 
-p {
+.page p {
   margin: 12px 0;
 }
 
-ul,
-ol {
+.page ul,
+.page ol {
   padding-left: 24px;
 }
 
-li {
+.page li {
   margin: 6px 0;
 }
 
-code {
+.page code {
   font-family: var(--font-mono);
   font-size: 0.88em;
   background: var(--code-bg);
@@ -361,7 +385,7 @@ code {
   color: var(--fg);
 }
 
-pre {
+.page pre {
   background: var(--code-bg);
   border: 1px solid var(--border-warm);
   border-radius: 4px;
@@ -371,28 +395,28 @@ pre {
   font-size: 0.88rem;
 }
 
-pre code {
+.page pre code {
   background: transparent;
   border: 0;
   padding: 0;
 }
 
-/* ─── TABLES (used inside markdown body for distro pages) ─── */
-table {
+/* ─── TABLES ─── */
+.page table {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0;
   font-size: 0.94rem;
 }
 
-th,
-td {
+.page th,
+.page td {
   text-align: left;
   padding: 10px 12px;
   border-bottom: 1px solid var(--border-warm);
 }
 
-th {
+.page th {
   color: var(--fg-dim);
   font-family: var(--font-mono);
   font-weight: 600;
@@ -401,11 +425,11 @@ th {
   letter-spacing: 0.1em;
 }
 
-tr:last-child td {
+.page tr:last-child td {
   border-bottom: 0;
 }
 
-img {
+.page img {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
@@ -416,14 +440,7 @@ img {
 .callout {
   background: var(--panel);
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    14px 0,
-    100% 0,
-    100% calc(100% - 14px),
-    calc(100% - 14px) 100%,
-    0 100%,
-    0 14px
-  );
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
   padding: 14px 20px;
   margin: 24px 0 32px;
   font-size: 0.95rem;
@@ -459,14 +476,7 @@ img {
 .data-panel {
   background: var(--panel-deep);
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    18px 0,
-    100% 0,
-    100% calc(100% - 18px),
-    calc(100% - 18px) 100%,
-    0 100%,
-    0 18px
-  );
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
   padding: 24px 28px;
   margin: 16px 0;
 }
@@ -528,12 +538,7 @@ img {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-dim) 0%,
-    var(--accent) 50%,
-    var(--accent-bright) 100%
-  );
+  background: linear-gradient(90deg, var(--accent-dim) 0%, var(--accent) 50%, var(--accent-bright) 100%);
   opacity: 0.4;
 }
 
@@ -542,12 +547,7 @@ img {
   height: 8px;
   top: 50%;
   transform: translateY(-50%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--accent),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   opacity: 0.75;
   border-radius: 1px;
 }
@@ -592,20 +592,14 @@ img {
   gap: 6px;
   margin: 28px auto 8px;
   max-width: 920px;
+  flex-wrap: wrap;
 }
 
 .hex-tile {
   position: relative;
   width: 280px;
   height: 320px;
-  clip-path: polygon(
-    50% 0%,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0% 75%,
-    0% 25%
-  );
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: var(--border-warm);
   text-decoration: none;
   color: var(--fg);
@@ -620,14 +614,7 @@ img {
 .hex-tile-inner {
   position: absolute;
   inset: 1.5px;
-  clip-path: polygon(
-    50% 0%,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0% 75%,
-    0% 25%
-  );
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: var(--panel);
   display: flex;
   flex-direction: column;
@@ -750,14 +737,7 @@ img {
   background: var(--panel);
   color: var(--fg);
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    8px 0,
-    100% 0,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    0 100%,
-    0 8px
-  );
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
   letter-spacing: 0.02em;
 }
 
@@ -765,14 +745,7 @@ img {
 .status-panel {
   background: var(--panel);
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    16px 0,
-    100% 0,
-    100% calc(100% - 16px),
-    calc(100% - 16px) 100%,
-    0 100%,
-    0 16px
-  );
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
   padding: 18px 22px;
   margin: 16px 0;
   font-family: var(--font-mono);
@@ -865,14 +838,7 @@ img {
   padding: 28px 32px;
   background: var(--panel-deep);
   border: 1px solid var(--border-warm);
-  clip-path: polygon(
-    24px 0,
-    100% 0,
-    100% calc(100% - 24px),
-    calc(100% - 24px) 100%,
-    0 100%,
-    0 24px
-  );
+  clip-path: polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px);
   margin-bottom: 32px;
 }
 
@@ -1041,14 +1007,7 @@ img {
   border: 1px solid var(--border-warm);
   padding: 24px 28px;
   margin-bottom: 20px;
-  clip-path: polygon(
-    18px 0,
-    100% 0,
-    100% calc(100% - 18px),
-    calc(100% - 18px) 100%,
-    0 100%,
-    0 18px
-  );
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
 }
 
 .bench-card-head {

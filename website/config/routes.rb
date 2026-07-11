@@ -20,6 +20,13 @@ Rails.application.routes.draw do
    # Compare benchmarks route
    get 'performance_benchmarks/compare', to: 'performance_benchmarks#compare', as: 'compare_benchmarks'
 
+   # Official CI-captured benchmark showcase (ubuntu/fedora/debian writeups
+   # parsed from benchmarks/<distro>/<distro>.md). Distinct namespace from
+   # performance_benchmarks' debian/fedora/ubuntu collection routes above,
+   # which filter a signed-in user's own submitted runs.
+   get 'showcase', to: 'showcase#index', as: 'showcase'
+   get 'showcase/:distro', to: 'showcase#show', as: 'showcase_distro'
+
    # Resources for Performance Benchmarks with additional collection routes
    resources :performance_benchmarks, only: [:index, :show, :new, :create, :destroy] do
       member do
