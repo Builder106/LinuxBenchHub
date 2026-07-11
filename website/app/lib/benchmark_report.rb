@@ -2,9 +2,9 @@ module BenchmarkReport
   DISTROS = %w[ubuntu fedora debian].freeze
 
   DISTRO_META = {
-    "ubuntu" => { name: "Ubuntu", version: "24.04 LTS", pts: "v10.8.4" },
-    "fedora" => { name: "Fedora", version: "41", pts: "v10.8.4" },
-    "debian" => { name: "Debian", version: "12", pts: "v10.8.5" }
+    "ubuntu" => { name: "Ubuntu", version: "26.04 LTS", pts: "v10.8.6" },
+    "fedora" => { name: "Fedora", version: "44", pts: "v10.8.6" },
+    "debian" => { name: "Debian", version: "13", pts: "v10.8.6" }
   }.freeze
 
   def self.meta(slug)

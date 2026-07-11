@@ -1,35 +1,99 @@
 # Debian Benchmark Results
 
-This document provides detailed benchmarking results for Debian 12 running in a VMware Fusion Pro 13.6.1 virtual machine. The benchmarks were conducted using the Phoronix Test Suite v10.8.5.
+This document provides detailed benchmarking results for Debian GNU/Linux 13, captured monthly by LinuxBenchHub's CI pipeline via Docker using the Phoronix Test Suite.
 
 ## Table of Contents
 1. [System Information](#system-information)
-2. [C-Ray Benchmark](#c-ray-benchmark)
-3. [Tinymembench Benchmark](#tinymembench-benchmark)
+2. [Tinymembench Benchmark](#tinymembench-benchmark)
+3. [C-Ray Benchmark](#c-ray-benchmark)
 4. [Aircrack-ng Benchmark](#aircrack-ng-benchmark)
 
 ## System Information
 
 ### Hardware
-- **Processor**: 2 x Intel Core i5-7360U (3 Cores)
-- **Motherboard**: Intel VMware Virtual 440BX Desktop (6.00 BIOS)
-- **Chipset**: Intel 440BX/ZX/DX
-- **Memory**: 4096MB
-- **Disk**: 21GB VMware Virtual S
-- **Graphics**: llvmpipe
-- **Audio**: Ensoniq ES1371/ES1373
-- **Network**: Intel 82545EM
+- **Processor**: Intel Xeon Platinum 8370C @ 2.80GHz (2 Cores / 4 Threads)
+- **Motherboard**: Microsoft Virtual Machine (Hyper-V UEFI v4.1 BIOS)
+- **Memory**: 16GB
+- **Disk**: 161GB Virtual Disk
+- **Graphics**: hyperv_drmdrmfb
 
 ### Software
-- **OS**: Debian 12
-- **Kernel**: 6.1.0-28-amd64 (x86_64)
-- **Desktop**: GNOME Shell 43.9
-- **Display Server**: X Server + Wayland
-- **OpenGL**: 4.5 Mesa 22.3.6 (LLVM 15.0.6 256 bits)
-- **Compiler**: GCC 12.2.0
-- **File-System**: ext4
-- **Screen Resolution**: 1440x900
-- **System Layer**: VMware
+- **OS**: Debian GNU/Linux 13
+- **Kernel**: 6.17.0-1018-azure (x86_64)
+- **Compiler**: GCC 14.2.0
+- **File-System**: overlayfs
+- **Screen Resolution**: 1024x768
+- **System Layer**: Docker
+
+---
+
+## Tinymembench Benchmark
+
+### Test Identifier: `pts/tinymembench-1.0.2`
+
+#### Title: Tinymembench
+- **App Version**: 2018-05-28
+- **Arguments**: ``
+- **Description**: Standard Memcpy
+- **Scale**: MB/s
+- **Display Format**: BAR_GRAPH
+
+### Data Entries
+- **Identifier**: Intel Xeon Platinum 8370C
+- **Value (MB/s)**: 15101.0
+- **Raw String (MB/s)**: `14421.2:16034.7:16029.8:13573.7:15697:15275.2:15128.9:15343.7:14405.1`
+
+### Detailed Run Values
+
+| Run | Value (MB/s) |
+|-----|-------------------|
+| 1   | 14421.2 |
+| 2   | 16034.7 |
+| 3   | 16029.8 |
+| 4   | 13573.7 |
+| 5   | 15697.0 |
+| 6   | 15275.2 |
+| 7   | 15128.9 |
+| 8   | 15343.7 |
+| 9   | 14405.1 |
+
+### Summary Statistics
+- **Mean Value (MB/s)**: 15101.033
+- **Median Value (MB/s)**: 15275.2
+- **Standard Deviation (MB/s)**: 826.042
+
+### Test Identifier: `pts/tinymembench-1.0.2`
+
+#### Title: Tinymembench
+- **App Version**: 2018-05-28
+- **Arguments**: ``
+- **Description**: Standard Memset
+- **Scale**: MB/s
+- **Display Format**: BAR_GRAPH
+
+### Data Entries
+- **Identifier**: Intel Xeon Platinum 8370C
+- **Value (MB/s)**: 26571.9
+- **Raw String (MB/s)**: `26645.1:26681:26694.6:26302.9:26697.8:26421.1:26374:26677.9:26652.8`
+
+### Detailed Run Values
+
+| Run | Value (MB/s) |
+|-----|-------------------|
+| 1   | 26645.1 |
+| 2   | 26681.0 |
+| 3   | 26694.6 |
+| 4   | 26302.9 |
+| 5   | 26697.8 |
+| 6   | 26421.1 |
+| 7   | 26374.0 |
+| 8   | 26677.9 |
+| 9   | 26652.8 |
+
+### Summary Statistics
+- **Mean Value (MB/s)**: 26571.911
+- **Median Value (MB/s)**: 26652.8
+- **Standard Deviation (MB/s)**: 158.198
 
 ---
 
@@ -45,104 +109,22 @@ This document provides detailed benchmarking results for Debian 12 running in a 
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: cpu
-- **Value (Seconds)**: 1312.860
-- **Raw String (Milliseconds)**: `1020.504:1095.963:701.908:966.567:2339.107:1753.113`
-
-### Detailed Run Times
-
-| Run | Time (ms) |
-|-----|-----------|
-| 1   | 1020.504  |
-| 2   | 1095.963  |
-| 3   | 701.908   |
-| 4   | 966.567   |
-| 5   | 2339.107  |
-| 6   | 1753.113  |
-
-### Visualization
-![C_Ray_Benchmark_Run_Times](CPU/C-Ray_Run_Values.png)
-
-### Summary Statistics
-- **Mean Time (ms)**: 1312.860
-- **Median Time (ms)**: 1058.234
-- **Standard Deviation (ms)**: 611.997
-
----
-
-## Tinymembench Benchmark
-
-### Test Identifier: `pts/tinymembench-1.0.2`
-
-#### Title: Tinymembench
-- **App Version**: 2018-05-28
-- **Arguments**: 
-- **Description**: Standard Memcpy
-- **Scale**: MB/s
-- **Display Format**: BAR_GRAPH
-
-### Data Entries
-- **Identifier**: Memory
-- **Value (MB/s)**: 12522.3
-- **Raw String (MB/s)**: `8072.1:11211.2:14475.8:14748.8:12863.4:11070.8:16079.8:11774.3:12404.9`
+- **Identifier**: Intel Xeon Platinum 8370C
+- **Value (Seconds)**: 456.055
+- **Raw String (Seconds)**: `456.927:455.706:455.532`
 
 ### Detailed Run Values
 
-| Run | Value (MB/s) |
-|-----|--------------|
-| 1   | 8072.1       |
-| 2   | 11211.2      |
-| 3   | 14475.8      |
-| 4   | 14748.8      |
-| 5   | 12863.4      |
-| 6   | 11070.8      |
-| 7   | 16079.8      |
-| 8   | 11774.3      |
-| 9   | 12404.9      |
-
-### Visualization
-![Memcpy_Run_Values](Memory/Graphs/Memcpy_Run_Values.png)
+| Run | Value (Seconds) |
+|-----|-------------------|
+| 1   | 456.927 |
+| 2   | 455.706 |
+| 3   | 455.532 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 12522.3
-- **Median Value (MB/s)**: 12404.9
-- **Standard Deviation (MB/s)**: 2391.4
-
-### Test Identifier: `pts/tinymembench-1.0.2`
-
-#### Title: Tinymembench
-- **App Version**: 2018-05-28
-- **Arguments**: 
-- **Description**: Standard Memset
-- **Scale**: MB/s
-- **Display Format**: BAR_GRAPH
-
-### Data Entries
-- **Identifier**: Memory
-- **Value (MB/s)**: 23759.5
-- **Raw String (MB/s)**: `13694.7:26356.9:30795.2:29693.7:19817.6:10198.6:31767.8:24155.3:27355.5`
-
-### Detailed Run Values
-
-| Run | Value (MB/s) |
-|-----|--------------|
-| 1   | 13694.7      |
-| 2   | 26356.9      |
-| 3   | 30795.2      |
-| 4   | 29693.7      |
-| 5   | 19817.6      |
-| 6   | 10198.6      |
-| 7   | 31767.8      |
-| 8   | 24155.3      |
-| 9   | 27355.5      |
-
-### Visualization
-![Memset_Run_Values](Memory/Graphs/Memset_Run_Values.png)
-
-### Summary Statistics
-- **Mean Value (MB/s)**: 23759.5
-- **Median Value (MB/s)**: 26356.9
-- **Standard Deviation (MB/s)**: 7660.1
+- **Mean Value (Seconds)**: 456.055
+- **Median Value (Seconds)**: 455.706
+- **Standard Deviation (Seconds)**: 0.76
 
 ---
 
@@ -152,40 +134,27 @@ This document provides detailed benchmarking results for Debian 12 running in a 
 
 #### Title: Aircrack-ng
 - **App Version**: 1.7
-- **Arguments**: 
+- **Arguments**: ``
 - **Description**: 
 - **Scale**: k/s
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: Network
-- **Value (k/s)**: 4435.712
-- **Raw String (k/s)**: `4360.701:3753.158:4860.243:4248.137:3668.458:4408.846:4386.761:5215.227:4679.17:5337.363:4512.018:4294.092:5194.021:3928.565:3688.927`
+- **Identifier**: Intel Xeon Platinum 8370C
+- **Value (k/s)**: 6663.283
+- **Raw String (k/s)**: `6669.034:6655.157:6665.657`
 
 ### Detailed Run Values
 
 | Run | Value (k/s) |
-|-----|-------------|
-| 1   | 4360.701    |
-| 2   | 3753.158    |
-| 3   | 4860.243    |
-| 4   | 4248.137    |
-| 5   | 3668.458    |
-| 6   | 4408.846    |
-| 7   | 4386.761    |
-| 8   | 5215.227    |
-| 9   | 4679.170    |
-| 10  | 5337.363    |
-| 11  | 4512.018    |
-| 12  | 4294.092    |
-| 13  | 5194.021    |
-| 14  | 3928.565    |
-| 15  | 3688.927    |
-
-### Visualization
-![Aircrack_ng_Run_Values](Network/Aircrack-ng_Run_Values.png)
+|-----|-------------------|
+| 1   | 6669.034 |
+| 2   | 6655.157 |
+| 3   | 6665.657 |
 
 ### Summary Statistics
-- **Mean Value (k/s)**: 4435.712
-- **Median Value (k/s)**: 4386.761
-- **Standard Deviation (k/s)**: 546.1
+- **Mean Value (k/s)**: 6663.283
+- **Median Value (k/s)**: 6665.657
+- **Standard Deviation (k/s)**: 7.237
+
+---

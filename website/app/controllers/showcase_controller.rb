@@ -4,6 +4,8 @@ class ShowcaseController < ApplicationController
   def index
     ubuntu = BenchmarkReport.parsed_for("ubuntu")
     @sample_tests = ubuntu[:sections].flat_map { |s| s[:tests] }
+    @sample_hardware = ubuntu[:hardware]
+    @sample_software = ubuntu[:software]
 
     tests_by_distro = BenchmarkReport::DISTROS.index_with do |slug|
       BenchmarkReport.parsed_for(slug)[:sections].flat_map { |s| s[:tests] }

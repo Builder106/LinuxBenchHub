@@ -35,9 +35,9 @@ content_for :meta_description, "Compare Linux distros under identical virtual ha
   <section class="section">
     <%= render "showcase/section_flag", title: "Sample results: #{BenchmarkReport.name_for('ubuntu')}" %>
     <p style="color: var(--fg-muted); max-width: 60ch;">
-      The fully parsed sample runs on 2&times; Intel Core i5-7360U (3 cores), 4&nbsp;GB RAM, 21&nbsp;GB disk, in
-      VMware Fusion Pro 13.6.1. Each benchmark ran <%= @sample_tests.first[:runs].length %> times; the dot shows
-      the mean, the band shows &plusmn;1&sigma; around it.
+      The fully parsed sample runs on <%= showcase_hardware_summary(@sample_hardware, @sample_software) %>.
+      Each benchmark ran <%= showcase_run_count_label(@sample_tests) %> times depending on the test; the dot
+      shows the mean, the band shows &plusmn;1&sigma; around it.
     </p>
 
     <div class="data-panel">
@@ -54,7 +54,7 @@ content_for :meta_description, "Compare Linux distros under identical virtual ha
         </div>
       <% end %>
       <div class="data-footnote">
-        n = <%= @sample_tests.first[:runs].length %> runs &middot; &plusmn;1&sigma; band around mean &middot; min/max as range
+        n = <%= showcase_run_count_label(@sample_tests) %> runs &middot; &plusmn;1&sigma; band around mean &middot; min/max as range
       </div>
     </div>
   </section>
@@ -160,7 +160,7 @@ content_for :meta_description, "Compare Linux distros under identical virtual ha
       </div>
       <div class="status-row">
         <span class="status-pill done">DONE</span>
-        <span>R parser pipeline producing markdown writeups from <code>composite.xml</code></span>
+        <span><code>benchmarks/generate_writeup.rb</code> turns a captured <code>composite.xml</code> into the per-distro markdown writeups this showcase parses</span>
       </div>
       <div class="status-row">
         <span class="status-pill done">DONE</span>
@@ -184,7 +184,7 @@ content_for :meta_description, "Compare Linux distros under identical virtual ha
       </div>
       <div class="status-row">
         <span class="status-pill todo">TODO</span>
-        <span>Regenerate the ubuntu/fedora/debian writeups from a fresh <code>composite.xml</code> so the displayed hardware matches the current CI matrix</span>
+        <span>Wire <code>generate_writeup.rb</code> into the monthly capture workflow so writeups refresh automatically instead of by hand</span>
       </div>
       <div class="status-row">
         <span class="status-pill todo">TODO</span>

@@ -49,14 +49,14 @@ class BenchmarkReport::ParserTest < ActiveSupport::TestCase
   end
 
   test "renders the display name with version" do
-    assert_equal "Ubuntu 24.04 LTS", BenchmarkReport.name_for("ubuntu")
-    assert_equal "Fedora 41", BenchmarkReport.name_for("fedora")
-    assert_equal "Debian 12", BenchmarkReport.name_for("debian")
+    assert_equal "Ubuntu 26.04 LTS", BenchmarkReport.name_for("ubuntu")
+    assert_equal "Fedora 44", BenchmarkReport.name_for("fedora")
+    assert_equal "Debian 13", BenchmarkReport.name_for("debian")
   end
 
   test "exposes the Phoronix suite version per distro" do
-    assert_equal "v10.8.4", BenchmarkReport.meta("ubuntu")[:pts]
-    assert_equal "v10.8.5", BenchmarkReport.meta("debian")[:pts]
+    assert_equal "v10.8.6", BenchmarkReport.meta("ubuntu")[:pts]
+    assert_equal "v10.8.6", BenchmarkReport.meta("debian")[:pts]
   end
 
   test "extracts the title and intro" do

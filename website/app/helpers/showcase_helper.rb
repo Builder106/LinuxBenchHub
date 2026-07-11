@@ -44,4 +44,24 @@ module ShowcaseHelper
 
     format("%.3f", v)
   end
+
+  def showcase_spec_value(pairs, key)
+    pairs.find { |pair| pair[:key] == key }&.dig(:value)
+  end
+
+  def showcase_hardware_summary(hardware, software)
+    processor = showcase_spec_value(hardware, "Processor")
+    memory = showcase_spec_value(hardware, "Memory")
+    disk = showcase_spec_value(hardware, "Disk")
+    layer = showcase_spec_value(software, "System Layer")
+
+    parts = [ processor, (memory && "#{memory} RAM"), disk ].compact
+    summary = parts.join(", ")
+    layer ? "#{summary}, via #{layer}" : summary
+  end
+
+  def showcase_run_count_label(tests)
+    counts = tests.map { |t| t[:runs].length }.uniq.sort
+    counts.length == 1 ? counts.first.to_s : "#{counts.first} to #{counts.last}"
+  end
 end
