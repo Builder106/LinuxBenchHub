@@ -6,7 +6,7 @@
 # docker run -d -p 80:80 -p 5902:5902 -e RAILS_MASTER_KEY=<value from config/master.key> --name linux_bench_hub linux_bench_hub
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.0
+ARG RUBY_VERSION=3.3.3
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
