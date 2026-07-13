@@ -20,8 +20,14 @@ servers:
 # the app over plain HTTP, on 8080 rather than 80 since ampere-dev already
 # has an unrelated Apache install bound to 80 that isn't ours to touch. Add
 # ssl: true + host: <domain> once a real domain is pointed at this IP.
+#
+# app_port is 3000, not the 80 default: start_services.sh (the container's
+# actual entrypoint) calls `bundle exec rails server` directly rather than
+# the Dockerfile CMD's `bin/thrust bin/rails server`, so Thruster (which
+# would front Puma on 80) never runs. Puma binds Rails' own default, 3000.
 proxy:
   ssl: false
+  app_port: 3000
   run:
     http_port: 8080
 

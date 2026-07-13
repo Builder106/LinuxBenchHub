@@ -73,6 +73,12 @@ RUN groupadd --system --gid 1000 rails && \
 
 USER 1000:1000
 
+# Without this, .Config.Labels.Health.Status stays null forever (no check
+# configured), so kamal-proxy's deploy healthcheck always times out even
+# once the app is actually serving requests fine.
+HEALTHCHECK --interval=5s --timeout=3s --start-period=20s --retries=3 \
+  CMD curl -f http://localhost:3000/up || exit 1
+
 # Entrypoint prepares the database and starts services
 ENTRYPOINT ["/rails/start_services.sh"]
 
