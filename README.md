@@ -11,6 +11,7 @@
 [![Rails](https://img.shields.io/badge/Rails-8.0-D30001.svg?logo=rubyonrails&logoColor=white)](https://rubyonrails.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Status](https://img.shields.io/badge/status-in--development-orange.svg)](#project-status)
+[![Demo](https://img.shields.io/badge/demo-live-success.svg)](http://161.153.47.170:8080/showcase)
 
 > A benchmarking dataset for Linux distros &mdash; run Phoronix Test Suite across identical hardware on Ubuntu, Fedora, and Debian, captured monthly in CI, with a Rails dashboard and R parsers consuming the same composite XML.
 
@@ -144,11 +145,11 @@ Deployment is configured for **Kamal** &mdash; see [`website/.kamal/`](website/.
 
 The architecture pivoted from "on-demand Azure VMs per click" to "monthly CI captures into git." That trade dropped the live-VM demo but bought reproducibility, $0 ongoing cost, and a much smaller security surface (no SSH passwords, no public VNC ports, no cloud cleanup races).
 
-- **Ubuntu 24.04 / Fedora 41 / Debian 12** &mdash; the bare-metal sample sits at the root of each `benchmarks/<distro>/`, captured once on VMware Fusion Pro. CI runs capture fresh containerized numbers monthly into `benchmarks/<distro>/captures/`.
-- **Ubuntu 24.04 arm64 (Ampere A1)** &mdash; captured natively over SSH against an Oracle Cloud Always-Free Ampere VM provisioned via [`infra/oci-ampere/`](infra/oci-ampere/). Same three tests as the x86 matrix; gives the dataset an aarch64 column GitHub's x86-only runners can't produce. First capture landed 2026-05-31.
+- **Ubuntu 26.04 / Fedora 44 / Debian 13** &mdash; the bare-metal sample sits at the root of each `benchmarks/<distro>/`, captured once on VMware Fusion Pro. CI runs capture fresh containerized numbers monthly into `benchmarks/<distro>/captures/`.
+- **Ubuntu / Fedora / Debian arm64 (Ampere A1)** &mdash; captured natively over SSH against an Oracle Cloud Always-Free Ampere VM provisioned via [`infra/oci-ampere/`](infra/oci-ampere/), same three tests and all three distros as the x86 matrix. Gives the dataset an aarch64 column GitHub's x86-only runners can't produce.
 - **Cross-distro comparison page** &mdash; the three writeups exist independently; a side-by-side comparison page is not yet written.
-- **Rails dashboard** &mdash; scaffolded with Devise auth and Chartkick. Reads `composite.xml` directly. Expect rough edges &mdash; the most recent ingester rewrite is in flight.
-- **Kamal deploy** &mdash; `deploy.yml` still has scaffold placeholders. Fill them in or pick a different host (Fly.io / Render both run the same Dockerfile).
+- **Rails dashboard** &mdash; live, serving the CI-captured showcase at `/showcase` (per-distro writeups, x86/arm64 switch) alongside its own Devise-authenticated user-submitted benchmark CRUD. Devise auth and Chartkick are wired up; expect rough edges elsewhere.
+- **Kamal deploy** &mdash; live on the same Oracle Ampere VM that runs the arm64 capture, reached over plain HTTP at `http://161.153.47.170:8080` for now (no domain yet, so no HTTPS).
 
 ## Tech stack
 
