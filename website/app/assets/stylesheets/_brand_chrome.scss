@@ -1,61 +1,11 @@
-// App-wide brand chrome: hex grid backdrop, nav/footer, hero, and a reskin
-// of Bootstrap's own components so the CRUD/auth pages read as the same
-// brand as /showcase rather than stock Bootstrap.
-
-html, body {
-  background-color: var(--bg);
-  background-image: var(--grid-bg);
-  background-repeat: repeat;
-  font-family: var(--font-body);
-}
-
-a {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--accent-dim);
-  text-underline-offset: 3px;
-}
+// App-wide brand chrome: a reskin of Bootstrap's own CRUD/auth components
+// (buttons, cards, forms, tables, alerts) so those pages read as the same
+// brand as /showcase. The nav/footer/page wrapper is no longer a Bootstrap
+// navbar reskin — layouts/application.html.erb now renders the same
+// .nav/.footer/.page markup as /showcase, styled in _brand.scss.
 
 .brand-clip {
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-
-/* ─── NAV ─── */
-.navbar {
-  background: var(--panel) !important;
-  border-bottom: 1px solid var(--border-warm);
-  padding: 1rem 1.5rem;
-  box-shadow: none !important;
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--fg) !important;
-}
-
-.navbar-brand img { display: none; }
-
-.nav-link {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--fg-dim) !important;
-}
-
-.nav-link:hover, .nav-link.active {
-  color: var(--accent-bright) !important;
-}
-
-.navbar-toggler {
-  border-color: var(--border-warm) !important;
 }
 
 /* ─── BUTTONS ─── */
@@ -163,29 +113,6 @@ a:hover {
   background: rgba(245, 90, 77, 0.12);
   color: var(--accent-bright);
   border-color: var(--accent-dim);
-}
-
-/* ─── FOOTER ─── */
-.brand-footer {
-  margin-top: 80px;
-  padding: 22px 1.5rem;
-  border-top: 1px solid var(--border-warm);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--fg-dim);
-  letter-spacing: 0.06em;
-}
-.brand-footer a { color: var(--fg-muted); }
-.brand-footer a:hover { color: var(--accent-bright); }
-.brand-footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 /* ─── HOME HERO ─── */

@@ -22,91 +22,75 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <%= render "showcase/hex_mark", size: 22 %>
-          <%= render "showcase/tux_mark", size: 22 %>
+    <div class="page">
+      <nav class="nav">
+        <%= link_to root_path, class: "nav-brand" do %>
+          <div class="nav-brand-marks">
+            <%= render "showcase/hex_mark", size: 20 %>
+            <%= render "showcase/tux_mark", size: 20 %>
+          </div>
           <span>LinuxBenchHub</span>
         <% end %>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item <%= 'active' if current_page?(root_path) %>">
-              <%= link_to 'Home', root_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item <%= 'active' if current_page?(performance_benchmarks_path) %>">
-              <%= link_to 'Benchmarks', performance_benchmarks_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item <%= 'active' if controller_name == 'showcase' %>">
-              <%= link_to 'Showcase', showcase_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item <%= 'active' if current_page?(about_path) %>">
-              <%= link_to 'About', about_path, class: 'nav-link' %>
-            </li>
-          </ul>
+        <div class="nav-links">
+          <%= link_to "Home", root_path, class: current_page?(root_path) ? "is-active" : nil %>
+          <%= link_to "Benchmarks", performance_benchmarks_path, class: current_page?(performance_benchmarks_path) ? "is-active" : nil %>
+          <%= link_to "Showcase", showcase_path, class: controller_name == "showcase" ? "is-active" : nil %>
+          <%= link_to "About", about_path, class: current_page?(about_path) ? "is-active" : nil %>
 
-          <% if controller_name == 'performance_benchmarks' && !['new', 'create'].include?(action_name) %>
-            <form class="d-flex" action="<%= performance_benchmarks_path %>" method="get">
-              <input class="form-control me-2" type="search" name="query" placeholder="Search Benchmarks" aria-label="Search">
-              <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
+          <% if controller_name == "performance_benchmarks" && !["new", "create"].include?(action_name) %>
+            <%= form_with url: performance_benchmarks_path, method: :get, class: "nav-search" do %>
+              <input type="search" name="query" placeholder="Search" aria-label="Search Benchmarks">
+            <% end %>
           <% end %>
 
-          <div class="d-flex align-items-center">
-            <% if user_signed_in? %>
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
-            <% else %>
-              <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-outline-primary' %>
-              <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
-            <% end %>
-            <button class="theme-toggle" id="app-theme-toggle" type="button" aria-label="Toggle theme">
-              <span class="theme-toggle-icon theme-toggle-icon-sun">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="12" r="4" fill="currentColor" />
-                  <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-                    <line x1="12" y1="2" x2="12" y2="5" /><line x1="12" y1="19" x2="12" y2="22" />
-                    <line x1="2" y1="12" x2="5" y2="12" /><line x1="19" y1="12" x2="22" y2="12" />
-                    <line x1="4.93" y1="4.93" x2="7.05" y2="7.05" /><line x1="16.95" y1="16.95" x2="19.07" y2="19.07" />
-                    <line x1="4.93" y1="19.07" x2="7.05" y2="16.95" /><line x1="16.95" y1="7.05" x2="19.07" y2="4.93" />
-                  </g>
-                </svg>
-              </span>
-              <span class="theme-toggle-icon theme-toggle-icon-moon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" />
-                </svg>
-              </span>
-            </button>
-          </div>
+          <% if user_signed_in? %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-app-link" %>
+          <% end %>
+
+          <button class="theme-toggle" id="app-theme-toggle" type="button" aria-label="Toggle theme">
+            <span class="theme-toggle-icon theme-toggle-icon-sun">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" fill="currentColor" />
+                <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <line x1="12" y1="2" x2="12" y2="5" /><line x1="12" y1="19" x2="12" y2="22" />
+                  <line x1="2" y1="12" x2="5" y2="12" /><line x1="19" y1="12" x2="22" y2="12" />
+                  <line x1="4.93" y1="4.93" x2="7.05" y2="7.05" /><line x1="16.95" y1="16.95" x2="19.07" y2="19.07" />
+                  <line x1="4.93" y1="19.07" x2="7.05" y2="16.95" /><line x1="16.95" y1="7.05" x2="19.07" y2="4.93" />
+                </g>
+              </svg>
+            </span>
+            <span class="theme-toggle-icon theme-toggle-icon-moon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" />
+              </svg>
+            </span>
+          </button>
         </div>
-      </div>
-    </nav>
+      </nav>
 
-    <% flash.each do |key, message| %>
-         <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show flash-message" role="alert">
-         <%= message %>
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-         </div>
-    <% end %>
+      <% flash.each do |key, message| %>
+           <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show flash-message" role="alert">
+           <%= message %>
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+      <% end %>
 
-    <div class="container py-5">
       <%= yield %>
-    </div>
 
-    <footer class="brand-footer">
-      <div class="brand-footer-brand">
-        <%= render "showcase/hex_mark", size: 14 %>
-        <%= render "showcase/tux_mark", size: 14 %>
-        <span>LINUXBENCHHUB &middot; MIT</span>
-      </div>
-      <div>
-        <a href="https://github.com/Builder106" target="_blank" rel="noreferrer">@BUILDER106</a>
-      </div>
-    </footer>
+      <footer class="footer">
+        <div class="footer-brand">
+          <%= render "showcase/hex_mark", size: 14 %>
+          <%= render "showcase/tux_mark", size: 14 %>
+          <span>LINUXBENCHHUB &middot; MIT</span>
+        </div>
+        <div>
+          <a href="https://github.com/Builder106" target="_blank" rel="noreferrer">@BUILDER106</a>
+        </div>
+      </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

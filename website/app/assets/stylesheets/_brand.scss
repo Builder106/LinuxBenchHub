@@ -1,7 +1,11 @@
-// Shared design tokens for the whole app (not just /showcase). Ported from
-// the retired Next.js site/ (see JOURNAL.md). Both application.scss and
-// showcase.scss import this so there's one source of truth for the palette
-// instead of two copies drifting apart.
+// Shared design tokens AND layout chrome (nav, footer, page wrapper) for the
+// whole app, not just /showcase. Ported from the retired Next.js site/ (see
+// JOURNAL.md). Both application.scss and showcase.scss import this so
+// there's one source of truth for the palette and the nav/footer markup's
+// styling instead of copies drifting apart — the app used to reskin
+// Bootstrap's navbar component here, but that never fully shed the Bootstrap
+// layout underneath, so the app now renders the same .nav/.footer/.page
+// markup as the showcase instead of Bootstrap's navbar/container.
 
 :root,
 :root[data-theme="dark"] {
@@ -156,4 +160,165 @@
 }
 [data-theme="light"] .theme-toggle-icon-moon {
   display: inline-flex;
+}
+
+/* ─── PAGE WRAPPER (shared by layouts/application.html.erb and layouts/showcase.html.erb) ─── */
+.page * {
+  box-sizing: border-box;
+}
+
+body:has(.page) {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  background-image: var(--grid-bg);
+  background-repeat: repeat;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.page a {
+  color: var(--accent-bright);
+  text-decoration: none;
+}
+
+.page a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-dim);
+  text-underline-offset: 3px;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 32px 96px;
+}
+
+/* ─── NAV ─── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-warm);
+  margin-bottom: 40px;
+  font-family: var(--font-mono);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+}
+
+.nav-brand-marks {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: var(--fg-dim);
+  text-transform: uppercase;
+}
+
+.nav-links a.nav-distro,
+.nav-links a.nav-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-distro-mark,
+.nav-github-mark {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.nav-links a.nav-app-link,
+.nav-links a.is-active {
+  color: var(--accent-bright);
+}
+
+.nav-links a:hover {
+  color: var(--accent-bright);
+  text-decoration: none;
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+}
+
+.nav-search input {
+  background: var(--code-bg);
+  border: 1px solid var(--border-warm);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 6px 10px;
+  width: 140px;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.nav-search input::placeholder {
+  color: var(--fg-dim);
+}
+
+.nav-search input:focus {
+  outline: none;
+  border-color: var(--accent-dim);
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  margin-top: 80px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-warm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.06em;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer a {
+  color: var(--fg-muted);
+}
+
+.footer a:hover {
+  color: var(--accent-bright);
 }
