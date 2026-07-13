@@ -24,7 +24,12 @@ Rails.application.routes.draw do
    # parsed from benchmarks/<distro>/<distro>.md). Distinct namespace from
    # performance_benchmarks' debian/fedora/ubuntu collection routes above,
    # which filter a signed-in user's own submitted runs.
+   #
+   # :arch is optional and defaults to x86 in the controller; the arm64 leg
+   # captures the same distro on different CPU architecture, not a distinct
+   # distro, so it's a segment on the same route rather than its own slug.
    get 'showcase', to: 'showcase#index', as: 'showcase'
+   get 'showcase/:distro/:arch', to: 'showcase#show', as: 'showcase_distro_arch', constraints: { arch: /arm64/ }
    get 'showcase/:distro', to: 'showcase#show', as: 'showcase_distro'
 
    # Resources for Performance Benchmarks with additional collection routes

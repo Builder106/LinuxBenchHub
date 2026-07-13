@@ -17,11 +17,12 @@ class ShowcaseController < ApplicationController
 
   def show
     @distro = params[:distro]
-    unless BenchmarkReport::DISTROS.include?(@distro)
-      raise ActionController::RoutingError, "unknown distro #{@distro}"
+    @arch = params[:arch].presence || BenchmarkReport::DEFAULT_ARCH
+    unless BenchmarkReport::DISTROS.include?(@distro) && BenchmarkReport::ARCHES.include?(@arch)
+      raise ActionController::RoutingError, "unknown distro/arch #{@distro}/#{@arch}"
     end
 
     @meta = BenchmarkReport.meta(@distro)
-    @parsed = BenchmarkReport.parsed_for(@distro)
+    @parsed = BenchmarkReport.parsed_for(@distro, arch: @arch)
   end
 end

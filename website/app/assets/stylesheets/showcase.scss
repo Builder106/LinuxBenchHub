@@ -923,6 +923,36 @@ body:has(.page) {
   border-color: var(--accent-dim);
 }
 
+.arch-switch {
+  display: flex;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.arch-switch a {
+  padding: 6px 14px;
+  border: 1px solid var(--border-warm);
+  background: var(--panel-deep);
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.arch-switch a:hover {
+  color: var(--accent-bright);
+  border-color: var(--accent-dim);
+}
+
+.arch-switch a.is-active {
+  background: var(--panel-emphasis);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
 .system-card {
   margin: 24px 0;
 }

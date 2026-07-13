@@ -1,11 +1,18 @@
 <%
-content_for :title, "#{@meta[:name]} #{@meta[:version]} benchmarks: LinuxBenchHub"
-content_for :meta_description, "Phoronix Test Suite #{@meta[:pts]} results for #{@meta[:name]} #{@meta[:version]}."
+content_for :title, "#{@meta[:name]} #{@meta[:version]} #{@arch} benchmarks: LinuxBenchHub"
+content_for :meta_description, "Phoronix Test Suite #{@meta[:pts]} results for #{@meta[:name]} #{@meta[:version]} on #{@arch}."
 %>
 <main>
   <%= link_to "← OVERVIEW", showcase_path, class: "back-link" %>
 
   <%= render "showcase/distro_hero", distro: @distro, name: @meta[:name], version: @meta[:version], pts: @meta[:pts], intro: @parsed[:intro] %>
+
+  <nav class="arch-switch" aria-label="Architecture">
+    <% BenchmarkReport::ARCHES.each do |arch| %>
+      <% path = arch == BenchmarkReport::DEFAULT_ARCH ? showcase_distro_path(distro: @distro) : showcase_distro_arch_path(distro: @distro, arch: arch) %>
+      <%= link_to arch, path, class: "#{"is-active" if arch == @arch}" %>
+    <% end %>
+  </nav>
 
   <nav class="section-nav" aria-label="Benchmarks">
     <a href="#system-information">System</a>
