@@ -1,4 +1,4 @@
-# Ubuntu Benchmark Results
+# Ubuntu-arm64 Benchmark Results
 
 This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captured monthly by LinuxBenchHub's CI pipeline via Docker using the Phoronix Test Suite.
 
@@ -11,18 +11,19 @@ This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captu
 ## System Information
 
 ### Hardware
-- **Processor**: AMD EPYC 9V74 80-Core (2 Cores / 4 Threads)
-- **Motherboard**: Microsoft Virtual Machine (Hyper-V UEFI v4.1 BIOS)
-- **Memory**: 16GB
-- **Disk**: 2 x 81GB Virtual Disk
-- **Graphics**: hyperv_drmdrmfb
+- **Processor**: ARMv8 Neoverse-N1 (4 Cores)
+- **Motherboard**: QEMU KVM Virtual Machine (1.6.6 BIOS)
+- **Memory**: 24GB
+- **Disk**: 107GB BlockVolume
+- **Graphics**: virtio_gpudrmfb
+- **Monitor**: QEMU Monitor
 
 ### Software
 - **OS**: Ubuntu 26.04 LTS
-- **Kernel**: 6.17.0-1018-azure (x86_64)
+- **Kernel**: 6.17.0-1011-oracle (aarch64)
 - **Compiler**: GCC 15.2.0
 - **File-System**: overlayfs
-- **Screen Resolution**: 1024x768
+- **Screen Resolution**: 1280x800
 - **System Layer**: Docker
 
 ---
@@ -39,27 +40,22 @@ This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captu
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (MB/s)**: 23210.7
-- **Raw String (MB/s)**: `20870:22694.8:22420.7:22338.3:22664.7:23032.7:24692.3:26972.2`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 11776.2
+- **Raw String (MB/s)**: `11825.2:11715.7:11787.6`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 20870.0 |
-| 2   | 22694.8 |
-| 3   | 22420.7 |
-| 4   | 22338.3 |
-| 5   | 22664.7 |
-| 6   | 23032.7 |
-| 7   | 24692.3 |
-| 8   | 26972.2 |
+| 1   | 11825.2 |
+| 2   | 11715.7 |
+| 3   | 11787.6 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 23210.712
-- **Median Value (MB/s)**: 22679.75
-- **Standard Deviation (MB/s)**: 1844.065
+- **Mean Value (MB/s)**: 11776.167
+- **Median Value (MB/s)**: 11787.6
+- **Standard Deviation (MB/s)**: 55.638
 
 ### Test Identifier: `pts/tinymembench-1.0.2`
 
@@ -71,27 +67,22 @@ This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captu
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (MB/s)**: 43653.0
-- **Raw String (MB/s)**: `38480.5:39845.2:39794.4:39357.1:39979:41231.4:52780:57756.8`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 47240.3
+- **Raw String (MB/s)**: `47251.3:47195.7:47274`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 38480.5 |
-| 2   | 39845.2 |
-| 3   | 39794.4 |
-| 4   | 39357.1 |
-| 5   | 39979.0 |
-| 6   | 41231.4 |
-| 7   | 52780.0 |
-| 8   | 57756.8 |
+| 1   | 47251.3 |
+| 2   | 47195.7 |
+| 3   | 47274.0 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 43653.05
-- **Median Value (MB/s)**: 39912.1
-- **Standard Deviation (MB/s)**: 7330.751
+- **Mean Value (MB/s)**: 47240.333
+- **Median Value (MB/s)**: 47251.3
+- **Standard Deviation (MB/s)**: 40.286
 
 ---
 
@@ -107,22 +98,22 @@ This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captu
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (Seconds)**: 366.009
-- **Raw String (Seconds)**: `366.359:365.858:365.811`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (Seconds)**: 205.504
+- **Raw String (Seconds)**: `206.237:205.473:204.801`
 
 ### Detailed Run Values
 
 | Run | Value (Seconds) |
 |-----|-------------------|
-| 1   | 366.359 |
-| 2   | 365.858 |
-| 3   | 365.811 |
+| 1   | 206.237 |
+| 2   | 205.473 |
+| 3   | 204.801 |
 
 ### Summary Statistics
-- **Mean Value (Seconds)**: 366.009
-- **Median Value (Seconds)**: 365.858
-- **Standard Deviation (Seconds)**: 0.304
+- **Mean Value (Seconds)**: 205.504
+- **Median Value (Seconds)**: 205.473
+- **Standard Deviation (Seconds)**: 0.718
 
 ---
 
@@ -138,21 +129,33 @@ This document provides detailed benchmarking results for Ubuntu 26.04 LTS, captu
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (k/s)**: 6978.865
-- **Raw String (k/s)**: `7003.043:6952.318:6981.234`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (k/s)**: 4274.258
+- **Raw String (k/s)**: `4348.223:4342.495:3994.261:4349.705:4344.805:4347.136:4348.365:3985.502:3989.579:4347.669:4349.865:4345.14:4331.438:4344.339:4345.341`
 
 ### Detailed Run Values
 
 | Run | Value (k/s) |
 |-----|-------------------|
-| 1   | 7003.043 |
-| 2   | 6952.318 |
-| 3   | 6981.234 |
+| 1   | 4348.223 |
+| 2   | 4342.495 |
+| 3   | 3994.261 |
+| 4   | 4349.705 |
+| 5   | 4344.805 |
+| 6   | 4347.136 |
+| 7   | 4348.365 |
+| 8   | 3985.502 |
+| 9   | 3989.579 |
+| 10   | 4347.669 |
+| 11   | 4349.865 |
+| 12   | 4345.14 |
+| 13   | 4331.438 |
+| 14   | 4344.339 |
+| 15   | 4345.341 |
 
 ### Summary Statistics
-- **Mean Value (k/s)**: 6978.865
-- **Median Value (k/s)**: 6981.234
-- **Standard Deviation (k/s)**: 25.445
+- **Mean Value (k/s)**: 4274.258
+- **Median Value (k/s)**: 4345.14
+- **Standard Deviation (k/s)**: 147.305
 
 ---

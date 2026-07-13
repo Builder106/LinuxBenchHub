@@ -1,0 +1,18 @@
+<section class="system-card" id="system-information">
+  <h2 class="system-card-heading">System</h2>
+  <div class="system-card-cols">
+    <% [["Hardware", hardware], ["Software", software]].each do |label, pairs| %>
+      <div class="system-card-col">
+        <div class="system-card-col-label"><%= label %></div>
+        <dl class="system-card-list">
+          <% pairs.each do |p| %>
+            <div class="system-card-row">
+              <dt><%= p[:key] %></dt>
+              <dd><%= p[:value] %></dd>
+            </div>
+          <% end %>
+        </dl>
+      </div>
+    <% end %>
+  </div>
+</section>

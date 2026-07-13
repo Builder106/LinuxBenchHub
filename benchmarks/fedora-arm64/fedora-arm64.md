@@ -1,4 +1,4 @@
-# Fedora Benchmark Results
+# Fedora-arm64 Benchmark Results
 
 This document provides detailed benchmarking results for Fedora Linux 44, captured monthly by LinuxBenchHub's CI pipeline via Docker using the Phoronix Test Suite.
 
@@ -11,18 +11,19 @@ This document provides detailed benchmarking results for Fedora Linux 44, captur
 ## System Information
 
 ### Hardware
-- **Processor**: AMD EPYC 9V74 80-Core (2 Cores / 4 Threads)
-- **Motherboard**: Microsoft Virtual Machine (Hyper-V UEFI v4.1 BIOS)
-- **Memory**: 16GB
-- **Disk**: 2 x 81GB Virtual Disk
-- **Graphics**: hyperv_drmdrmfb
+- **Processor**: ARMv8 Neoverse-N1 (4 Cores)
+- **Motherboard**: QEMU KVM Virtual Machine (1.6.6 BIOS)
+- **Memory**: 24GB
+- **Disk**: 107GB BlockVolume
+- **Graphics**: virtio_gpudrmfb
+- **Monitor**: QEMU Monitor
 
 ### Software
 - **OS**: Fedora Linux 44
-- **Kernel**: 6.17.0-1018-azure (x86_64)
+- **Kernel**: 6.17.0-1011-oracle (aarch64)
 - **Compiler**: GCC 16.1.1 20260515
 - **File-System**: overlayfs
-- **Screen Resolution**: 1024x768
+- **Screen Resolution**: 1280x800
 - **System Layer**: Docker
 
 ---
@@ -39,25 +40,22 @@ This document provides detailed benchmarking results for Fedora Linux 44, captur
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (MB/s)**: 24283.9
-- **Raw String (MB/s)**: `25595.3:25947.7:24214.2:24458.4:23995.2:21492.5`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 11931.1
+- **Raw String (MB/s)**: `11869:11897.8:12026.4`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 25595.3 |
-| 2   | 25947.7 |
-| 3   | 24214.2 |
-| 4   | 24458.4 |
-| 5   | 23995.2 |
-| 6   | 21492.5 |
+| 1   | 11869.0 |
+| 2   | 11897.8 |
+| 3   | 12026.4 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 24283.883
-- **Median Value (MB/s)**: 24336.3
-- **Standard Deviation (MB/s)**: 1574.711
+- **Mean Value (MB/s)**: 11931.067
+- **Median Value (MB/s)**: 11897.8
+- **Standard Deviation (MB/s)**: 83.807
 
 ### Test Identifier: `pts/tinymembench-1.0.2`
 
@@ -69,25 +67,22 @@ This document provides detailed benchmarking results for Fedora Linux 44, captur
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (MB/s)**: 45480.9
-- **Raw String (MB/s)**: `52955.8:53614:45969.6:37502.7:45961.7:36881.8`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 47576.7
+- **Raw String (MB/s)**: `47637.1:47477.2:47615.7`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 52955.8 |
-| 2   | 53614.0 |
-| 3   | 45969.6 |
-| 4   | 37502.7 |
-| 5   | 45961.7 |
-| 6   | 36881.8 |
+| 1   | 47637.1 |
+| 2   | 47477.2 |
+| 3   | 47615.7 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 45480.933
-- **Median Value (MB/s)**: 45965.65
-- **Standard Deviation (MB/s)**: 7212.318
+- **Mean Value (MB/s)**: 47576.667
+- **Median Value (MB/s)**: 47615.7
+- **Standard Deviation (MB/s)**: 86.803
 
 ---
 
@@ -103,22 +98,22 @@ This document provides detailed benchmarking results for Fedora Linux 44, captur
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (Seconds)**: 359.315
-- **Raw String (Seconds)**: `359.212:359.117:359.616`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (Seconds)**: 201.629
+- **Raw String (Seconds)**: `201.827:200.84:202.221`
 
 ### Detailed Run Values
 
 | Run | Value (Seconds) |
 |-----|-------------------|
-| 1   | 359.212 |
-| 2   | 359.117 |
-| 3   | 359.616 |
+| 1   | 201.827 |
+| 2   | 200.84 |
+| 3   | 202.221 |
 
 ### Summary Statistics
-- **Mean Value (Seconds)**: 359.315
-- **Median Value (Seconds)**: 359.212
-- **Standard Deviation (Seconds)**: 0.265
+- **Mean Value (Seconds)**: 201.629
+- **Median Value (Seconds)**: 201.827
+- **Standard Deviation (Seconds)**: 0.711
 
 ---
 
@@ -134,21 +129,21 @@ This document provides detailed benchmarking results for Fedora Linux 44, captur
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: AMD EPYC 9V74 80-Core
-- **Value (k/s)**: 6987.830
-- **Raw String (k/s)**: `6987.635:6986.896:6988.958`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (k/s)**: 4333.746
+- **Raw String (k/s)**: `4290.633:4356.678:4353.926`
 
 ### Detailed Run Values
 
 | Run | Value (k/s) |
 |-----|-------------------|
-| 1   | 6987.635 |
-| 2   | 6986.896 |
-| 3   | 6988.958 |
+| 1   | 4290.633 |
+| 2   | 4356.678 |
+| 3   | 4353.926 |
 
 ### Summary Statistics
-- **Mean Value (k/s)**: 6987.83
-- **Median Value (k/s)**: 6987.635
-- **Standard Deviation (k/s)**: 1.045
+- **Mean Value (k/s)**: 4333.746
+- **Median Value (k/s)**: 4353.926
+- **Standard Deviation (k/s)**: 37.362
 
 ---

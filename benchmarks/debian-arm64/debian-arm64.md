@@ -1,4 +1,4 @@
-# Debian Benchmark Results
+# Debian-arm64 Benchmark Results
 
 This document provides detailed benchmarking results for Debian GNU/Linux 13, captured monthly by LinuxBenchHub's CI pipeline via Docker using the Phoronix Test Suite.
 
@@ -11,18 +11,19 @@ This document provides detailed benchmarking results for Debian GNU/Linux 13, ca
 ## System Information
 
 ### Hardware
-- **Processor**: Intel Xeon Platinum 8370C @ 2.80GHz (2 Cores / 4 Threads)
-- **Motherboard**: Microsoft Virtual Machine (Hyper-V UEFI v4.1 BIOS)
-- **Memory**: 16GB
-- **Disk**: 161GB Virtual Disk
-- **Graphics**: hyperv_drmdrmfb
+- **Processor**: ARMv8 Neoverse-N1 (4 Cores)
+- **Motherboard**: QEMU KVM Virtual Machine (1.6.6 BIOS)
+- **Memory**: 24GB
+- **Disk**: 107GB BlockVolume
+- **Graphics**: virtio_gpudrmfb
+- **Monitor**: QEMU Monitor
 
 ### Software
 - **OS**: Debian GNU/Linux 13
-- **Kernel**: 6.17.0-1018-azure (x86_64)
+- **Kernel**: 6.17.0-1011-oracle (aarch64)
 - **Compiler**: GCC 14.2.0
 - **File-System**: overlayfs
-- **Screen Resolution**: 1024x768
+- **Screen Resolution**: 1280x800
 - **System Layer**: Docker
 
 ---
@@ -39,28 +40,22 @@ This document provides detailed benchmarking results for Debian GNU/Linux 13, ca
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: Intel Xeon Platinum 8370C
-- **Value (MB/s)**: 15101.0
-- **Raw String (MB/s)**: `14421.2:16034.7:16029.8:13573.7:15697:15275.2:15128.9:15343.7:14405.1`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 11667.0
+- **Raw String (MB/s)**: `11693:11696.4:11611.6`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 14421.2 |
-| 2   | 16034.7 |
-| 3   | 16029.8 |
-| 4   | 13573.7 |
-| 5   | 15697.0 |
-| 6   | 15275.2 |
-| 7   | 15128.9 |
-| 8   | 15343.7 |
-| 9   | 14405.1 |
+| 1   | 11693.0 |
+| 2   | 11696.4 |
+| 3   | 11611.6 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 15101.033
-- **Median Value (MB/s)**: 15275.2
-- **Standard Deviation (MB/s)**: 826.042
+- **Mean Value (MB/s)**: 11667.0
+- **Median Value (MB/s)**: 11693.0
+- **Standard Deviation (MB/s)**: 48.008
 
 ### Test Identifier: `pts/tinymembench-1.0.2`
 
@@ -72,28 +67,22 @@ This document provides detailed benchmarking results for Debian GNU/Linux 13, ca
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: Intel Xeon Platinum 8370C
-- **Value (MB/s)**: 26571.9
-- **Raw String (MB/s)**: `26645.1:26681:26694.6:26302.9:26697.8:26421.1:26374:26677.9:26652.8`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (MB/s)**: 47525.3
+- **Raw String (MB/s)**: `47527.1:47488.1:47560.6`
 
 ### Detailed Run Values
 
 | Run | Value (MB/s) |
 |-----|-------------------|
-| 1   | 26645.1 |
-| 2   | 26681.0 |
-| 3   | 26694.6 |
-| 4   | 26302.9 |
-| 5   | 26697.8 |
-| 6   | 26421.1 |
-| 7   | 26374.0 |
-| 8   | 26677.9 |
-| 9   | 26652.8 |
+| 1   | 47527.1 |
+| 2   | 47488.1 |
+| 3   | 47560.6 |
 
 ### Summary Statistics
-- **Mean Value (MB/s)**: 26571.911
-- **Median Value (MB/s)**: 26652.8
-- **Standard Deviation (MB/s)**: 158.198
+- **Mean Value (MB/s)**: 47525.267
+- **Median Value (MB/s)**: 47527.1
+- **Standard Deviation (MB/s)**: 36.285
 
 ---
 
@@ -109,22 +98,22 @@ This document provides detailed benchmarking results for Debian GNU/Linux 13, ca
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: Intel Xeon Platinum 8370C
-- **Value (Seconds)**: 456.055
-- **Raw String (Seconds)**: `456.927:455.706:455.532`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (Seconds)**: 199.848
+- **Raw String (Seconds)**: `199.791:199.892:199.861`
 
 ### Detailed Run Values
 
 | Run | Value (Seconds) |
 |-----|-------------------|
-| 1   | 456.927 |
-| 2   | 455.706 |
-| 3   | 455.532 |
+| 1   | 199.791 |
+| 2   | 199.892 |
+| 3   | 199.861 |
 
 ### Summary Statistics
-- **Mean Value (Seconds)**: 456.055
-- **Median Value (Seconds)**: 455.706
-- **Standard Deviation (Seconds)**: 0.76
+- **Mean Value (Seconds)**: 199.848
+- **Median Value (Seconds)**: 199.861
+- **Standard Deviation (Seconds)**: 0.052
 
 ---
 
@@ -140,21 +129,21 @@ This document provides detailed benchmarking results for Debian GNU/Linux 13, ca
 - **Display Format**: BAR_GRAPH
 
 ### Data Entries
-- **Identifier**: Intel Xeon Platinum 8370C
-- **Value (k/s)**: 6663.283
-- **Raw String (k/s)**: `6669.034:6655.157:6665.657`
+- **Identifier**: ARMv8 Neoverse-N1
+- **Value (k/s)**: 4271.842
+- **Raw String (k/s)**: `4273.283:4270.992:4271.252`
 
 ### Detailed Run Values
 
 | Run | Value (k/s) |
 |-----|-------------------|
-| 1   | 6669.034 |
-| 2   | 6655.157 |
-| 3   | 6665.657 |
+| 1   | 4273.283 |
+| 2   | 4270.992 |
+| 3   | 4271.252 |
 
 ### Summary Statistics
-- **Mean Value (k/s)**: 6663.283
-- **Median Value (k/s)**: 6665.657
-- **Standard Deviation (k/s)**: 7.237
+- **Mean Value (k/s)**: 4271.842
+- **Median Value (k/s)**: 4271.252
+- **Standard Deviation (k/s)**: 1.254
 
 ---

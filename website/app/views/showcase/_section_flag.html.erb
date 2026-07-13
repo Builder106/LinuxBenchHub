@@ -1,0 +1,7 @@
+<div class="section-flag">
+  <%= render "showcase/hex_mark", size: 18 %>
+  <% if local_assigns[:with_tux] %>
+    <%= render "showcase/tux_mark", size: 18 %>
+  <% end %>
+  <h2><%= title %></h2>
+</div>

@@ -1,0 +1,199 @@
+<%
+content_for :title, "LinuxBenchHub: VM benchmarks for Linux distros"
+content_for :meta_description, "Compare Linux distros under identical virtual hardware. Phoronix Test Suite results for Ubuntu, Fedora, and Debian, captured monthly in CI on both x86 and arm64."
+%>
+<main>
+  <%= image_tag "showcase/banner-dark.svg", class: "banner banner-dark", alt: "LinuxBenchHub: compare Linux distros under identical virtual hardware", width: 1200, height: 420 %>
+  <%= image_tag "showcase/banner-light.svg", class: "banner banner-light", alt: "", "aria-hidden": true, width: 1200, height: 420 %>
+
+  <div class="badges">
+    <a href="https://github.com/Builder106/LinuxBenchHub/actions/workflows/ci.yml" target="_blank" rel="noreferrer">
+      <img src="https://github.com/Builder106/LinuxBenchHub/actions/workflows/ci.yml/badge.svg" alt="CI">
+    </a>
+    <img src="https://img.shields.io/badge/Ruby-3.3.0-CC342D.svg?logo=ruby&logoColor=white" alt="Ruby 3.3">
+    <img src="https://img.shields.io/badge/Rails-8.0-D30001.svg?logo=rubyonrails&logoColor=white" alt="Rails 8">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT">
+    <img src="https://img.shields.io/badge/status-in--development-orange.svg" alt="In development">
+  </div>
+
+  <p class="lede">
+    A benchmarking dataset for Linux distros: Phoronix Test Suite runs on Ubuntu, Fedora, and Debian, captured
+    monthly in GitHub Actions on both x86 (GitHub-hosted runners) and arm64 (an Oracle Ampere VM), with this Rails
+    dashboard and R parsers consuming the same composite XML.
+  </p>
+
+  <div class="callout">
+    <strong>Note</strong> fresh captures land in the repo on the 1st of every month via the
+    <a href="https://github.com/Builder106/LinuxBenchHub/blob/main/.github/workflows/capture-benchmarks.yml" target="_blank" rel="noreferrer">capture-benchmarks</a>
+    workflow. This dashboard reads the same composite XML the R parsers do. See the
+    <a href="https://github.com/Builder106/LinuxBenchHub#setup" target="_blank" rel="noreferrer">README setup section</a>
+    to run it locally.
+  </div>
+
+  <%= render "showcase/facet_divider" %>
+
+  <section class="section">
+    <%= render "showcase/section_flag", title: "Sample results: #{BenchmarkReport.name_for('ubuntu')}" %>
+    <p style="color: var(--fg-muted); max-width: 60ch;">
+      The fully parsed sample runs on <%= showcase_hardware_summary(@sample_hardware, @sample_software) %>.
+      Each benchmark ran <%= showcase_run_count_label(@sample_tests) %> times depending on the test; the dot
+      shows the mean, the band shows &plusmn;1&sigma; around it.
+    </p>
+
+    <div class="data-panel">
+      <% @sample_tests.each do |test| %>
+        <% values = test[:runs].map { |r| r[:value] } %>
+        <div class="data-row">
+          <div class="data-label">
+            <%= test[:title] %>
+            <small><%= test[:identifier] %> &middot; <%= test[:description] %></small>
+          </div>
+          <div class="data-unit"><%= test[:unit] %></div>
+          <div class="data-value"><%= showcase_format_tick(test[:mean]) %></div>
+          <%= render "showcase/spread_bar", mean: test[:mean], stddev: test[:stddev], min: values.min, max: values.max %>
+        </div>
+      <% end %>
+      <div class="data-footnote">
+        n = <%= showcase_run_count_label(@sample_tests) %> runs &middot; &plusmn;1&sigma; band around mean &middot; min/max as range
+      </div>
+    </div>
+  </section>
+
+  <%= render "showcase/facet_divider" %>
+
+  <section class="section">
+    <%= render "showcase/section_flag", title: "Per-distro writeups", with_tux: true %>
+    <p style="color: var(--fg-muted); max-width: 60ch;">
+      Three distros, same VM specs, each with a captured and parsed run.
+    </p>
+    <div class="hex-cluster">
+      <% BenchmarkReport::DISTROS.each do |slug| %>
+        <% meta = BenchmarkReport.meta(slug); cray = @distro_cray[slug] %>
+        <%= render "showcase/hex_tile", slug: slug, name: meta[:name], version: meta[:version],
+              stat: (cray ? { value: showcase_format_tick(cray[:mean]), unit: cray[:unit], label: "C-Ray mean" } : nil) %>
+      <% end %>
+    </div>
+  </section>
+
+  <%= render "showcase/facet_divider" %>
+
+  <section class="section">
+    <%= render "showcase/section_flag", title: "How the pieces fit" %>
+    <p style="color: var(--fg-muted); max-width: 60ch;">
+      The R parsers and this Rails app are interchangeable consumers of the same <code>pts/composite.xml</code>:
+      run the static analysis with R alone, or use the dashboard alone, or both.
+    </p>
+    <%
+    flow_nodes = {
+      capture: { x: 80, y: 200 },
+      pts: { x: 240, y: 200 },
+      composite: { x: 420, y: 200 },
+      rparser: { x: 600, y: 90 },
+      writeups: { x: 800, y: 90 },
+      rails: { x: 600, y: 310 },
+      dashboard: { x: 800, y: 310 },
+    }
+    r = ShowcaseHelper::FLOWCHART_HEX_RADIUS
+    n = flow_nodes
+    %>
+    <div class="flowchart">
+      <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+        <text x="<%= n[:capture][:x] %>" y="30" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--fg-dim)" letter-spacing="0.18em" font-weight="700">CAPTURE</text>
+        <text x="<%= n[:composite][:x] %>" y="30" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--fg-dim)" letter-spacing="0.18em" font-weight="700">INGEST</text>
+        <text x="<%= (n[:rparser][:x] + n[:writeups][:x]) / 2 %>" y="30" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--fg-dim)" letter-spacing="0.18em" font-weight="700">ANALYZE (R)</text>
+        <text x="<%= (n[:rails][:x] + n[:dashboard][:x]) / 2 %>" y="370" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--fg-dim)" letter-spacing="0.18em" font-weight="700">DASHBOARD (RUBY)</text>
+
+        <%= render "showcase/flow_arrow", x1: n[:capture][:x] + r, y1: n[:capture][:y], x2: n[:pts][:x] - r, y2: n[:pts][:y], label: "cron" %>
+        <%= render "showcase/flow_arrow", x1: n[:pts][:x] + r, y1: n[:pts][:y], x2: n[:composite][:x] - r, y2: n[:composite][:y], label: "batch" %>
+        <%= render "showcase/flow_arrow", x1: n[:composite][:x] + 28, y1: n[:composite][:y] - 30, x2: n[:rparser][:x] - 28, y2: n[:rparser][:y] + 30 %>
+        <%= render "showcase/flow_arrow", x1: n[:composite][:x] + 28, y1: n[:composite][:y] + 30, x2: n[:rails][:x] - 28, y2: n[:rails][:y] - 30 %>
+        <%= render "showcase/flow_arrow", x1: n[:rparser][:x] + r, y1: n[:rparser][:y], x2: n[:writeups][:x] - r, y2: n[:writeups][:y] %>
+        <%= render "showcase/flow_arrow", x1: n[:rails][:x] + r, y1: n[:rails][:y], x2: n[:dashboard][:x] - r, y2: n[:dashboard][:y] %>
+
+        <%= render "showcase/flowchart_node", x: n[:capture][:x], y: n[:capture][:y], l1: "GitHub", l2: "Actions" %>
+        <%= render "showcase/flowchart_node", x: n[:pts][:x], y: n[:pts][:y], l1: "Phoronix", l2: "Test Suite" %>
+        <%= render "showcase/flowchart_node", x: n[:composite][:x], y: n[:composite][:y], l1: "composite", l2: ".xml" %>
+        <%= render "showcase/flowchart_node", x: n[:rparser][:x], y: n[:rparser][:y], l1: "Parse_*.R", l2: "dplyr · ggplot2" %>
+        <%= render "showcase/flowchart_node", x: n[:writeups][:x], y: n[:writeups][:y], l1: ".md", l2: "writeups" %>
+        <%= render "showcase/flowchart_node", x: n[:rails][:x], y: n[:rails][:y], l1: "Rails 8", l2: "+ Devise", emphasis: true %>
+        <%= render "showcase/flowchart_node", x: n[:dashboard][:x], y: n[:dashboard][:y], l1: "Chartkick", l2: "+ Groupdate", emphasis: true %>
+      </svg>
+    </div>
+  </section>
+
+  <%= render "showcase/facet_divider" %>
+
+  <section class="section">
+    <%= render "showcase/section_flag", title: "Tech stack" %>
+    <div style="margin-top: 20px;">
+      <%
+      stack = [
+        { label: "Capture", chips: ["Phoronix Test Suite", "GitHub Actions", "Docker", "Ampere arm64"] },
+        { label: "Analyze", chips: ["R", "xml2", "dplyr", "ggplot2", "tidyr"] },
+        { label: "Dashboard", chips: ["Rails 8.0", "Ruby 3.3", "Hotwire", "Chartkick", "Groupdate", "Bootstrap"] },
+        { label: "Storage", chips: ["SQLite", "Puma"] },
+        { label: "Auth", chips: ["Devise"] },
+        { label: "Deploy", chips: ["Docker", "Kamal"] },
+      ]
+      %>
+      <% stack.each do |g| %>
+        <div class="stack-group">
+          <div class="stack-label"><%= g[:label] %></div>
+          <div class="stack-chips">
+            <% g[:chips].each do |c| %>
+              <span class="chip"><%= c %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <%= render "showcase/facet_divider" %>
+
+  <section class="section">
+    <%= render "showcase/section_flag", title: "Project status" %>
+    <div class="status-panel">
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span>Phoronix sample for Ubuntu, Fedora, Debian, parsed into per-distro writeups</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span><code>benchmarks/generate_writeup.rb</code> turns a captured <code>composite.xml</code> into the per-distro markdown writeups this showcase parses</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span>Monthly CI capture in <code>.github/workflows/capture-benchmarks.yml</code> across ubuntu/fedora/debian on x86, plus arm64 parity for all three on a real Oracle Ampere VM</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span>Capture and publish split into separate jobs so the x86 matrix runs fully in parallel with no git-push races</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span>This showcase folded into the Rails dashboard at <code>/showcase</code>, retiring the standalone Next.js site</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill wip">WIP</span>
+        <span>Rails dashboard's own user-submitted benchmark CRUD (separate from this showcase)</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill done">DONE</span>
+        <span>arm64 captures rendered on the per-distro pages behind an x86/arm64 switch</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill todo">TODO</span>
+        <span>Wire <code>generate_writeup.rb</code> into the monthly capture workflow so writeups refresh automatically instead of by hand</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill todo">TODO</span>
+        <span>Cross-distro comparison page</span>
+      </div>
+      <div class="status-row">
+        <span class="status-pill todo">TODO</span>
+        <span>Fill in Kamal deploy targets and ship the dashboard</span>
+      </div>
+    </div>
+  </section>
+</main>

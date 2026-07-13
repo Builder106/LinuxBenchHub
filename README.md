@@ -20,7 +20,7 @@ LinuxBenchHub has three components:
 
 1. **A benchmark dataset and analysis** under [`benchmarks/`](benchmarks/) &mdash; per-distro Phoronix Test Suite results (CPU, memory, network). Each distro has an R parsing script that extracts summary stats from the raw `pts/composite.xml`. The original bare-metal sample (VMware Fusion Pro on 2&times; i5-7360U) lives at the root of each distro folder; CI-captured runs land in `benchmarks/<distro>/captures/`.
 2. **A capture pipeline** under [`.github/workflows/capture-benchmarks.yml`](.github/workflows/capture-benchmarks.yml) &mdash; a monthly GitHub Actions job that runs `pts/c-ray`, `pts/tinymembench`, and `pts/aircrack-ng` inside Ubuntu, Fedora, and Debian containers on the same `ubuntu-latest` runner, then commits the resulting `composite.xml` back to the repo. Free, reproducible, no cloud bill.
-3. **A Rails 8 dashboard** under [`website/`](website/) &mdash; a web app that lists stored benchmarks, supports Devise auth, exports CSV/JSON, and renders charts with Chartkick. The dashboard reads the same `composite.xml` files the R scripts parse, so it stays in sync with whatever the CI workflow last captured.
+3. **A Rails 8 dashboard** under [`website/`](website/) &mdash; a web app that lists stored benchmarks, supports Devise auth, exports CSV/JSON, and renders charts with Chartkick. The dashboard reads the same `composite.xml` files the R scripts parse, so it stays in sync with whatever the CI workflow last captured. It also serves the CI-captured showcase (the per-distro writeups) at `/showcase`.
 
 ## Sample results &mdash; Ubuntu 24.04
 
@@ -95,8 +95,7 @@ The R parsers and the Rails app are interchangeable consumers of the same `compo
 |   |   `-- deploy.yml                # Rails app deploy
 |   `-- scripts/
 |       `-- pts-batch-config.xml      # seeded into PTS before non-interactive runs
-|-- site/                    # Next.js static showcase (deployed on Vercel)
-|-- website/                 # Rails 8 dashboard
+|-- website/                 # Rails 8 dashboard (incl. the /showcase writeups)
 |   |-- app/                 #   models, controllers, views
 |   |-- config/              #   routes, Whenever schedule
 |   `-- Dockerfile           #   production image
