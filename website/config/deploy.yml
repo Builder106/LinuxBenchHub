@@ -2,30 +2,29 @@
 service: linux_bench_hub
 
 # Name of the container image.
-image: your-user/linux_bench_hub
+image: ghcr.io/builder106/linux_bench_hub
 
-# Deploy to these servers.
+# Deploy to these servers. ampere-dev, the same Oracle Ampere VM that runs the
+# Blender build and LinuxBenchHub's own arm64 benchmark capture, reached over
+# SSH as a dedicated `deploy` user kept separate from the `ubuntu` dev login.
 servers:
   web:
-    - 192.168.0.1
+    - 161.153.47.170
   # job:
   #   hosts:
   #     - 192.168.0.1
   #   cmd: bin/jobs
 
-# Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
-# Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
-#
-# Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
+# No domain yet, so no Let's Encrypt cert to issue. kamal-proxy still fronts
+# the app, just over plain HTTP on port 80. Add ssl: true + host: <domain>
+# once a real domain is pointed at this IP.
 proxy:
-  ssl: true
-  host: app.example.com
+  ssl: false
 
-# Credentials for your image host.
+# Credentials for your image host. Personal access token needs write:packages.
 registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: your-user
+  server: ghcr.io
+  username: builder106
 
   # Always use an access token rather than real password when possible.
   password:
@@ -62,10 +61,11 @@ aliases:
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
 
-# Use a persistent storage volume for sqlite database files and local Active Storage files.
-# Recommended to change this to a mounted volume path that is backed up off server.
+# Bind-mounted (not a bare Docker named volume) so the sqlite database and
+# Active Storage files live in a directory of their own on the host, kept
+# apart from the deploy user's other work.
 volumes:
-  - "linux_bench_hub_storage:/rails/storage"
+  - "/srv/linux_bench_hub/storage:/rails/storage"
 
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
@@ -73,9 +73,9 @@ volumes:
 # version inside the asset_path.
 asset_path: /rails/public/assets
 
-# Configure the image builder.
+# Configure the image builder. ampere-dev is arm64 (Ampere A1), not amd64.
 builder:
-  arch: amd64
+  arch: arm64
 
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
   # remote: ssh://docker@docker-builder-server
@@ -87,9 +87,13 @@ builder:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
 
-# Use a different ssh user than root
-# ssh:
-#   user: app
+# Dedicated deploy user (docker group, no broader sudo) instead of root, kept
+# separate from the `ubuntu` login used for Blender/pwndbg dev work, with its
+# own SSH key rather than reusing ubuntu's.
+ssh:
+  user: deploy
+  keys: [ "~/.ssh/ampere-deploy" ]
+  keys_only: true
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:

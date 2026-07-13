@@ -17,8 +17,10 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 python3 python3-pip && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install Websockify
-RUN pip3 install websockify
+# Install Websockify. --break-system-packages is safe here: this is a
+# single-purpose container image, not a host Python install, so there's no
+# system-package conflict for PEP 668 to actually protect against.
+RUN pip3 install --break-system-packages websockify
 
 # Set production environment
 ENV RAILS_ENV="production" \
