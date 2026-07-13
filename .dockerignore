@@ -1,0 +1,58 @@
+# Build context is the repo root (see website/config/deploy.yml's
+# builder.context), so every website/-relative pattern here needs the
+# website/ prefix. website/.dockerignore is no longer read by Docker once
+# the context moves up a directory, so its rules are mirrored here instead
+# of deleting that file (kept for anyone building with website/ as context
+# directly).
+
+# Ignore git directory.
+/.git/
+/.gitignore
+
+# Ignore bundler config.
+/website/.bundle
+
+# Ignore all environment files.
+/website/.env*
+
+# Ignore all default key files. Without this, config/master.key would ship
+# straight into the image once the build context moved to the repo root.
+/website/config/master.key
+/website/config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/website/log/*
+/website/tmp/*
+!/website/log/.keep
+!/website/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/website/tmp/pids/*
+!/website/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/website/storage/*
+!/website/storage/.keep
+/website/tmp/storage/*
+!/website/tmp/storage/.keep
+
+# Ignore assets.
+/website/node_modules/
+/website/app/assets/builds/*
+!/website/app/assets/builds/.keep
+/website/public/assets
+
+# Ignore CI service files.
+/.github
+
+# Ignore Kamal files.
+/website/config/deploy*.yml
+/website/.kamal
+
+# Ignore development files
+/website/.devcontainer
+
+# Ignore Docker-related files
+/.dockerignore
+/website/.dockerignore
+/website/Dockerfile*

@@ -2,7 +2,7 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t linux_bench_hub .
+# docker build -t linux_bench_hub -f website/Dockerfile .   (from the repo root, not website/)
 # docker run -d -p 80:80 -p 5902:5902 -e RAILS_MASTER_KEY=<value from config/master.key> --name linux_bench_hub linux_bench_hub
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
@@ -36,14 +36,22 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install application gems
-COPY Gemfile Gemfile.lock ./
+# Install application gems. Build context is the repo root (see
+# config/deploy.yml's builder.context), not website/, so app files are
+# copied from website/ explicitly.
+COPY website/Gemfile website/Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
 # Copy application code
-COPY . .
+COPY website/ .
+
+# benchmarks/ is a sibling of website/ at the repo root, not inside it.
+# BenchmarkReport (app/lib/benchmark_report.rb) reads writeups from
+# Rails.root.join("..", "benchmarks", ...), i.e. /benchmarks in the image,
+# so it has to ship too, not just website/ itself.
+COPY benchmarks/ /benchmarks/
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
@@ -52,15 +60,17 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # Copy Websockify startup script
-COPY start_services.sh /rails/start_services.sh
+COPY website/start_services.sh /rails/start_services.sh
 RUN chmod +x /rails/start_services.sh
 
 # Final stage for app image
 FROM base
 
-# Copy built artifacts: gems, application
+# Copy built artifacts: gems, application, and the sibling benchmarks/
+# directory BenchmarkReport reads writeups from
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
+COPY --from=build /benchmarks /benchmarks
 
 # Copy Websockify startup script
 COPY --from=build /rails/start_services.sh /rails/start_services.sh

@@ -87,6 +87,13 @@ asset_path: /rails/public/assets
 builder:
   arch: arm64
 
+  # Context is the repo root, not website/: the Dockerfile needs to COPY in
+  # the sibling benchmarks/ directory (BenchmarkReport reads writeups from
+  # Rails.root.join("..", "benchmarks", ...)), which isn't reachable from
+  # a website/-scoped build context.
+  context: ..
+  dockerfile: website/Dockerfile
+
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
   # remote: ssh://docker@docker-builder-server
   #
