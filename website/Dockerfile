@@ -76,10 +76,16 @@ COPY --from=build /benchmarks /benchmarks
 COPY --from=build /rails/start_services.sh /rails/start_services.sh
 RUN chmod +x /rails/start_services.sh
 
-# Run and own only the runtime files as a non-root user for security
+# Run and own only the runtime files as a non-root user for security.
+# chmod a+rX is belt-and-suspenders: the git-clone-based build context has
+# produced 600-permission files here before (Gemfile.lock unreadable by
+# uid 1000, "Permission denied" at boot), likely a umask artifact of the
+# clone step, so make everything under /rails at least world-readable
+# regardless of what the source checkout's permissions happened to be.
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails db log storage tmp && \
+    chmod -R a+rX /rails /benchmarks
 
 USER 1000:1000
 
