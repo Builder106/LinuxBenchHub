@@ -90,9 +90,11 @@ builder:
   # Context is the repo root, not website/: the Dockerfile needs to COPY in
   # the sibling benchmarks/ directory (BenchmarkReport reads writeups from
   # Rails.root.join("..", "benchmarks", ...)), which isn't reachable from
-  # a website/-scoped build context.
+  # a website/-scoped build context. dockerfile is left at its default
+  # (Dockerfile): it resolves relative to where kamal is invoked from
+  # (website/), not relative to context, so website/Dockerfile is already
+  # correct without an override.
   context: ..
-  dockerfile: website/Dockerfile
 
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
   # remote: ssh://docker@docker-builder-server
