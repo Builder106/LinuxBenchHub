@@ -17,10 +17,13 @@ servers:
   #   cmd: bin/jobs
 
 # No domain yet, so no Let's Encrypt cert to issue. kamal-proxy still fronts
-# the app, just over plain HTTP on port 80. Add ssl: true + host: <domain>
-# once a real domain is pointed at this IP.
+# the app over plain HTTP, on 8080 rather than 80 since ampere-dev already
+# has an unrelated Apache install bound to 80 that isn't ours to touch. Add
+# ssl: true + host: <domain> once a real domain is pointed at this IP.
 proxy:
   ssl: false
+  run:
+    http_port: 8080
 
 # Credentials for your image host. Personal access token needs write:packages.
 registry:
