@@ -1,8 +1,9 @@
 # Name of your application. Used to uniquely configure containers.
 service: linux_bench_hub
 
-# Name of the container image.
-image: ghcr.io/builder106/linux_bench_hub
+# Name of the container image. Registry host comes from registry.server
+# below; putting it here too would double up to ghcr.io/ghcr.io/....
+image: builder106/linux_bench_hub
 
 # Deploy to these servers. ampere-dev, the same Oracle Ampere VM that runs the
 # Blender build and LinuxBenchHub's own arm64 benchmark capture, reached over
