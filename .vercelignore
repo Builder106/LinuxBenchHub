@@ -1,7 +1,7 @@
 website/*
 !website/export
 linux_benchmarking.rb
-assets
+/assets
 .git
 .github
 .ruby-lsp
