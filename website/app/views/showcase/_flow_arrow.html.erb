@@ -1,8 +1,0 @@
-<% a = showcase_flow_arrow(x1: x1, y1: y1, x2: x2, y2: y2) %>
-<g>
-  <line x1="<%= x1 %>" y1="<%= y1 %>" x2="<%= a[:ax] %>" y2="<%= a[:ay] %>" stroke="var(--accent)" stroke-width="1.2" opacity="0.85" />
-  <polygon points="0,0 -8,-4 -8,4" fill="var(--accent)" opacity="0.95" transform="translate(<%= a[:ax] %>,<%= a[:ay] %>) rotate(<%= a[:angle] %>)" />
-  <% if local_assigns[:label].present? %>
-    <text x="<%= a[:mx] %>" y="<%= a[:my] %>" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--fg-dim)" letter-spacing="0.1em"><%= label %></text>
-  <% end %>
-</g>

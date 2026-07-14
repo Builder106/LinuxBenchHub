@@ -1,11 +1,2 @@
 #!/usr/bin/env ruby
-exec "foreman", "start", "-f", "Procfile.dev", *ARGV
-rescue Errno::ENOENT
-  warn <<~MSG
-    NOTICE: foreman is not installed.
-    Run `gem install foreman` to install it, then re-run `bin/dev`.
-
-    (foreman is intentionally kept out of the Gemfile — install it as a
-    system gem so the same binary works across projects.)
-  MSG
-  exit 1
+exec "./bin/rails", "server", *ARGV

@@ -2,25 +2,22 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t linux_bench_hub -f website/Dockerfile .   (from the repo root, not website/)
-# docker run -d -p 80:80 -p 5902:5902 -e RAILS_MASTER_KEY=<value from config/master.key> --name linux_bench_hub linux_bench_hub
+# docker build -t website .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name website website
+
+# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.3
+ARG RUBY_VERSION=4.0.5
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages and Python for Websockify
+# Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 python3 python3-pip && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Install Websockify. --break-system-packages is safe here: this is a
-# single-purpose container image, not a host Python install, so there's no
-# system-package conflict for PEP 668 to actually protect against.
-RUN pip3 install --break-system-packages websockify
 
 # Set production environment
 ENV RAILS_ENV="production" \
@@ -33,25 +30,18 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install application gems. Build context is the repo root (see
-# config/deploy.yml's builder.context), not website/, so app files are
-# copied from website/ explicitly.
-COPY website/Gemfile website/Gemfile.lock ./
+# Install application gems
+COPY vendor/* ./vendor/
+COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
 # Copy application code
-COPY website/ .
-
-# benchmarks/ is a sibling of website/ at the repo root, not inside it.
-# BenchmarkReport (app/lib/benchmark_report.rb) reads writeups from
-# Rails.root.join("..", "benchmarks", ...), i.e. /benchmarks in the image,
-# so it has to ship too, not just website/ itself.
-COPY benchmarks/ /benchmarks/
+COPY . .
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
@@ -59,47 +49,25 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-# Copy Websockify startup script
-COPY website/start_services.sh /rails/start_services.sh
-RUN chmod +x /rails/start_services.sh
+
+
 
 # Final stage for app image
 FROM base
 
-# Copy built artifacts: gems, application, and the sibling benchmarks/
-# directory BenchmarkReport reads writeups from
+# Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
-COPY --from=build /benchmarks /benchmarks
 
-# Copy Websockify startup script
-COPY --from=build /rails/start_services.sh /rails/start_services.sh
-RUN chmod +x /rails/start_services.sh
-
-# Run and own only the runtime files as a non-root user for security.
-# chmod a+rX is belt-and-suspenders: the git-clone-based build context has
-# produced 600-permission files here before (Gemfile.lock unreadable by
-# uid 1000, "Permission denied" at boot), likely a umask artifact of the
-# clone step, so make everything under /rails at least world-readable
-# regardless of what the source checkout's permissions happened to be.
+# Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp && \
-    chmod -R a+rX /rails /benchmarks
-
+    chown -R rails:rails log tmp
 USER 1000:1000
 
-# Without this, .Config.Labels.Health.Status stays null forever (no check
-# configured), so kamal-proxy's deploy healthcheck always times out even
-# once the app is actually serving requests fine.
-HEALTHCHECK --interval=5s --timeout=3s --start-period=20s --retries=3 \
-  CMD curl -f http://localhost:3000/up || exit 1
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Entrypoint prepares the database and starts services
-ENTRYPOINT ["/rails/start_services.sh"]
-
-# Expose necessary ports
-EXPOSE 80 5902
-
-# Start server via Thruster by default, can be overwritten at runtime
+# Start server via Thruster by default, this can be overwritten at runtime
+EXPOSE 80
 CMD ["./bin/thrust", "./bin/rails", "server"]

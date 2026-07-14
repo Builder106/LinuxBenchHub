@@ -1,16 +1,51 @@
 class PagesController < ApplicationController
-   def about
-   end
- 
-   def contact
-     if request.post?
-       @contact = params.require(:contact).permit(:name, :email, :message)
-       
-       # Implement your form handling logic here
-       # Example: Sending an email using Action Mailer
-       ContactMailer.with(contact: @contact).contact_email.deliver_now
-       
-       redirect_to contact_path, notice: 'Your message has been sent successfully.'
-     end
-   end
- end
+  Benchmark = Struct.new(:name, :test, :unit, :mean, :mean_label, :min, :max,
+                         :median, :stddev, keyword_init: true)
+
+  SAMPLE_BENCHMARKS = [
+    Benchmark.new(name: "C-Ray", test: "pts/c-ray-2.0.0 · 1080p @ 16 rpp", unit: "ms",
+                  mean: 1088.787, mean_label: "1,088", min: 767.61, max: 1447.948,
+                  median: 1141.11, stddev: 222.509),
+    Benchmark.new(name: "Tinymembench memcpy", test: "pts/tinymembench-1.0.2 · standard memcpy",
+                  unit: "MB/s", mean: 11209.5, mean_label: "11,210", min: 7012.8,
+                  max: 14624.8, median: 11873.6, stddev: 2761.1),
+    Benchmark.new(name: "Tinymembench memset", test: "pts/tinymembench-1.0.2 · standard memset",
+                  unit: "MB/s", mean: 23480.2, mean_label: "23,480", min: 10140.9,
+                  max: 28912.0, median: 25745.6, stddev: 5731.1),
+    Benchmark.new(name: "Aircrack-ng", test: "pts/aircrack-ng-1.3.0 · WPA dictionary attack",
+                  unit: "k/s", mean: 4542.6, mean_label: "4,542", min: 2832.371,
+                  max: 5432.095, median: 4943.083, stddev: 835.1)
+  ].freeze
+
+  STACK = [
+    { label: "Capture", chips: [ "Phoronix Test Suite", "GitHub Actions", "ubuntu-latest" ] },
+    { label: "Analyze", chips: %w[R xml2 dplyr ggplot2 tidyr] },
+    { label: "Dashboard", chips: [ "Rails 8.0", "Ruby 3.3", "Hotwire", "Chartkick", "Groupdate", "Bootstrap" ] },
+    { label: "Storage", chips: %w[SQLite Puma] },
+    { label: "Auth", chips: %w[Devise] },
+    { label: "Deploy", chips: %w[Docker Kamal] }
+  ].freeze
+
+  DISTRO_TILES = [
+    { slug: "ubuntu", name: "Ubuntu", version: "24.04 LTS",
+      stat: { value: "1,088", unit: "ms", label: "C-Ray mean" } },
+    { slug: "fedora", name: "Fedora", version: "41", stat: nil },
+    { slug: "debian", name: "Debian", version: "12", stat: nil }
+  ].freeze
+
+  STATUS_ROWS = [
+    { pill: "done", text: "Bare-metal Phoronix sample for Ubuntu, Fedora, Debian" },
+    { pill: "done", text: "R parser pipeline producing markdown writeups from <code>composite.xml</code>" },
+    { pill: "done", text: "Monthly CI capture in <code>.github/workflows/capture-benchmarks.yml</code> — committing fresh runs back to <code>benchmarks/</code>" },
+    { pill: "wip",  text: "Rails dashboard — reads <code>composite.xml</code> directly; on-demand-VM code retired" },
+    { pill: "todo", text: "Cross-distro comparison page" },
+    { pill: "todo", text: "Fill in Kamal deploy targets and ship the dashboard" }
+  ].freeze
+
+  def home
+    @benchmarks = SAMPLE_BENCHMARKS
+    @stack = STACK
+    @distros = DISTRO_TILES
+    @status_rows = STATUS_ROWS
+  end
+end
