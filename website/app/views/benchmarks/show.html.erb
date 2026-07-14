@@ -1,5 +1,5 @@
-<% content_for :title, "#{@meta[:name]} #{@meta[:version]} benchmarks — LinuxBenchHub" %>
-<% content_for :description, "Phoronix Test Suite #{@meta[:pts]} results for #{@meta[:name]} #{@meta[:version]} captured on VMware Fusion Pro 13.6.1." %>
+<% content_for :title, "#{@meta[:name]} #{@distro.version} benchmarks — LinuxBenchHub" %>
+<% content_for :description, "Phoronix Test Suite #{@meta[:pts]} results for #{@meta[:name]} #{@distro.version}." %>
 
 <main>
   <a href="/" class="back-link">← OVERVIEW</a>
@@ -12,7 +12,7 @@
       <div class="distro-hero-eyebrow">PHORONIX TEST SUITE <%= @meta[:pts] %></div>
       <h1 class="distro-hero-name">
         <%= @meta[:name] %>
-        <span class="distro-hero-version"><%= @meta[:version] %></span>
+        <span class="distro-hero-version"><%= @distro.version %></span>
       </h1>
       <p class="distro-hero-intro"><%= @distro.intro %></p>
     </div>

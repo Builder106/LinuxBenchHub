@@ -26,12 +26,13 @@ class PagesController < ApplicationController
     { label: "Deploy", chips: %w[Docker Kamal] }
   ].freeze
 
-  DISTRO_TILES = [
-    { slug: "ubuntu", name: "Ubuntu", version: "24.04 LTS",
-      stat: { value: "1,088", unit: "ms", label: "C-Ray mean" } },
-    { slug: "fedora", name: "Fedora", version: "41", stat: nil },
-    { slug: "debian", name: "Debian", version: "12", stat: nil }
-  ].freeze
+  # name/version come from the writeup itself (DistroBenchmark#version) so the
+  # hex tiles can't drift out of sync with whatever release was last captured.
+  DISTRO_TILE_STATS = {
+    "ubuntu" => { value: "1,088", unit: "ms", label: "C-Ray mean" },
+    "fedora" => nil,
+    "debian" => nil
+  }.freeze
 
   STATUS_ROWS = [
     { pill: "done", text: "Bare-metal Phoronix sample for Ubuntu, Fedora, Debian" },
@@ -45,7 +46,11 @@ class PagesController < ApplicationController
   def home
     @benchmarks = SAMPLE_BENCHMARKS
     @stack = STACK
-    @distros = DISTRO_TILES
+    @distros = DistroBenchmark::DISTROS.map do |slug|
+      parsed = DistroBenchmark.load(slug)
+      { slug: slug, name: parsed.meta[:name], version: parsed.version,
+        stat: DISTRO_TILE_STATS.fetch(slug) }
+    end
     @status_rows = STATUS_ROWS
   end
 end

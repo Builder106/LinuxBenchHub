@@ -4,10 +4,14 @@
 class DistroBenchmark
   DISTROS = %w[ubuntu fedora debian].freeze
 
+  # os_prefix strips the distro's own name off the parsed "OS" spec (e.g.
+  # "Fedora Linux 44" -> "44") to get a display version straight from the
+  # writeup, so it can't drift out of sync with the actual captured release
+  # the way a hardcoded version string would.
   META = {
-    "ubuntu" => { name: "Ubuntu", version: "24.04 LTS", pts: "v10.8.4" },
-    "fedora" => { name: "Fedora", version: "41", pts: "v10.8.4" },
-    "debian" => { name: "Debian", version: "12", pts: "v10.8.5" }
+    "ubuntu" => { name: "Ubuntu", pts: "v10.8.4", os_prefix: /\AUbuntu\s+/ },
+    "fedora" => { name: "Fedora", pts: "v10.8.4", os_prefix: /\AFedora Linux\s+/ },
+    "debian" => { name: "Debian", pts: "v10.8.5", os_prefix: %r{\ADebian GNU/Linux\s+} }
   }.freeze
 
   KEY_VALUE_LINE = /^-\s+\*\*(.+?)\*\*:\s*(.*)$/
@@ -45,6 +49,15 @@ class DistroBenchmark
 
   def meta
     self.class.meta(slug)
+  end
+
+  # The captured release version (e.g. "26.04 LTS"), read straight off the
+  # writeup's own "OS" spec rather than a hardcoded literal.
+  def version
+    os = software.find { |s| s.key == "OS" }&.value
+    return "" unless os
+
+    os.sub(meta[:os_prefix], "").strip
   end
 
   private

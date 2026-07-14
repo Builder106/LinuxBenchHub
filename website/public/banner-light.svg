@@ -99,15 +99,15 @@
     <g transform="translate(64, 360)" font-family="ui-monospace, SF Mono, Menlo, Consolas, monospace">
       <g>
         <circle cx="0" cy="-5" r="4.5" fill="#e95420"/>
-        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">UBUNTU 24.04</text>
+        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">UBUNTU 26.04</text>
       </g>
       <g transform="translate(180, 0)">
         <circle cx="0" cy="-5" r="4.5" fill="#3c6eb4"/>
-        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">FEDORA 41</text>
+        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">FEDORA 44</text>
       </g>
       <g transform="translate(340, 0)">
         <circle cx="0" cy="-5" r="4.5" fill="#b88330"/>
-        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">DEBIAN 12</text>
+        <text x="14" y="0" font-size="13" letter-spacing="1.6" fill="#3a1c1c" font-weight="600">DEBIAN 13</text>
       </g>
     </g>
   </g>
