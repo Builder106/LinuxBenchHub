@@ -26,13 +26,10 @@ class PagesController < ApplicationController
     { label: "Deploy", chips: %w[Docker Kamal] }
   ].freeze
 
-  # name/version come from the writeup itself (DistroBenchmark#version) so the
-  # hex tiles can't drift out of sync with whatever release was last captured.
-  DISTRO_TILE_STATS = {
-    "ubuntu" => { value: "1,088", unit: "ms", label: "C-Ray mean" },
-    "fedora" => nil,
-    "debian" => nil
-  }.freeze
+  # name/version/stat all come from each distro's own writeup (DistroBenchmark
+  # #version and #test) so the hex tiles can't drift out of sync with, or lag
+  # behind, whatever release was last captured.
+  HEADLINE_TEST_IDENTIFIER = "pts/c-ray-2.0.0"
 
   STATUS_ROWS = [
     { pill: "done", text: "Bare-metal Phoronix sample for Ubuntu, Fedora, Debian" },
@@ -49,8 +46,17 @@ class PagesController < ApplicationController
     @distros = DistroBenchmark::DISTROS.map do |slug|
       parsed = DistroBenchmark.load(slug)
       { slug: slug, name: parsed.meta[:name], version: parsed.version,
-        stat: DISTRO_TILE_STATS.fetch(slug) }
+        stat: headline_stat(parsed) }
     end
     @status_rows = STATUS_ROWS
+  end
+
+  private
+
+  def headline_stat(parsed)
+    test = parsed.test(HEADLINE_TEST_IDENTIFIER)
+    return nil unless test && test.mean.positive?
+
+    { value: test.mean, unit: test.unit, label: "#{test.title} mean" }
   end
 end

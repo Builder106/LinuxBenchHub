@@ -14,7 +14,7 @@
     <meta name="twitter:description" content="VM benchmarks for Linux distros — Ubuntu, Fedora, Debian under identical virtual hardware.">
     <meta name="twitter:image" content="/social-card.png">
     <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="PFds7sn0jNUoPMfXU8PSRh69Rg5UCnhvyLiFtN1tixRDXj8ef8H0EsbFQBc2pPEzx8kmF8R-c-bOyKC39QVwfA" />
+<meta name="csrf-token" content="LltpCQSF2lhf2HqeelQQA2BI9yZHOlhTj3C2ihEbdVNmXlHdlAnXSOVYW8jt_NOu2FP9BXxtGTEZIbvyu69QvQ" />
     
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -306,9 +306,8 @@
 </div>
 <!-- END app/views/shared/_section_flag.html.erb -->
     <p style="color: var(--fg-muted); max-width: 60ch;">
-      Three distros, same VM specs. Ubuntu is the parsed sample; Fedora
-      and Debian have captured runs but the parsed-out hero numbers are
-      still pending.
+      Three distros, same VM specs, each capture parsed from its own
+      <code>composite.xml</code> on the monthly CI run.
     </p>
     <div class="hex-cluster">
         <a class="hex-tile" href="/benchmarks/ubuntu">
@@ -326,7 +325,7 @@
             </div>
             <div class="hex-tile-name">Ubuntu</div>
             <div class="hex-tile-version">26.04 LTS</div>
-              <div class="hex-tile-stat">1,088<small>ms</small></div>
+              <div class="hex-tile-stat">366.0<small>Seconds</small></div>
               <div class="hex-tile-stat-label">C-Ray mean</div>
             <div class="hex-tile-cta">View writeup →</div>
           </div>
@@ -343,7 +342,8 @@
             </div>
             <div class="hex-tile-name">Fedora</div>
             <div class="hex-tile-version">44</div>
-              <div class="hex-tile-stat-pending">capture pending</div>
+              <div class="hex-tile-stat">359.3<small>Seconds</small></div>
+              <div class="hex-tile-stat-label">C-Ray mean</div>
             <div class="hex-tile-cta">View writeup →</div>
           </div>
 </a>        <a class="hex-tile" href="/benchmarks/debian">
@@ -362,7 +362,8 @@
             </div>
             <div class="hex-tile-name">Debian</div>
             <div class="hex-tile-version">13</div>
-              <div class="hex-tile-stat-pending">capture pending</div>
+              <div class="hex-tile-stat">456.1<small>Seconds</small></div>
+              <div class="hex-tile-stat-label">C-Ray mean</div>
             <div class="hex-tile-cta">View writeup →</div>
           </div>
 </a>    </div>

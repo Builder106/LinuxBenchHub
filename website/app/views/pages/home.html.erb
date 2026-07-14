@@ -69,9 +69,8 @@
   <section class="section">
     <%= render "shared/section_flag", heading: "Per-distro writeups", with_tux: true %>
     <p style="color: var(--fg-muted); max-width: 60ch;">
-      Three distros, same VM specs. Ubuntu is the parsed sample; Fedora
-      and Debian have captured runs but the parsed-out hero numbers are
-      still pending.
+      Three distros, same VM specs, each capture parsed from its own
+      <code>composite.xml</code> on the monthly CI run.
     </p>
     <div class="hex-cluster">
       <% @distros.each do |d| %>
@@ -83,7 +82,7 @@
             <div class="hex-tile-name"><%= d[:name] %></div>
             <div class="hex-tile-version"><%= d[:version] %></div>
             <% if d[:stat] %>
-              <div class="hex-tile-stat"><%= d[:stat][:value] %><small><%= d[:stat][:unit] %></small></div>
+              <div class="hex-tile-stat"><%= format_stat(d[:stat][:value]) %><small><%= d[:stat][:unit] %></small></div>
               <div class="hex-tile-stat-label"><%= d[:stat][:label] %></div>
             <% else %>
               <div class="hex-tile-stat-pending">capture pending</div>

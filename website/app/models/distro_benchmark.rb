@@ -60,6 +60,13 @@ class DistroBenchmark
     os.sub(meta[:os_prefix], "").strip
   end
 
+  # Looks up a single parsed test by its Phoronix identifier (e.g.
+  # "pts/c-ray-2.0.0"), for pulling a single "headline" stat out of a
+  # writeup without the caller needing to know which section it lives in.
+  def test(identifier)
+    sections.flat_map(&:tests).find { |t| t.identifier == identifier }
+  end
+
   private
 
   def parse(md)
