@@ -882,9 +882,6 @@ img {
   justify-content: center;
   width: 96px;
   height: 96px;
-  background: var(--panel);
-  border: 1px solid var(--border-warm);
-  border-radius: 50%;
 }
 
 .distro-hero-body {
