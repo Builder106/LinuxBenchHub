@@ -24,7 +24,6 @@ jobs:
         working-directory: website
     env:
       RAILS_ENV: test
-      DATABASE_URL: sqlite3:storage/test.sqlite3
     steps:
       - uses: actions/checkout@v5
 
@@ -39,11 +38,8 @@ jobs:
           fail=0
           while IFS= read -r f; do
             ruby -c "$f" >/dev/null || { echo "::error file=website/$f::Ruby parse error"; fail=1; }
-          done < <(find app bin config db lib test -name '*.rb' -not -path '*/node_modules/*')
+          done < <(find app bin config lib test -name '*.rb' -not -path '*/node_modules/*')
           exit "$fail"
-
-      - name: Prepare test database
-        run: bin/rails db:prepare
 
       - name: Test suite
         run: bin/rails test
