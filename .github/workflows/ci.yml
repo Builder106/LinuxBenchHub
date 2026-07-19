@@ -42,7 +42,7 @@ jobs:
           exit "$fail"
 
       - name: Test suite
-        run: bin/rails test
+        run: bundle exec rails test
 
       - name: Rubocop
         run: bundle exec rubocop --parallel || echo "::warning::rubocop reported issues; not blocking"
