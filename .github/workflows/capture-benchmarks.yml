@@ -230,7 +230,7 @@ jobs:
 
       - name: Upload artifact
         if: env.RUN_THIS_DISTRO == '1'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.distro }}-${{ matrix.version }}-${{ env.RUN_DATE }}
           path: |
@@ -255,7 +255,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download x86 capture artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           pattern: "*-[0-9]*-*"  # excludes the arm64 job's "<distro>-arm64-<date>" names
           path: /tmp/artifacts
@@ -462,7 +462,7 @@ jobs:
 
       - name: Upload artifact
         if: env.RUN_THIS_DISTRO == '1'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.distro }}-arm64-${{ env.RUN_DATE }}
           path: |
@@ -485,7 +485,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download arm64 capture artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           pattern: "*-arm64-*"
           path: /tmp/artifacts
