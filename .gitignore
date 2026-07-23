@@ -9,3 +9,4 @@ site/.next
 site/out
 site/node_modules
 site/next-env.d.ts
+.vscode/settings.json
